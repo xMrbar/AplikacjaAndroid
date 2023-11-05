@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AplikacjaAndroid</string>
+    <string name="menu">MENU</string>
+    <string name="button1Text">CODZIENNE PŁATNOŚCI</string>
+    <string name="button2Text">PLANOWANIE BUDŻETU</string>
+    <string name="button3Text">STATYSTYKI</string>
+    <string name="button4Text">ZARZĄDZANIE KONTEM</string>
+    <string name="PlanowanieBudzetu">PLANOWANIE BUDŻETU</string>
+    <string name="przychody">PRZYCHODY</string>
+    <string name="stanKonta">STAN KONTA</string>
+    <string name="wydatki">WYDATKI</string>
+    <string name="dodaj">DODAJ</string>
+    <string name="usun">USUŃ</string>
+    <string name="planowanyBudzetWMiesiacu">Planowany budżet\nna wydatki w tym\nmiesiącu:</string>
+    <string name="planowaneDochodyWMiesiacu">Planowane dochody\nw tym miesiacu:</string>
+</resources>

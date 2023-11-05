@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".PlanowanieBudzetuActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/PlanowanieBudzetu"
+        android:textSize="28sp"
+        android:textColor="@color/primary"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:padding="0dp">
+
+        <Button
+            android:id="@+id/buttonPrzychody_PB1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/backgroud"
+            android:padding="15dp"
+            android:text="@string/przychody"
+            android:textColor="@color/tertiary"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttonWydatki_PB1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/tertiary"
+            android:padding="15dp"
+            android:text="@string/wydatki"
+            android:textStyle="bold"
+            android:textColor="@color/backgroud"/>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="392dp"
+        android:layout_height="215dp">
+
+        <View
+            android:id="@+id/circleView"
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            android:background="@drawable/circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/textWKole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/circleView"
+            app:layout_constraintEnd_toEndOf="@id/circleView"
+            app:layout_constraintTop_toTopOf="@id/circleView"
+            app:layout_constraintBottom_toBottomOf="@id/circleView"
+            android:text="@string/planowanyBudzetWMiesiacu"
+            android:textColor="@color/backgroud"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/buttonDodaj_PB1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dodaj"
+        android:backgroundTint="@color/secoundary"
+        android:padding="20dp"/>
+
+    <Button
+        android:id="@+id/buttonUsun_PB1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/usun"
+        android:backgroundTint="@color/secoundary"
+        android:padding="20dp"/>
+
+</LinearLayout>
