@@ -57,9 +57,6 @@ fun WelcomeView(){
 
 @Composable
 fun Welcome(modifier : Modifier = Modifier, context: Context){
-
-
-
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Image( painter = painterResource(R.drawable.piggy_icon), contentDescription = "Piggybank icon")
         Spacer(modifier = Modifier.height(16.dp))

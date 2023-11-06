@@ -1,5 +1,7 @@
 package com.example.aplikacjaandroid
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -50,12 +53,11 @@ class SignInActivity : ComponentActivity() {
 fun SignInView(){
     SignIn(modifier = Modifier
         .fillMaxSize()
-        .wrapContentSize(Alignment.Center))
+        .wrapContentSize(Alignment.Center), LocalContext.current)
 }
 
-@Preview
 @Composable
-fun SignIn(modifier : Modifier = Modifier){
+fun SignIn(modifier : Modifier = Modifier, context: Context){
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.zaloguj))
@@ -63,7 +65,10 @@ fun SignIn(modifier : Modifier = Modifier){
         Spacer(modifier = Modifier.height(16.dp))
         SimpleTextField(label = "Adres email")
         SimpleTextField(label = "Hasło")
-        Button(onClick = { TODO() }) {
+        Button(onClick = {
+            val navigate = Intent(context, MainMenuActivity::class.java)
+            context.startActivity(navigate)
+        }) {
             Text(stringResource(R.string.zaloguj))
         }
     }
@@ -83,4 +88,3 @@ fun SimpleTextField(modifier : Modifier = Modifier, label: String) {
     }
 
 }
-

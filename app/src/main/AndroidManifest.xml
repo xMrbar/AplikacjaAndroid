@@ -14,13 +14,18 @@
         android:theme="@style/Theme.AplikacjaAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".MainMenuActivity"
+            android:exported="true"
+            android:label="@string/title_activity_main_menu"
+            android:theme="@style/Theme.AplikacjaAndroid" />
+        <activity
             android:name=".CreateAccountActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_create_account"
             android:theme="@style/Theme.AplikacjaAndroid" />
         <activity
             android:name=".SignInActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.AplikacjaAndroid" />
         <activity
@@ -34,22 +39,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".WelcomeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_welcome"
+        <activity android:name=".PlanowanieBudzetuActivity"
+            android:exported="true"
+            android:label="@string/title_activity_revenues_plan"
             android:theme="@style/Theme.AplikacjaAndroid" />
-        <activity
-            android:name=".MenuActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".PlanowanieBudzetuActivity" />
-        <activity android:name=".PlanowanieBudzetuPrzychodyActivity" />
+        <activity android:name=".PlanowanieBudzetuPrzychodyActivity"
+            android:exported="true"
+            android:label="@string/title_activity_expenses_plan"
+            android:theme="@style/Theme.AplikacjaAndroid" />
     </application>
 
 </manifest>

@@ -15,6 +15,8 @@
     <string name="planowaneDochodyWMiesiacu">Planowane dochody\nw tym miesiacu:</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_revenues_plan">RevenuesPlanActivity</string>
+    <string name="title_activity_expenses_plan">ExpensesPlanActivity</string>
 
     <string name="rozpocznij">Rozpocznij!</string>
     <string name="zaloguj_lub_utworz_konto">Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta.</string>
@@ -24,4 +26,5 @@
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="zarejestruj_sie">ZAREJESTRUJ SIĘ</string>
     <string name="rejestracja">REJESTRACJA</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
 </resources>
