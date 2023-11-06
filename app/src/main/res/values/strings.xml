@@ -20,4 +20,8 @@
     <string name="zaloguj_lub_utworz_konto">Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta.</string>
     <string name="zaloguj">ZALOGUJ</string>
     <string name="utworz_konto">UTWÓRZ KONTO</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="zarejestruj_sie">ZAREJESTRUJ SIĘ</string>
+    <string name="rejestracja">REJESTRACJA</string>
 </resources>
