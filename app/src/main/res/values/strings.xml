@@ -13,4 +13,11 @@
     <string name="usun">USUŃ</string>
     <string name="planowanyBudzetWMiesiacu">Planowany budżet\nna wydatki w tym\nmiesiącu:</string>
     <string name="planowaneDochodyWMiesiacu">Planowane dochody\nw tym miesiacu:</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="rozpocznij">Rozpocznij!</string>
+    <string name="zaloguj_lub_utworz_konto">Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta.</string>
+    <string name="zaloguj">ZALOGUJ</string>
+    <string name="utworz_konto">UTWÓRZ KONTO</string>
 </resources>
