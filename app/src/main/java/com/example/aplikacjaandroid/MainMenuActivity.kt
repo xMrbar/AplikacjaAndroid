@@ -79,7 +79,7 @@ fun MainMenu(modifier : Modifier = Modifier, context: Context) {
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                val intentButtonPBA = Intent(context, PlanowanieBudzetuActivity::class.java)
+                val intentButtonPBA = Intent(context, RevenuesPlanActivity::class.java)
                 context.startActivity(intentButtonPBA)
         }) {
             Text(stringResource(R.string.button2Text))

@@ -12,7 +12,9 @@
     <string name="dodaj">DODAJ</string>
     <string name="usun">USUŃ</string>
     <string name="planowanyBudzetWMiesiacu">Planowany budżet\nna wydatki w tym\nmiesiącu:</string>
+    <string name="planowanyBudzetWMiesiacu_kwota">0.00zł</string>
     <string name="planowaneDochodyWMiesiacu">Planowane dochody\nw tym miesiacu:</string>
+    <string name="planowaneDochodyWMiesiacu_kwota">0.00zł</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_revenues_plan">RevenuesPlanActivity</string>
