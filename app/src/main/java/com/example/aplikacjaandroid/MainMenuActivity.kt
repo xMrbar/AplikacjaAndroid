@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,9 +53,26 @@ class MainMenuActivity : ComponentActivity() {
 
 @Composable
 fun MainMenuView() {
+    val context = LocalContext.current
+
+    /*val callback = rememberUpdatedState(onBackPressedDispatcher) {
+        OnBackPressedCallback {
+            (context as? ComponentActivity)?.finish()
+        }
+    }
+
+    DisposableEffect(callback) {
+        callback.value.isEnabled = true
+        onBackPressedDispatcher.addCallback(callback.value)
+
+        onDispose {
+            callback.value.remove()
+        }
+    }*/
+
     MainMenu(modifier = Modifier
         .fillMaxSize()
-        .wrapContentSize(Alignment.Center), LocalContext.current)
+        .wrapContentSize(Alignment.Center), context)
 }
 
 @Composable

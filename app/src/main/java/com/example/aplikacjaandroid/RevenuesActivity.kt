@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.google.android.gms.wallet.button.ButtonConstants
 
-class AccountBalanceActivity : ComponentActivity() {
+class RevenuesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -55,7 +55,7 @@ class AccountBalanceActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AccountBalanceView()
+                    RevenuesView()
                 }
             }
         }
@@ -63,14 +63,14 @@ class AccountBalanceActivity : ComponentActivity() {
 }
 
 @Composable
-fun AccountBalanceView() {
-    AccountBalance(modifier = Modifier
+fun RevenuesView() {
+    Revenues(modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center), LocalContext.current)
 }
 
 @Composable
-fun AccountBalance(modifier : Modifier = Modifier, context: Context) {
+fun Revenues(modifier : Modifier = Modifier, context: Context) {
     val localActivity = (LocalContext.current as? Activity)
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.PlanowanieBudzetu),
@@ -101,6 +101,26 @@ fun AccountBalance(modifier : Modifier = Modifier, context: Context) {
             Button(
                 modifier = Modifier
                     .width(140.dp)
+                    .height(50.dp)
+                    .border(
+                        2.dp,
+                        MaterialTheme.colorScheme.tertiary,
+                        shape = MaterialTheme.shapes.extraLarge),
+                onClick = {
+                    val intentButtonPBA = Intent(context, AccountBalanceActivity::class.java)
+                    context.startActivity(intentButtonPBA)
+                    localActivity?.finish()
+                },
+                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
+            ) {
+                Text(
+                    text=stringResource(R.string.stanKonta),
+                    color=MaterialTheme.colorScheme.tertiary)
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            Button(
+                modifier = Modifier
+                    .width(130.dp)
                     .height(50.dp),
                 onClick = {
 
@@ -108,28 +128,8 @@ fun AccountBalance(modifier : Modifier = Modifier, context: Context) {
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.tertiary)
             ) {
                 Text(
-                    text=stringResource(R.string.stanKonta),
-                    color=MaterialTheme.colorScheme.background)
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            Button(
-                modifier = Modifier
-                    .width(130.dp)
-                    .height(50.dp)
-                    .border(
-                        2.dp,
-                        MaterialTheme.colorScheme.tertiary,
-                        shape = MaterialTheme.shapes.extraLarge),
-                onClick = {
-                    val intentButtonPBA = Intent(context, RevenuesActivity::class.java)
-                    context.startActivity(intentButtonPBA)
-                    localActivity?.finish()
-                },
-                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
-            ) {
-                Text(
                     stringResource(R.string.wydatki),
-                    color=MaterialTheme.colorScheme.tertiary)
+                    color=MaterialTheme.colorScheme.background)
             }
         }
         Spacer(modifier = Modifier.width(10.dp))
@@ -144,24 +144,24 @@ fun AccountBalance(modifier : Modifier = Modifier, context: Context) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.accountBalance),
+                    text = stringResource(id = R.string.remainingMoneyForMonth),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 18.sp
                 )
                 Text(
-                    text = stringResource(id = R.string.accountBalance_kwota),
+                    text = stringResource(id = R.string.remainingMoneyForMonth_kwota),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = stringResource(id = R.string.accountBalancePlanEnd),
+                    text = stringResource(id = R.string.remainingMoneyForMonthAll),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 18.sp
                 )
                 Text(
-                    text = stringResource(id = R.string.accountBalancePlanEnd_kwota),
+                    text = stringResource(id = R.string.remainingMoneyForMonthAll_kwota),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -211,50 +211,6 @@ fun AccountBalance(modifier : Modifier = Modifier, context: Context) {
 }
 
 
-@Composable
-fun Test1()
-{
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(90.dp)
-            .background(MaterialTheme.colorScheme.secondary)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.tv),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(90.dp)
-            )
-            // Tekst
-            Text(
-                text = "TESTOWA TESTOWA 12\nTESTOWA TESTOWA 12\nTESTOWA TESTOWA 12",
-                color = MaterialTheme.colorScheme.background
-            )
-
-            Column(
-                modifier = Modifier
-                    .height(90.dp)
-                    .width(300.dp)
-                    .wrapContentSize(Alignment.BottomEnd)
-            ) {
-                Text(
-                    text = "56000.00zł",
-                    color = MaterialTheme.colorScheme.background,
-                )
-                Text(
-                    text = "01.11.2023",
-                    color = MaterialTheme.colorScheme.background,
-                )
-            }
-        }
-    }
-}
 
 /*@Composable
 fun ListItemView(listItem: LauncherActivity.ListItem, index: Int) {

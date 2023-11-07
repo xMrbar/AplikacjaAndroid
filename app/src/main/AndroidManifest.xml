@@ -14,6 +14,11 @@
         android:theme="@style/Theme.AplikacjaAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".RevenuesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_revenues"
+            android:theme="@style/Theme.AplikacjaAndroid" />
+        <activity
             android:name=".AccountBalanceActivity"
             android:exported="false"
             android:label="@string/title_activity_account_balance"
