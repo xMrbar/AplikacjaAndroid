@@ -69,7 +69,8 @@ fun MainMenu(modifier : Modifier = Modifier, context: Context) {
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-            TODO()
+                val intentButton = Intent(context, AccountBalanceActivity::class.java)
+                context.startActivity(intentButton)
         }) {
             Text(stringResource(R.string.button1Text))
         }
@@ -79,8 +80,8 @@ fun MainMenu(modifier : Modifier = Modifier, context: Context) {
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                val intentButtonPBA = Intent(context, RevenuesPlanActivity::class.java)
-                context.startActivity(intentButtonPBA)
+                val intentButton = Intent(context, RevenuesPlanActivity::class.java)
+                context.startActivity(intentButton)
         }) {
             Text(stringResource(R.string.button2Text))
         }

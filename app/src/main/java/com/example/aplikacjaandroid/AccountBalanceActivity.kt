@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.google.android.gms.wallet.button.ButtonConstants
 
-class ExpensesPlanActivity : ComponentActivity() {
+class AccountBalanceActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -55,7 +55,7 @@ class ExpensesPlanActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ExpensesPlanView()
+                    AccountBalanceView()
                 }
             }
         }
@@ -63,14 +63,14 @@ class ExpensesPlanActivity : ComponentActivity() {
 }
 
 @Composable
-fun ExpensesPlanView() {
-    ExpensesPlan(modifier = Modifier
+fun AccountBalanceView() {
+    AccountBalance(modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center), LocalContext.current)
 }
 
 @Composable
-fun ExpensesPlan(modifier : Modifier = Modifier, context: Context) {
+fun AccountBalance(modifier : Modifier = Modifier, context: Context) {
     val localActivity = (LocalContext.current as? Activity)
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.PlanowanieBudzetu),
@@ -82,7 +82,25 @@ fun ExpensesPlan(modifier : Modifier = Modifier, context: Context) {
         Row(){
             Button(
                 modifier = Modifier
-                    .width(150.dp)
+                    .width(130.dp)
+                    .height(50.dp)
+                    .border(
+                        2.dp,
+                        MaterialTheme.colorScheme.tertiary,
+                        shape = MaterialTheme.shapes.extraLarge),
+                onClick = {
+                    TODO()
+                },
+                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
+            ) {
+                Text(
+                    text=stringResource(R.string.przychody),
+                    color=MaterialTheme.colorScheme.tertiary)
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            Button(
+                modifier = Modifier
+                    .width(140.dp)
                     .height(50.dp),
                 onClick = {
 
@@ -90,31 +108,29 @@ fun ExpensesPlan(modifier : Modifier = Modifier, context: Context) {
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.tertiary)
             ) {
                 Text(
-                    text=stringResource(R.string.przychody),
+                    text=stringResource(R.string.stanKonta),
                     color=MaterialTheme.colorScheme.background)
             }
-            Spacer(modifier = Modifier.width(40.dp))
+            Spacer(modifier = Modifier.width(5.dp))
             Button(
                 modifier = Modifier
-                    .width(150.dp)
+                    .width(130.dp)
                     .height(50.dp)
                     .border(
                         2.dp,
                         MaterialTheme.colorScheme.tertiary,
                         shape = MaterialTheme.shapes.extraLarge),
                 onClick = {
-                    val intentButtonPBA = Intent(context, RevenuesPlanActivity::class.java)
-                    context.startActivity(intentButtonPBA)
-                    localActivity?.finish()
+                    TODO()
                 },
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
-                ) {
+            ) {
                 Text(
-                    stringResource(R.string.stanKonta),
+                    stringResource(R.string.wydatki),
                     color=MaterialTheme.colorScheme.tertiary)
             }
         }
-        Spacer(modifier = Modifier.width(5.dp))
+        Spacer(modifier = Modifier.width(10.dp))
         Box(
             modifier = Modifier
                 .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
@@ -126,13 +142,24 @@ fun ExpensesPlan(modifier : Modifier = Modifier, context: Context) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.planowaneDochodyWMiesiacu),
+                    text = stringResource(id = R.string.accountBalance),
+                    color = MaterialTheme.colorScheme.background,
+                    fontSize = 18.sp
+                )
+                Text(
+                    text = stringResource(id = R.string.accountBalance_kwota),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = stringResource(id = R.string.planowaneDochodyWMiesiacu_kwota),
+                    text = stringResource(id = R.string.accountBalancePlanEnd),
+                    color = MaterialTheme.colorScheme.background,
+                    fontSize = 18.sp
+                )
+                Text(
+                    text = stringResource(id = R.string.accountBalancePlanEnd_kwota),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -149,7 +176,7 @@ fun ExpensesPlan(modifier : Modifier = Modifier, context: Context) {
                 ListItemView(listItem, index)
             }*/
             items(6) {
-                Test()
+                Test1()
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -181,6 +208,51 @@ fun ExpensesPlan(modifier : Modifier = Modifier, context: Context) {
     }
 }
 
+
+@Composable
+fun Test1()
+{
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(90.dp)
+            .background(MaterialTheme.colorScheme.secondary)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.tv),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(90.dp)
+            )
+            // Tekst
+            Text(
+                text = "TESTOWA TESTOWA 12\nTESTOWA TESTOWA 12\nTESTOWA TESTOWA 12",
+                color = MaterialTheme.colorScheme.background
+            )
+
+            Column(
+                modifier = Modifier
+                    .height(90.dp)
+                    .width(300.dp)
+                    .wrapContentSize(Alignment.BottomEnd)
+            ) {
+                Text(
+                    text = "56000.00zł",
+                    color = MaterialTheme.colorScheme.background,
+                )
+                Text(
+                    text = "01.11.2023",
+                    color = MaterialTheme.colorScheme.background,
+                )
+            }
+        }
+    }
+}
 
 /*@Composable
 fun ListItemView(listItem: LauncherActivity.ListItem, index: Int) {

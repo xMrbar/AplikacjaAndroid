@@ -19,7 +19,14 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_revenues_plan">RevenuesPlanActivity</string>
     <string name="title_activity_expenses_plan">ExpensesPlanActivity</string>
-
+    <string name="remainingMoneyForMonth">Pozostały budżet\nw tym miesiącu:</string>
+    <string name="remainingMoneyForMonthAll">z sumy</string>
+    <string name="remainingMoneyForMonth_kwota">0.00zł</string>
+    <string name="remainingMoneyForMonthAll_kwota">0.00zł</string>
+    <string name="accountBalance">Aktualnie na\nkoncie posiadasz:</string>
+    <string name="accountBalance_kwota">0.00zł</string>
+    <string name="accountBalancePlanEnd">planowany stan konta\nna koniec miesiąca</string>
+    <string name="accountBalancePlanEnd_kwota">0.00zł</string>
     <string name="rozpocznij">Rozpocznij!</string>
     <string name="zaloguj_lub_utworz_konto">Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta.</string>
     <string name="zaloguj">ZALOGUJ</string>
@@ -29,4 +36,5 @@
     <string name="zarejestruj_sie">ZAREJESTRUJ SIĘ</string>
     <string name="rejestracja">REJESTRACJA</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
+    <string name="title_activity_account_balance">AccountBalanceActivity</string>
 </resources>
