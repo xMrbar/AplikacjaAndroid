@@ -39,4 +39,6 @@
     <string name="title_activity_main_menu">MainMenuActivity</string>
     <string name="title_activity_account_balance">AccountBalanceActivity</string>
     <string name="title_activity_revenues">RevenuesActivity</string>
+    <string name="miesiac">MIESIĄC</string>
+    <string name="rok">ROK</string>
 </resources>

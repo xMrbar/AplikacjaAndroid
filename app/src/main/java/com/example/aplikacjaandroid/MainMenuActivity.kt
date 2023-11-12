@@ -121,7 +121,8 @@ fun MainMenu(modifier : Modifier = Modifier, context: Context) {
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                TODO()
+                val intentButton = Intent(context, HistoryAnalysisActivity::class.java)
+                context.startActivity(intentButton)
             }) {
             Text(stringResource(R.string.button5Text))
         }
