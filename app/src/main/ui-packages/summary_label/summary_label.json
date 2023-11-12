@@ -1,0 +1,187 @@
+{
+  "name": "summary_label",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "YW71XujSL2uB5BtFTUbjxt",
+    "node": "6625:20968",
+    "version": "4531149780",
+    "component-id": "561788bbfd3c64ebf18023f65db9b1a2a36da6b1"
+  },
+  "default": "SummaryLabel",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "btn_dodaj"
+      },
+      {
+        "type": "group",
+        "id": "btn_dodaj1"
+      },
+      {
+        "type": "text",
+        "id": "Button"
+      },
+      {
+        "type": "text",
+        "id": "Button1"
+      }
+    ],
+    "modes": {
+      "SummaryLabel": {
+        "rules": [
+          {
+            "id": "top_level",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "start",
+            "cross-axis-align": "start",
+            "children": [
+              "btn_dodaj"
+            ],
+            "item-spacing": "10.0",
+            "clip-content": "false"
+          },
+          {
+            "id": "btn_dodaj",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "start",
+            "cross-axis-align": "start",
+            "children": [
+              "btn_dodaj1"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "btn_dodaj1",
+            "padding": {
+              "left": "22.0",
+              "top": "8.0",
+              "right": "22.0",
+              "bottom": "8.0"
+            },
+            "border-radius": "4.0",
+            "drop-shadow": {
+              "color": {
+                "alpha": "0.2",
+                "hue": "0.0",
+                "saturation": "0.0",
+                "value": "0.0"
+              },
+              "blur": "1.0",
+              "offset-x": "0.0",
+              "offset-y": "3.0",
+              "spread": "-2.0",
+              "blend-mode": "normal"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "303.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "48.0"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "Button",
+              "Button1"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "256.42857142857144",
+              "saturation": "0.5121951219512195",
+              "value": "0.6431372549019608"
+            }
+          },
+          {
+            "id": "Button",
+            "font-weight": "500.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "$value",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": "15.0",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.733333282470703",
+            "case": "upper"
+          },
+          {
+            "id": "Button1",
+            "font-weight": "500.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "$text",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": "15.0",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.733333282470703",
+            "case": "upper"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "value": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "SummaryLabel",
+      "size": {
+        "width": 303.0,
+        "height": 48.0
+      },
+      "parameters": {
+        "value": "700.00 zł",
+        "text": "RAzem"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

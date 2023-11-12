@@ -1,0 +1,119 @@
+{
+  "name": "avatar_icon",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "YW71XujSL2uB5BtFTUbjxt",
+    "node": "6654:13814",
+    "version": "4531149780",
+    "component-id": "33abe1e141a2f7af44d0a985f2895e56093773d7"
+  },
+  "default": "AvatarIcon",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Group 5"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 6"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      }
+    ],
+    "modes": {
+      "AvatarIcon": {
+        "rules": [
+          {
+            "id": "top_level",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "children": [
+              "Group 5"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Group 5",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "160.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "160.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Ellipse 6",
+              "Vector"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Ellipse 6",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_6.svg"
+          },
+          {
+            "id": "Vector",
+            "margin": {
+              "left": "43.0",
+              "top": "37.1536865234375",
+              "right": "42.5772705078125",
+              "bottom": "37.791748046875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "vector.svg"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "AvatarIcon",
+      "size": {
+        "width": 160.0,
+        "height": 160.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

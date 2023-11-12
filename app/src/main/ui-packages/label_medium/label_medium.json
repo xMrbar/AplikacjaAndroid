@@ -1,0 +1,93 @@
+{
+  "name": "label_medium",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "YW71XujSL2uB5BtFTUbjxt",
+    "node": "6620:6575",
+    "version": "4531149780",
+    "component-id": "f094f53d47b03f7f2b764b760e992b5cc0222eaf"
+  },
+  "default": "LabelMedium",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "DODAJ"
+      }
+    ],
+    "modes": {
+      "LabelMedium": {
+        "rules": [
+          {
+            "id": "top_level",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "DODAJ"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            }
+          },
+          {
+            "id": "DODAJ",
+            "font-weight": "500.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "256.42857142857144",
+              "saturation": "0.5121951219512195",
+              "value": "0.6431372549019608"
+            },
+            "text-content": "$text",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": "28.0",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "0.9285713958740235",
+            "case": "upper"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "LabelMedium",
+      "size": {
+        "width": 92.0,
+        "height": 26.0
+      },
+      "parameters": {
+        "text": "DODAJ"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

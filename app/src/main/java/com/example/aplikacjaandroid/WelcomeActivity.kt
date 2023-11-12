@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +30,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
+import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.piggyicon.PiggyIcon
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -51,16 +54,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun WelcomeView(){
     Welcome(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center), LocalContext.current)
+        .wrapContentSize(Alignment.Center)
+        .padding(10.dp), LocalContext.current)
 }
 
 @Composable
 fun Welcome(modifier : Modifier = Modifier, context: Context){
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
-        Image( painter = painterResource(R.drawable.piggy_icon), contentDescription = "Piggybank icon")
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = stringResource(R.string.rozpocznij))
+        LabelLarge(text = stringResource(id = R.string.rozpocznij))
+        PiggyIcon(modifier = modifier)
+
         Text(text = stringResource(R.string.zaloguj_lub_utworz_konto))
         Button(onClick = {
             val navigate = Intent(context, SignInActivity::class.java)
