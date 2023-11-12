@@ -121,6 +121,16 @@ fun MainMenu(modifier : Modifier = Modifier, context: Context) {
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
+                TODO()
+            }) {
+            Text(stringResource(R.string.button5Text))
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        Button(
+            modifier = Modifier
+                .width(350.dp)
+                .height(50.dp),
+            onClick = {
             TODO()
         }) {
             Text(stringResource(R.string.button4Text))

@@ -5,6 +5,7 @@
     <string name="button2Text">PLANOWANIE BUDŻETU</string>
     <string name="button3Text">STATYSTYKI</string>
     <string name="button4Text">ZARZĄDZANIE KONTEM</string>
+    <string name="button5Text">ANALIZA HISTORII</string>
     <string name="PlanowanieBudzetu">PLANOWANIE BUDŻETU</string>
     <string name="przychody">PRZYCHODY</string>
     <string name="stanKonta">STAN KONTA</string>
