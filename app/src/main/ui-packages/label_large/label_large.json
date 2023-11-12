@@ -1,0 +1,86 @@
+{
+  "name": "label_large",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "YW71XujSL2uB5BtFTUbjxt",
+    "node": "6636:52955",
+    "version": "4531149780",
+    "component-id": "a97461c2beb9fdfd58135c00c84eba42dc43871f"
+  },
+  "default": "LabelLarge",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "big_header"
+      }
+    ],
+    "modes": {
+      "LabelLarge": {
+        "rules": [
+          {
+            "id": "top_level",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "big_header"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "big_header",
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "256.42857142857144",
+              "saturation": "0.5121951219512195",
+              "value": "0.6431372549019608"
+            },
+            "text-content": "$text",
+            "overflow": "visible",
+            "text-size": "36.0",
+            "letter-spacing": "0.15000000596046448",
+            "line-height": "0.6666666412353516"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "LabelLarge",
+      "size": {
+        "width": 190.0,
+        "height": 24.0
+      },
+      "parameters": {
+        "text": "Rozpocznij!"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
