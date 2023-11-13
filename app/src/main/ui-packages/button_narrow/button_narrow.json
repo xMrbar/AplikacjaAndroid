@@ -1,0 +1,145 @@
+{
+  "name": "button_narrow",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "HeeN8IsE1XbPKKPMinXUmW",
+    "node": "2:38",
+    "version": "4533845089",
+    "component-id": "12619a789649a46121d61a15acd802fc30781381"
+  },
+  "default": "Property 1=Default",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Button"
+      }
+    ],
+    "modes": {
+      "Property 1=Default": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "4.0",
+            "tap-handler": "$onClick",
+            "arrangement": "row",
+            "children": [
+              "Button"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "340.4651162790698",
+              "saturation": "0.3439999999999999",
+              "value": "0.49019607843137253"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "Button",
+            "color": {
+              "alpha": "1.0",
+              "hue": "314.9999999999999",
+              "saturation": "0.015686274509803977",
+              "value": "1.0"
+            },
+            "text-content": "$text",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "text-size": "15.0",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.733333282470703",
+            "typeface": "Inter"
+          }
+        ]
+      },
+      "Property 1=Variant2": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "4.0",
+            "tap-handler": "$onClick",
+            "stroke-width": "1.0",
+            "stroke-color": {
+              "alpha": "1.0",
+              "hue": "340.4651162790698",
+              "saturation": "0.3439999999999999",
+              "value": "0.49019607843137253"
+            },
+            "arrangement": "row",
+            "children": [
+              "Button"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "314.9999999999999",
+              "saturation": "0.015686274509803977",
+              "value": "1.0"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "Button",
+            "color": {
+              "alpha": "1.0",
+              "hue": "340.4651162790698",
+              "saturation": "0.3439999999999999",
+              "value": "0.49019607843137253"
+            },
+            "text-content": "$text",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "text-size": "15.0",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.733333282470703",
+            "typeface": "Inter"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "onClick": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Property 1=Default",
+      "size": {
+        "width": 144.0,
+        "height": 48.0
+      },
+      "parameters": {
+        "text": "Button"
+      }
+    },
+    {
+      "design": "Property 1=Variant2",
+      "size": {
+        "width": 144.0,
+        "height": 48.0
+      },
+      "parameters": {
+        "text": "Button"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

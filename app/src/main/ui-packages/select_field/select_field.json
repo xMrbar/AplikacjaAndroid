@@ -1,0 +1,169 @@
+{
+  "name": "select_field",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "HeeN8IsE1XbPKKPMinXUmW",
+    "node": "2:126",
+    "version": "4533845089",
+    "component-id": "235cb15f3bd93a22a2056730358a0b109f10115f"
+  },
+  "default": "SelectField",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "ButtonWide"
+      },
+      {
+        "type": "text",
+        "id": "Text"
+      },
+      {
+        "type": "group",
+        "id": "🦆 icon \"Caret Down\""
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      }
+    ],
+    "modes": {
+      "SelectField": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "top": "5.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "ButtonWide"
+            ],
+            "item-spacing": "10.0"
+          },
+          {
+            "id": "ButtonWide",
+            "padding": {
+              "left": "12.0",
+              "right": "12.0"
+            },
+            "border-radius": "4.0",
+            "tap-handler": "$onClick",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "303.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "48.0"
+              }
+            },
+            "stroke-width": "1.0",
+            "stroke-color": {
+              "alpha": "1.0",
+              "hue": "259.0909090909091",
+              "saturation": "0.1946902654867256",
+              "value": "0.44313725490196076"
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "Text",
+              "🦆 icon \"Caret Down\""
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Text",
+            "color": {
+              "alpha": "1.0",
+              "hue": "269.99999999999994",
+              "saturation": "0.07936507936507942",
+              "value": "0.49411764705882355"
+            },
+            "text-content": "$text",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.857142791748047",
+            "typeface": "Inter"
+          },
+          {
+            "id": "🦆 icon \"Caret Down\"",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "17.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "10.38470458984375"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "Vector"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Vector",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "vector.svg"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "onClick": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "SelectField",
+      "size": {
+        "width": 303.0,
+        "height": 53.0
+      },
+      "parameters": {
+        "text": "Text"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

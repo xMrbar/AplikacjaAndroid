@@ -1,0 +1,236 @@
+{
+  "name": "text_input_with_icon",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "HeeN8IsE1XbPKKPMinXUmW",
+    "node": "2:69",
+    "version": "4533845089",
+    "component-id": "590eaead8762add410966f21d83d0f65e65b1503"
+  },
+  "default": "TextInputWithIcon",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "ButtonWide"
+      },
+      {
+        "type": "group",
+        "id": "ButtonWide_synth"
+      },
+      {
+        "type": "group",
+        "id": "Title"
+      },
+      {
+        "type": "text",
+        "id": "Text"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      },
+      {
+        "type": "text",
+        "id": "Title1"
+      }
+    ],
+    "modes": {
+      "TextInputWithIcon": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "top": "5.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "ButtonWide"
+            ],
+            "item-spacing": "10.0"
+          },
+          {
+            "id": "ButtonWide",
+            "border-radius": "4.0",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "303.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "48.0"
+              }
+            },
+            "stroke-width": "1.0",
+            "stroke-color": {
+              "alpha": "1.0",
+              "hue": "259.0909090909091",
+              "saturation": "0.1946902654867256",
+              "value": "0.44313725490196076"
+            },
+            "is-structured": "false",
+            "children": [
+              "ButtonWide_synth",
+              "Title"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "ButtonWide_synth",
+            "opacity": "100.0",
+            "padding": {
+              "left": "12.0",
+              "right": "12.0"
+            },
+            "border-radius": "4.0",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "303.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "48.0"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "Text",
+              "Vector"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Title",
+            "padding": {
+              "left": "3.0",
+              "right": "3.0"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": "9.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "-13.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "Title1"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "314.9999999999999",
+              "saturation": "0.015686274509803977",
+              "value": "1.0"
+            }
+          },
+          {
+            "id": "Text",
+            "color": {
+              "alpha": "1.0",
+              "hue": "269.99999999999994",
+              "saturation": "0.07936507936507942",
+              "value": "0.49411764705882355"
+            },
+            "text-content": "$text",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.857142791748047",
+            "typeface": "Inter"
+          },
+          {
+            "id": "Vector",
+            "tap-handler": "$onClick",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "14.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "14.223876953125"
+              }
+            },
+            "vector-content": "vector.svg"
+          },
+          {
+            "id": "Title1",
+            "color": {
+              "alpha": "1.0",
+              "hue": "269.99999999999994",
+              "saturation": "0.07936507936507942",
+              "value": "0.49411764705882355"
+            },
+            "text-content": "$title",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.857142791748047",
+            "typeface": "Inter"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "onClick": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "title": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "TextInputWithIcon",
+      "size": {
+        "width": 303.0,
+        "height": 53.0
+      },
+      "parameters": {
+        "text": "Text",
+        "title": "Title"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
