@@ -56,7 +56,9 @@ fun CreateAccountView(modifier : Modifier = Modifier){
         SimpleTextField(label = "Adres email")
         SimpleTextField(label = "Hasło")
         SimpleTextField(label = "Powtórz hasło")
-        Button(onClick = { TODO() }) {
+        Button(onClick = {
+            TODO()
+        }) {
             Text(stringResource(R.string.zarejestruj_sie))
         }
     }

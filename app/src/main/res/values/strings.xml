@@ -15,6 +15,11 @@
     <string name="planowanyBudzetWMiesiacu">Planowany budżet\nna wydatki w tym\nmiesiącu:</string>
     <string name="planowanyBudzetWMiesiacu_kwota">0.00zł</string>
     <string name="planowaneDochodyWMiesiacu">Planowane dochody\nw tym miesiacu:</string>
+    <string name="dochodyWplynelo">Aktualnie wpłynęło:</string>
+    <string name="dochodyZPlanowanych">z planowanych:</string>
+    <string name="przegladWydatkow">PRZEGLĄD WYDATKÓW</string>
+    <string name="przegladKonta">PRZEGLĄD KONTA</string>
+    <string name="przegladPrzychodow">PRZEGLĄD PRZYCHODÓW</string>
     <string name="planowaneDochodyWMiesiacu_kwota">0.00zł</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
@@ -41,4 +46,5 @@
     <string name="title_activity_revenues">RevenuesActivity</string>
     <string name="miesiac">MIESIĄC</string>
     <string name="rok">ROK</string>
+    <string name="title_activity_expenses">ExpensesActivity</string>
 </resources>

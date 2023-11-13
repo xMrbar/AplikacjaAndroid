@@ -73,7 +73,7 @@ fun AccountBalanceView() {
 fun AccountBalance(modifier : Modifier = Modifier, context: Context) {
     val localActivity = (LocalContext.current as? Activity)
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
-        Text(text = stringResource(R.string.PlanowanieBudzetu),
+        Text(text = stringResource(R.string.przegladKonta),
             color = MaterialTheme.colorScheme.primary,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
@@ -89,7 +89,9 @@ fun AccountBalance(modifier : Modifier = Modifier, context: Context) {
                         MaterialTheme.colorScheme.tertiary,
                         shape = MaterialTheme.shapes.extraLarge),
                 onClick = {
-                    TODO()
+                    val intentButtonPBA = Intent(context, ExpensesActivity::class.java)
+                    context.startActivity(intentButtonPBA)
+                    localActivity?.finish()
                 },
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {

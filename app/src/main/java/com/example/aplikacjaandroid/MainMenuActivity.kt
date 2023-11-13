@@ -39,7 +39,6 @@ class MainMenuActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AplikacjaAndroidTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -54,21 +53,6 @@ class MainMenuActivity : ComponentActivity() {
 @Composable
 fun MainMenuView() {
     val context = LocalContext.current
-
-    /*val callback = rememberUpdatedState(onBackPressedDispatcher) {
-        OnBackPressedCallback {
-            (context as? ComponentActivity)?.finish()
-        }
-    }
-
-    DisposableEffect(callback) {
-        callback.value.isEnabled = true
-        onBackPressedDispatcher.addCallback(callback.value)
-
-        onDispose {
-            callback.value.remove()
-        }
-    }*/
 
     MainMenu(modifier = Modifier
         .fillMaxSize()
