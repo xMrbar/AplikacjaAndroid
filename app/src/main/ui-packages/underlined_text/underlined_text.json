@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:110",
-    "version": "4533845089",
+    "version": "4534234038",
     "component-id": "23ce4f7bf8ad41e38447d7a1d98181e2db739e2e"
   },
   "default": "UnderlinedText",
@@ -82,9 +82,9 @@
             "overflow": "visible",
             "max-lines": "-1",
             "text-align-vertical": "center",
+            "text-size": "16.0",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "1.857142791748047",
-            "typeface": "Inter"
+            "line-height": "1.625"
           }
         ]
       }

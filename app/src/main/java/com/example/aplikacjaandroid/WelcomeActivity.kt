@@ -3,6 +3,7 @@ package com.example.aplikacjaandroid
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -24,15 +25,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
+import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.listitem.ListItem
 import com.example.aplikacjaandroid.piggyicon.PiggyIcon
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
+import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +68,7 @@ fun Welcome(modifier : Modifier = Modifier, context: Context){
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         LabelLarge(text = stringResource(id = R.string.rozpocznij))
         PiggyIcon(modifier = modifier)
+        ListItem(itemName = "Coś", itemValue = "Tam", color = Color.Cyan)
 
         Text(text = stringResource(R.string.zaloguj_lub_utworz_konto))
         Button(onClick = {
