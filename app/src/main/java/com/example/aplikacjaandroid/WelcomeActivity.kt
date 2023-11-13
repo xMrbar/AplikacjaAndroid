@@ -3,6 +3,7 @@ package com.example.aplikacjaandroid
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,9 +12,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -34,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.labelsmall.LabelSmall
 import com.example.aplikacjaandroid.listitem.ListItem
 import com.example.aplikacjaandroid.piggyicon.PiggyIcon
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
@@ -46,7 +51,7 @@ class MainActivity : ComponentActivity() {
             AplikacjaAndroidTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     WelcomeView()
@@ -58,34 +63,38 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun WelcomeView(){
-    Welcome(modifier = Modifier
-        .wrapContentSize(Alignment.Center)
+    Welcome(modifier = Modifier.wrapContentHeight()
         .padding(10.dp), LocalContext.current)
 }
 
 @Composable
 fun Welcome(modifier : Modifier = Modifier, context: Context){
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
-        LabelLarge(text = stringResource(id = R.string.rozpocznij))
-        PiggyIcon(modifier = modifier)
-        ListItem(itemName = "Coś", itemValue = "Tam", color = Color.Cyan)
+//        LabelLarge(text = stringResource(id = R.string.rozpocznij))
+//        PiggyIcon(modifier = modifier)
+//        UnderlinedText(text = "Coś", onClick = {Toast.makeText(context, "Działa", Toast.LENGTH_SHORT).show()})
+//        LabelSmall(text = stringResource(id = R.string.zaloguj_lub_utworz_konto))
+        ButtonWide(text = stringResource(id = R.string.zaloguj),
+            onClick = {Toast.makeText(context, "Zaloguj", Toast.LENGTH_SHORT).show()}, modifier = modifier)
+        ButtonWide(text = stringResource(id = R.string.utworz_konto),
+            onClick = {Toast.makeText(context, "Utwórz konto", Toast.LENGTH_SHORT).show()})
 
-        Text(text = stringResource(R.string.zaloguj_lub_utworz_konto))
-        Button(onClick = {
-            val navigate = Intent(context, SignInActivity::class.java)
-            context.startActivity(navigate)
-
-        }) {
-            Text(stringResource(R.string.zaloguj))
-        }
-        Button(onClick = {
-            val navigate = Intent(context, CreateAccountActivity::class.java)
-            context.startActivity(navigate)
-
-
-        }) {
-            Text(stringResource(R.string.utworz_konto))
-        }
+//        Text(text = stringResource(R.string.zaloguj_lub_utworz_konto))
+//        Button(onClick = {
+//            val navigate = Intent(context, SignInActivity::class.java)
+//            context.startActivity(navigate)
+//
+//        }) {
+//            Text(stringResource(R.string.zaloguj))
+//        }
+//        Button(onClick = {
+//            val navigate = Intent(context, CreateAccountActivity::class.java)
+//            context.startActivity(navigate)
+//
+//
+//        }) {
+//            Text(stringResource(R.string.utworz_konto))
+//        }
     }
 
 }

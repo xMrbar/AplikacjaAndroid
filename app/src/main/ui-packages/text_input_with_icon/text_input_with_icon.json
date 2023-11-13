@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:69",
-    "version": "4534234038",
+    "version": "4536905172",
     "component-id": "590eaead8762add410966f21d83d0f65e65b1503"
   },
   "default": "TextInputWithIcon",
@@ -163,8 +163,7 @@
             "overflow": "visible",
             "text-align-vertical": "center",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "1.857142791748047",
-            "typeface": "Inter"
+            "line-height": "1.857142791748047"
           },
           {
             "id": "Vector",
@@ -193,8 +192,7 @@
             "overflow": "visible",
             "text-align-vertical": "center",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "1.857142791748047",
-            "typeface": "Inter"
+            "line-height": "1.857142791748047"
           }
         ]
       }

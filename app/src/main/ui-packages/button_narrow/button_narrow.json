@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:38",
-    "version": "4534234038",
+    "version": "4536905172",
     "component-id": "12619a789649a46121d61a15acd802fc30781381"
   },
   "default": "Property 1=Default",
@@ -54,8 +54,7 @@
             "text-align-vertical": "center",
             "text-size": "15.0",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "1.733333282470703",
-            "typeface": "Inter"
+            "line-height": "1.733333282470703"
           }
         ]
       },
@@ -98,8 +97,7 @@
             "text-align-vertical": "center",
             "text-size": "15.0",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "1.733333282470703",
-            "typeface": "Inter"
+            "line-height": "1.733333282470703"
           }
         ]
       }

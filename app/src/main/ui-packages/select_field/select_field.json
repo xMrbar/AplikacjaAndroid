@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:126",
-    "version": "4534234038",
+    "version": "4536905172",
     "component-id": "235cb15f3bd93a22a2056730358a0b109f10115f"
   },
   "default": "SelectField",
@@ -100,8 +100,7 @@
             "overflow": "visible",
             "text-align-vertical": "center",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "1.857142791748047",
-            "typeface": "Inter"
+            "line-height": "1.857142791748047"
           },
           {
             "id": "🦆 icon \"Caret Down\"",

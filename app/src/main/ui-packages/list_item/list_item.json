@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:100",
-    "version": "4534234038",
+    "version": "4536905172",
     "component-id": "ecfed13787275c380450f998de6b3e6095d87531"
   },
   "default": "ListItem",
@@ -92,8 +92,7 @@
             "max-lines": "-1",
             "text-align-vertical": "center",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "1.857142791748047",
-            "typeface": "Inter"
+            "line-height": "1.857142791748047"
           },
           {
             "id": "ItemValue",
@@ -118,8 +117,7 @@
             "max-lines": "-1",
             "text-align-vertical": "center",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "1.857142791748047",
-            "typeface": "Inter"
+            "line-height": "1.857142791748047"
           },
           {
             "id": "Vector",
