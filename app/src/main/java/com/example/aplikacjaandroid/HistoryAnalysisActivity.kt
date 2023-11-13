@@ -69,7 +69,7 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Row(){
+        Row{
             Button(
                 modifier = Modifier
                     .width(150.dp)

@@ -25,6 +25,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_revenues_plan">RevenuesPlanActivity</string>
     <string name="title_activity_expenses_plan">ExpensesPlanActivity</string>
+    <string name="title_activity_history_analysis">HistoryAnalysisActivity</string>
     <string name="remainingMoneyForMonth">Pozostały budżet\nw tym miesiącu:</string>
     <string name="remainingMoneyForMonthAll">z sumy</string>
     <string name="remainingMoneyForMonth_kwota">0.00zł</string>
