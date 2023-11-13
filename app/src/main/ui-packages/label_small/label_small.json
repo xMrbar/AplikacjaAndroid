@@ -1,14 +1,14 @@
 {
-  "name": "label_medium",
+  "name": "label_small",
   "version": 32,
   "source-key": {
     "type": "figma",
     "file": "YW71XujSL2uB5BtFTUbjxt",
-    "node": "6620:6575",
+    "node": "6825:7630",
     "version": "4531602848",
-    "component-id": "f094f53d47b03f7f2b764b760e992b5cc0222eaf"
+    "component-id": "6c5588261e3c57657709a76a07d9f7c78d2ffc33"
   },
-  "default": "LabelMedium",
+  "default": "LabelSmall",
   "design": {
     "atoms": [
       {
@@ -18,38 +18,40 @@
       },
       {
         "type": "text",
-        "id": "DODAJ"
+        "id": "Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta."
       }
     ],
     "modes": {
-      "LabelMedium": {
+      "LabelSmall": {
         "rules": [
           {
             "id": "top_level",
             "size-constraints": {
               "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
                 "sizing-mode": "proportional",
                 "value": "1.0"
+              }
+            },
+            "main-axis-align": "space-between",
+            "children": [
+              "Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta."
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta.",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "303.0"
               },
               "height-constraints": {
                 "sizing-mode": "shrink"
               }
             },
-            "arrangement": "row",
-            "main-axis-align": "space-between",
-            "children": [
-              "DODAJ"
-            ],
-            "background-color": {
-              "alpha": "1.0",
-              "hue": "0.0",
-              "saturation": "0.0",
-              "value": "1.0"
-            }
-          },
-          {
-            "id": "DODAJ",
-            "font-weight": "500.0",
             "color": {
               "alpha": "1.0",
               "hue": "256.42857142857144",
@@ -58,11 +60,10 @@
             },
             "text-content": "$text",
             "overflow": "visible",
-            "text-align": "left",
-            "text-size": "28.0",
-            "letter-spacing": "0.46000000834465027",
-            "line-height": "0.9285713958740235",
-            "case": "upper"
+            "max-lines": "-1",
+            "text-size": "16.0",
+            "letter-spacing": "0.15000000596046448",
+            "line-height": "1.5"
           }
         ]
       }
@@ -77,13 +78,13 @@
   },
   "previews": [
     {
-      "design": "LabelMedium",
+      "design": "LabelSmall",
       "size": {
-        "width": 92.0,
-        "height": 26.0
+        "width": 303.0,
+        "height": 48.0
       },
       "parameters": {
-        "text": "DODAJ"
+        "text": "Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta."
       }
     }
   ],
