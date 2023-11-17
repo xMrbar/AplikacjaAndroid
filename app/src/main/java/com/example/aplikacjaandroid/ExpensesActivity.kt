@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -170,9 +171,9 @@ fun Expenses(modifier : Modifier = Modifier, context: Context) {
             /*itemsIndexed(listItems) { index, listItem ->
                 ListItemView(listItem, index)
             }*/
-            items(6) {
-                Test1()
-            }
+            /*items(6) {
+                Test1(context)
+            }*/
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(

@@ -179,9 +179,9 @@ fun Revenues(modifier : Modifier = Modifier, context: Context) {
             /*itemsIndexed(listItems) { index, listItem ->
                 ListItemView(listItem, index)
             }*/
-            items(6) {
-                Test1()
-            }
+            /*items(6) {
+                Test1(context)
+            }*/
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
