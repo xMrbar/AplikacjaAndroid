@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:126",
-    "version": "4602361424",
+    "version": "4605082375",
     "component-id": "235cb15f3bd93a22a2056730358a0b109f10115f"
   },
   "default": "SelectField",
@@ -38,12 +38,10 @@
         "rules": [
           {
             "id": "top_level",
-            "padding": {
-              "top": "5.0"
-            },
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "shrink"
+                "sizing-mode": "proportional",
+                "value": "1.0"
               },
               "height-constraints": {
                 "sizing-mode": "shrink"
@@ -65,8 +63,8 @@
             "tap-handler": "$onClick",
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": "303.0"
+                "sizing-mode": "proportional",
+                "value": "1.0"
               },
               "height-constraints": {
                 "sizing-mode": "fixed",
@@ -155,7 +153,7 @@
       "design": "SelectField",
       "size": {
         "width": 303.0,
-        "height": 53.0
+        "height": 48.0
       },
       "parameters": {
         "text": "Text"

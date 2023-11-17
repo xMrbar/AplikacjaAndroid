@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:92",
-    "version": "4602361424",
+    "version": "4605082375",
     "component-id": "07b61e598990aa4167f524bbc8e29b9af6a6513c"
   },
   "default": "TextField",
@@ -17,24 +17,16 @@
         "root": "true"
       },
       {
-        "type": "group",
-        "id": "frame"
-      },
-      {
-        "type": "group",
-        "id": "frame_synth"
-      },
-      {
-        "type": "group",
-        "id": "Frame 2"
-      },
-      {
         "type": "text",
         "id": "Text"
       },
       {
+        "type": "group",
+        "id": "frame"
+      },
+      {
         "type": "text",
-        "id": "Title"
+        "id": "Text1"
       }
     ],
     "modes": {
@@ -42,31 +34,50 @@
         "rules": [
           {
             "id": "top_level",
-            "padding": {
-              "top": "5.0"
-            },
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "shrink"
+                "sizing-mode": "proportional",
+                "value": "1.0"
               },
               "height-constraints": {
                 "sizing-mode": "shrink"
               }
             },
-            "arrangement": "row",
+            "main-axis-align": "start",
+            "cross-axis-align": "start",
             "children": [
+              "Text",
               "frame"
-            ],
-            "item-spacing": "10.0"
+            ]
+          },
+          {
+            "id": "Text",
+            "color": {
+              "alpha": "1.0",
+              "hue": "269.99999999999994",
+              "saturation": "0.07936507936507942",
+              "value": "0.49411764705882355"
+            },
+            "text-content": "$textContent",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.857142791748047"
           },
           {
             "id": "frame",
+            "padding": {
+              "left": "12.0",
+              "top": "6.0",
+              "right": "12.0",
+              "bottom": "6.0"
+            },
             "border-radius": "4.0",
             "tap-handler": "$onClick",
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": "303.0"
+                "sizing-mode": "proportional",
+                "value": "1.0"
               },
               "height-constraints": {
                 "sizing-mode": "fixed",
@@ -80,100 +91,23 @@
               "saturation": "0.1946902654867256",
               "value": "0.44313725490196076"
             },
-            "is-structured": "false",
-            "children": [
-              "frame_synth",
-              "Frame 2"
-            ],
-            "clip-content": "false"
-          },
-          {
-            "id": "frame_synth",
-            "opacity": "100.0",
-            "padding": {
-              "left": "12.0",
-              "top": "6.0",
-              "right": "12.0",
-              "bottom": "6.0"
-            },
-            "border-radius": "4.0",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": "303.0"
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": "125.0"
-              }
-            },
             "arrangement": "row",
             "main-axis-align": "start",
             "cross-axis-align": "start",
             "children": [
-              "Text"
+              "Text1"
             ],
-            "item-spacing": "10.0",
             "clip-content": "false"
           },
           {
-            "id": "Frame 2",
-            "padding": {
-              "left": "3.0",
-              "right": "3.0"
-            },
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": "9.0"
-              },
-              "vertical": {
-                "attachment": "start",
-                "offset": "-13.0"
-              }
-            },
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "shrink"
-              },
-              "height-constraints": {
-                "sizing-mode": "shrink"
-              }
-            },
-            "arrangement": "row",
-            "children": [
-              "Title"
-            ],
-            "background-color": {
-              "alpha": "1.0",
-              "hue": "314.9999999999999",
-              "saturation": "0.015686274509803977",
-              "value": "1.0"
-            }
-          },
-          {
-            "id": "Text",
+            "id": "Text1",
             "color": {
               "alpha": "1.0",
               "hue": "269.99999999999994",
               "saturation": "0.07936507936507942",
               "value": "0.49411764705882355"
             },
-            "text-content": "$text",
-            "overflow": "visible",
-            "text-align-vertical": "center",
-            "letter-spacing": "0.46000000834465027",
-            "line-height": "1.857142791748047"
-          },
-          {
-            "id": "Title",
-            "color": {
-              "alpha": "1.0",
-              "hue": "269.99999999999994",
-              "saturation": "0.07936507936507942",
-              "value": "0.49411764705882355"
-            },
-            "text-content": "$Title",
+            "text-content": "$title",
             "overflow": "visible",
             "text-align-vertical": "center",
             "letter-spacing": "0.46000000834465027",
@@ -184,17 +118,17 @@
     }
   },
   "parameters": {
+    "textContent": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
     "onClick": {
       "data-type": "void-callback",
       "required": false,
       "description": ""
     },
-    "text": {
-      "data-type": "text",
-      "required": false,
-      "description": ""
-    },
-    "Title": {
+    "title": {
       "data-type": "text",
       "required": false,
       "description": ""
@@ -205,11 +139,11 @@
       "design": "TextField",
       "size": {
         "width": 303.0,
-        "height": 130.0
+        "height": 151.0
       },
       "parameters": {
-        "text": "Text",
-        "Title": "Title"
+        "textContent": "Text",
+        "title": "Text"
       }
     }
   ],
