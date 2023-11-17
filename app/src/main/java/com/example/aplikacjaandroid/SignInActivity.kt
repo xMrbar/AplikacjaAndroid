@@ -82,6 +82,7 @@ fun SignIn(modifier : Modifier = Modifier, context: Context){
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
+            .padding(16.dp)
 
     ) {
 
@@ -111,10 +112,13 @@ fun SignIn(modifier : Modifier = Modifier, context: Context){
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.zaloguj),
                 onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+                    val navigate = Intent(context, MainMenuActivity::class.java)
+                    context.startActivity(navigate)
+                }
             )
             Spacer(modifier = Modifier
-                .height(80.dp)
+                .height(65.dp)
                 .padding(8.dp))
         }
     }

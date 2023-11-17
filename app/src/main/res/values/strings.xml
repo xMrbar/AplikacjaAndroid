@@ -42,7 +42,15 @@
     <string name="haslo">Hasło</string>
     <string name="adres_email">Adres email</string>
     <string name="imie">Imię</string>
-    <string name="naziwsko">Nazwisko</string>
+    <string name="nazwisko">Nazwisko</string>
     <string name="powtorz_haslo">Powtórz hasło</string>
- \\
+    <string name="twoje_konto">Twoje konto</string>
+    <string name="zmien_haslo">ZMIEŃ HASŁO</string>
+    <string name="title_activity_user_account">UserAccountActivity</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="obecne_haslo">Obecne hasło</string>
+    <string name="nowe_haslo">Nowe hasło</string>
+    <string name="powtorz_nowe_haslo">Powtórz nowe hasło</string>
+    <string name="zatwierdz">ZATWIERDŹ</string>
+    \\
 </resources>

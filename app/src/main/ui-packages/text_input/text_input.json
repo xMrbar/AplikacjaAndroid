@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:50",
-    "version": "4601463337",
+    "version": "4602361424",
     "component-id": "85940cec79b424483437a894f580d141b823c0aa"
   },
   "default": "TextInput",
@@ -81,7 +81,7 @@
               },
               "height-constraints": {
                 "sizing-mode": "fixed",
-                "value": "46.0"
+                "value": "48.0"
               }
             },
             "stroke-width": "1.0",
@@ -139,7 +139,7 @@
       "design": "TextInput",
       "size": {
         "width": 303.0,
-        "height": 72.0
+        "height": 74.0
       },
       "parameters": {
         "title": "Text",
