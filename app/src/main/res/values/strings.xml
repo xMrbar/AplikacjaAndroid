@@ -39,4 +39,10 @@
     <string name="title_activity_main_menu">MainMenuActivity</string>
     <string name="title_activity_account_balance">AccountBalanceActivity</string>
     <string name="title_activity_revenues">RevenuesActivity</string>
+    <string name="haslo">Hasło</string>
+    <string name="adres_email">Adres email</string>
+    <string name="imie">Imię</string>
+    <string name="naziwsko">Nazwisko</string>
+    <string name="powtorz_haslo">Powtórz hasło</string>
+ \\
 </resources>

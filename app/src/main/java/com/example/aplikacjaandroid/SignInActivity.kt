@@ -3,13 +3,21 @@ package com.example.aplikacjaandroid
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -23,12 +31,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Border
+import com.example.aplikacjaandroid.avataricon.AvatarIcon
+import com.example.aplikacjaandroid.buttonwide.ButtonWide
+import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.labelsmall.LabelSmall
+import com.example.aplikacjaandroid.piggyicon.PiggyIcon
+import com.example.aplikacjaandroid.textinput.TextInput
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 
 class SignInActivity : ComponentActivity() {
@@ -42,7 +60,6 @@ class SignInActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     SignInView()
-
                 }
             }
         }
@@ -50,41 +67,56 @@ class SignInActivity : ComponentActivity() {
 }
 
 @Composable
+@Preview
 fun SignInView(){
     SignIn(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center), LocalContext.current)
+        .fillMaxSize(), LocalContext.current)
 }
 
 @Composable
 fun SignIn(modifier : Modifier = Modifier, context: Context){
 
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
-        Text(text = stringResource(R.string.zaloguj))
-        Image( painter = painterResource(R.drawable.icon_avatar), contentDescription = "Avatar icon")
-        Spacer(modifier = Modifier.height(16.dp))
-        SimpleTextField(label = "Adres email")
-        SimpleTextField(label = "Hasło")
-        Button(onClick = {
-            val navigate = Intent(context, MainMenuActivity::class.java)
-            context.startActivity(navigate)
-        }) {
-            Text(stringResource(R.string.zaloguj))
+    val inputModifier: Modifier = Modifier.padding(8.dp)
+
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+
+    ) {
+
+        Column(modifier = Modifier.padding(20.dp).fillMaxWidth()
+            ,verticalArrangement = Arrangement.Center
+            ,horizontalAlignment = Alignment.CenterHorizontally) {
+
+            LabelLarge(text = stringResource(id = R.string.zaloguj))
+            AvatarIcon()
+            Spacer(modifier = Modifier.height(40.dp))
+            TextInput(modifier = inputModifier, title = stringResource(id = R.string.adres_email),
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
+                )
+            TextInput(modifier = inputModifier, title = stringResource(id = R.string.haslo),
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
+                )
+        }
+        Spacer(modifier = Modifier.weight(1f))
+
+        // button at the bottom
+        Column(
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            ButtonWide(
+                modifier = Modifier.padding(8.dp),
+                text = stringResource(id = R.string.zaloguj),
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
+            )
+            Spacer(modifier = Modifier
+                .height(80.dp)
+                .padding(8.dp))
         }
     }
 }
 
-@Composable
-fun SimpleTextField(modifier : Modifier = Modifier, label: String) {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
-    Column(modifier = modifier){
-        Text(text = label)
-        TextField(
-            value = text,
-            onValueChange = { newText ->
-                text = newText
-            }
-        )
-    }
-
-}

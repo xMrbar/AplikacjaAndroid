@@ -103,12 +103,16 @@ fun Welcome(modifier : Modifier = Modifier, context: Context){
             ButtonWide(
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.zaloguj),
-                onClick = { Toast.makeText(context, "Zaloguj", Toast.LENGTH_SHORT).show() }
+                onClick = {
+                    val navigate = Intent(context, SignInActivity::class.java)
+                    context.startActivity(navigate) }
             )
             ButtonWide(
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.utworz_konto),
-                onClick = { Toast.makeText(context, "Utwórz konto", Toast.LENGTH_SHORT).show() }
+                onClick = {
+                    val navigate = Intent(context, CreateAccountActivity::class.java)
+                    context.startActivity(navigate) }
             )
         }
     }
