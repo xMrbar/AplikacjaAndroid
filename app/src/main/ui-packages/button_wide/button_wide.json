@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:2",
-    "version": "4536905172",
+    "version": "4598809948",
     "component-id": "c4ef8e59643a15ba855d6f77e01550896512838c"
   },
   "default": "ButtonWide",
@@ -26,8 +26,21 @@
         "rules": [
           {
             "id": "top_level",
+            "padding": {
+              "top": "11.0",
+              "bottom": "11.0"
+            },
             "border-radius": "4.0",
             "tap-handler": "$onClick",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
             "arrangement": "row",
             "children": [
               "Button"

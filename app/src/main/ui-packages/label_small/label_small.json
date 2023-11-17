@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "YW71XujSL2uB5BtFTUbjxt",
     "node": "6825:7630",
-    "version": "4531764424",
+    "version": "4599138138",
     "component-id": "6c5588261e3c57657709a76a07d9f7c78d2ffc33"
   },
   "default": "LabelSmall",
@@ -28,17 +28,17 @@
             "id": "top_level",
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "shrink"
-              },
-              "height-constraints": {
                 "sizing-mode": "proportional",
                 "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
               }
             },
-            "main-axis-align": "space-between",
             "children": [
               "Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta."
             ],
+            "item-spacing": "10.0",
             "clip-content": "false"
           },
           {

@@ -9,12 +9,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -30,12 +33,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
+import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.labelsmall.LabelSmall
@@ -43,6 +48,7 @@ import com.example.aplikacjaandroid.listitem.ListItem
 import com.example.aplikacjaandroid.piggyicon.PiggyIcon
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
+import com.google.relay.compose.RowScopeInstanceImpl.weight
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,10 +57,12 @@ class MainActivity : ComponentActivity() {
             AplikacjaAndroidTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     WelcomeView()
+
+
+
                 }
             }
         }
@@ -62,39 +70,47 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+@Preview
 fun WelcomeView(){
-    Welcome(modifier = Modifier.wrapContentHeight()
-        .padding(10.dp), LocalContext.current)
+    Welcome(modifier = Modifier.fillMaxWidth()
+        .fillMaxHeight(), LocalContext.current)
 }
+
 
 @Composable
 fun Welcome(modifier : Modifier = Modifier, context: Context){
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
-//        LabelLarge(text = stringResource(id = R.string.rozpocznij))
-//        PiggyIcon(modifier = modifier)
-//        UnderlinedText(text = "Coś", onClick = {Toast.makeText(context, "Działa", Toast.LENGTH_SHORT).show()})
-//        LabelSmall(text = stringResource(id = R.string.zaloguj_lub_utworz_konto))
-        ButtonWide(text = stringResource(id = R.string.zaloguj),
-            onClick = {Toast.makeText(context, "Zaloguj", Toast.LENGTH_SHORT).show()}, modifier = modifier)
-        ButtonWide(text = stringResource(id = R.string.utworz_konto),
-            onClick = {Toast.makeText(context, "Utwórz konto", Toast.LENGTH_SHORT).show()})
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(16.dp)
 
-//        Text(text = stringResource(R.string.zaloguj_lub_utworz_konto))
-//        Button(onClick = {
-//            val navigate = Intent(context, SignInActivity::class.java)
-//            context.startActivity(navigate)
-//
-//        }) {
-//            Text(stringResource(R.string.zaloguj))
-//        }
-//        Button(onClick = {
-//            val navigate = Intent(context, CreateAccountActivity::class.java)
-//            context.startActivity(navigate)
-//
-//
-//        }) {
-//            Text(stringResource(R.string.utworz_konto))
-//        }
+    ) {
+
+            Column(modifier = Modifier.padding(30.dp),verticalArrangement = Arrangement.Center,horizontalAlignment = Alignment.CenterHorizontally) {
+            PiggyIcon()
+            Spacer(modifier = Modifier.height(40.dp))
+            LabelLarge(text = stringResource(id = R.string.rozpocznij))
+            LabelSmall(
+                modifier = Modifier.padding(8.dp),
+                text = stringResource(id = R.string.zaloguj_lub_utworz_konto))
+        }
+        Spacer(modifier = Modifier.weight(1f))
+
+        Column(
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            ButtonWide(
+                modifier = Modifier.padding(8.dp),
+                text = stringResource(id = R.string.zaloguj),
+                onClick = { Toast.makeText(context, "Zaloguj", Toast.LENGTH_SHORT).show() }
+            )
+            ButtonWide(
+                modifier = Modifier.padding(8.dp),
+                text = stringResource(id = R.string.utworz_konto),
+                onClick = { Toast.makeText(context, "Utwórz konto", Toast.LENGTH_SHORT).show() }
+            )
+        }
     }
-
 }
+

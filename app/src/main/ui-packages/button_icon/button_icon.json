@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:32",
-    "version": "4536905172",
+    "version": "4598809948",
     "component-id": "077f98aea9d552335af5c9b1c219b525849c07b5"
   },
   "default": "ButtonIcon",
@@ -30,8 +30,21 @@
         "rules": [
           {
             "id": "top_level",
+            "padding": {
+              "top": "11.0",
+              "bottom": "11.0"
+            },
             "border-radius": "4.0",
             "tap-handler": "$onClick",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
             "arrangement": "row",
             "children": [
               "🦆 icon \"chevron-left\"",

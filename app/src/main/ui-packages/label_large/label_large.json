@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "YW71XujSL2uB5BtFTUbjxt",
     "node": "6636:52955",
-    "version": "4531764424",
+    "version": "4599138138",
     "component-id": "a97461c2beb9fdfd58135c00c84eba42dc43871f"
   },
   "default": "LabelLarge",
@@ -26,6 +26,10 @@
         "rules": [
           {
             "id": "top_level",
+            "padding": {
+              "top": "10.0",
+              "bottom": "10.0"
+            },
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "proportional",
@@ -36,10 +40,10 @@
               }
             },
             "arrangement": "row",
-            "main-axis-align": "space-between",
             "children": [
               "big_header"
             ],
+            "item-spacing": "10.0",
             "clip-content": "false"
           },
           {
@@ -72,8 +76,8 @@
     {
       "design": "LabelLarge",
       "size": {
-        "width": 190.0,
-        "height": 24.0
+        "width": 303.0,
+        "height": 44.0
       },
       "parameters": {
         "text": "Rozpocznij!"
