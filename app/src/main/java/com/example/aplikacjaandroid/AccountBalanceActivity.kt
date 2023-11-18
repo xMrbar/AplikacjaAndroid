@@ -63,10 +63,13 @@ class AccountBalanceActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     AccountList(appender = { string, context ->
-                        appendToFile(string, context)
-                    },
+                            appendToFile(string, context)
+                        },
                         reader = { context ->
                             readItemsFromFile(context)
+                        },
+                        deleter = { context, position ->
+                            deleteItemFromFile(context, position)
                         }
                     )
                 }
@@ -79,9 +82,7 @@ class AccountBalanceActivity : ComponentActivity() {
 
         try {
             val fileWriter = FileWriter(file, true)
-            // Dopisz dane do pliku
             fileWriter.append("$s\n")
-            // Zamknij strumień
             fileWriter.close()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -163,7 +164,8 @@ class AccountBalanceActivity : ComponentActivity() {
 @Composable
 fun AccountList(
     appender: (String, Context) -> Unit,
-    reader: (Context) -> List<ItemData>
+    reader: (Context) -> List<ItemData>,
+    deleter: (Context, Int) -> Unit
     )
 {
     val context = LocalContext.current
@@ -174,12 +176,12 @@ fun AccountList(
 
     var myItems by remember { mutableStateOf(reader(context)) }
     var newItem by remember { mutableStateOf("LAMBO; 03.10.2023; 100000; AUTO; tak; nie") }
+    //var newItem by remember { mutableStateOf("") }
     var selectedIndex by remember { mutableStateOf(-1) }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(
-            text="PRZEGLĄD KONTA",
-            //text=stringResource(R.string.przegladKonta),
+            text=stringResource(R.string.przegladKonta),
             color = MaterialTheme.colorScheme.primary,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
@@ -254,28 +256,24 @@ fun AccountList(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Aktualnie na\nkoncie posiadasz:",
-                    //stringResource(R.string.accountBalance),
+                    stringResource(R.string.accountBalance),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 18.sp
                 )
                 Text(
-                    text="0.00zł",
-                    //text = stringResource(id = R.string.accountBalance_kwota),
+                    text = stringResource(id = R.string.accountBalance_kwota),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text="planowany stan konta\nna koniec miesiąca",
-                    //text = stringResource(id = R.string.accountBalancePlanEnd),
+                    text = stringResource(id = R.string.accountBalancePlanEnd),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 18.sp
                 )
                 Text(
-                    text="0.00zł",
-                    //text = stringResource(id = R.string.accountBalancePlanEnd_kwota),
+                    text = stringResource(id = R.string.accountBalancePlanEnd_kwota),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -322,7 +320,9 @@ fun AccountList(
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                TODO()
+                deleter(context, selectedIndex)
+                selectedIndex = -1
+                myItems = reader(context)
                 //readBalanceActivity(context)
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
