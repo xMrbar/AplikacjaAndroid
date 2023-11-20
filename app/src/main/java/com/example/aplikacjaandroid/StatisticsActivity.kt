@@ -99,6 +99,7 @@ fun Statistics(modifier : Modifier = Modifier, context: Context){
                     shape = RoundedCornerShape(4.dp)
                 )
                 .clip(RoundedCornerShape(4.dp))
+                .padding(4.dp)
 
         ){
 
@@ -118,6 +119,7 @@ fun Statistics(modifier : Modifier = Modifier, context: Context){
                     shape = RoundedCornerShape(4.dp)
                 )
                 .clip(RoundedCornerShape(4.dp))
+                .padding(4.dp)
 
         ){
             ListItem(itemName = "Item 1", itemValue = "value 1", color = Color.Blue)
