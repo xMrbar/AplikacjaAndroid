@@ -1,5 +1,3 @@
-@file:JvmName("RevenuesActivityKt")
-
 package com.example.aplikacjaandroid
 
 import android.app.Activity
@@ -48,7 +46,7 @@ import java.io.FileWriter
 import java.io.IOException
 import java.io.InputStreamReader
 
-class RevenuesActivity : ComponentActivity() {
+class ExpensesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -58,15 +56,15 @@ class RevenuesActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RevenuesList(appender = { string, context ->
+                    ExpensesList(appender = { string, context ->
                         appendToFile(string, context)
                     },
-                        reader = { context ->
-                            readItemsFromFile(context)
-                        },
-                        deleter = { context, position ->
-                            deleteItemFromFile(context, position)
-                        }
+                    reader = { context ->
+                        readItemsFromFile(context)
+                    },
+                    deleter = { context, position ->
+                        deleteItemFromFile(context, position)
+                    }
                     )
                 }
             }
@@ -75,7 +73,7 @@ class RevenuesActivity : ComponentActivity() {
 
     fun appendToFile(s: String, context: Context) {
         val externalDir = context.getExternalFilesDir(null)
-        val file = File(externalDir, "revenues.txt")
+        val file = File(externalDir, "expenses.txt")
 
         try {
             val fileWriter = FileWriter(file, true)
@@ -99,7 +97,7 @@ class RevenuesActivity : ComponentActivity() {
     fun readItemsFromFile(context: Context): List<ItemData>
     {
         val externalDir = context.getExternalFilesDir(null)
-        val file = File(externalDir, "revenues.txt")
+        val file = File(externalDir, "expenses.txt")
         val inputStream = FileInputStream(file)
         val reader = BufferedReader(InputStreamReader(inputStream))
         var line: String? = reader.readLine()
@@ -139,16 +137,16 @@ class RevenuesActivity : ComponentActivity() {
     fun writeItemsToFile(context: Context, items: List<ItemData>)
     {
         val externalDir = context.getExternalFilesDir(null)
-        val file = File(externalDir, "revenues.txt")
+        val file = File(externalDir, "expenses.txt")
 
         try {
             val outputStream = FileOutputStream(file)
             for(item in items) {
-                outputStream.write((item.text + "; "
-                        + item.date + "; "
-                        + item.amount.toString() + "; "
-                        + item.imageResource.toString() + "; "
-                        + item.platnosc + "; "
+                outputStream.write((item.text + ";"
+                        + item.date + ";"
+                        + item.amount.toString() + ";"
+                        + item.imageResource.toString() + ";"
+                        + item.platnosc + ";"
                         + item.notatka + "\n").toByteArray())
             }
             outputStream.close()
@@ -159,7 +157,7 @@ class RevenuesActivity : ComponentActivity() {
 }
 
 @Composable
-fun RevenuesList(
+fun ExpensesList(
     appender: (String, Context) -> Unit,
     reader: (Context) -> List<ItemData>,
     deleter: (Context, Int) -> Unit
@@ -176,7 +174,7 @@ fun RevenuesList(
     var selectedIndex by remember { mutableStateOf(-1) }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
-        Text(text = stringResource(R.string.przegladPrzychodow),
+        Text(text = stringResource(R.string.przegladWydatkow),
             color = MaterialTheme.colorScheme.primary,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
@@ -186,15 +184,21 @@ fun RevenuesList(
             Button(
                 modifier = Modifier
                     .width(130.dp)
-                    .height(50.dp),
+                    .height(50.dp)
+                    .border(
+                        2.dp,
+                        MaterialTheme.colorScheme.tertiary,
+                        shape = MaterialTheme.shapes.extraLarge),
                 onClick = {
-
+                    val intentButtonPBA = Intent(context, RevenuesActivity::class.java)
+                    context.startActivity(intentButtonPBA)
+                    localActivity?.finish()
                 },
-                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.tertiary)
+                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {
                 Text(
-                    text= stringResource(R.string.przychody),
-                    color=MaterialTheme.colorScheme.background)
+                    text=stringResource(R.string.przychody),
+                    color=MaterialTheme.colorScheme.tertiary)
             }
             Spacer(modifier = Modifier.width(5.dp))
             Button(
@@ -213,28 +217,22 @@ fun RevenuesList(
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {
                 Text(
-                    text= stringResource(R.string.stanKonta),
+                    text=stringResource(R.string.stanKonta),
                     color=MaterialTheme.colorScheme.tertiary)
             }
             Spacer(modifier = Modifier.width(5.dp))
             Button(
                 modifier = Modifier
                     .width(130.dp)
-                    .height(50.dp)
-                    .border(
-                        2.dp,
-                        MaterialTheme.colorScheme.tertiary,
-                        shape = MaterialTheme.shapes.extraLarge),
+                    .height(50.dp),
                 onClick = {
-                    val intentButtonPBA = Intent(context, ExpensesActivity::class.java)
-                    context.startActivity(intentButtonPBA)
-                    localActivity?.finish()
+
                 },
-                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
+                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.tertiary)
             ) {
                 Text(
                     stringResource(R.string.wydatki),
-                    color=MaterialTheme.colorScheme.tertiary)
+                    color=MaterialTheme.colorScheme.background)
             }
         }
         Spacer(modifier = Modifier.width(10.dp))
@@ -249,7 +247,7 @@ fun RevenuesList(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.dochodyWplynelo),
+                    text = stringResource(id = R.string.remainingMoneyForMonth),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 18.sp
                 )
@@ -261,7 +259,7 @@ fun RevenuesList(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = stringResource(id = R.string.dochodyZPlanowanych),
+                    text = stringResource(id = R.string.remainingMoneyForMonthAll),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 18.sp
                 )

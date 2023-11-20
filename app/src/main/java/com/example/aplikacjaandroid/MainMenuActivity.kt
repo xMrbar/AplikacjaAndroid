@@ -33,13 +33,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
+import java.io.File
 
 class MainMenuActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AplikacjaAndroidTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -54,22 +54,7 @@ class MainMenuActivity : ComponentActivity() {
 @Composable
 fun MainMenuView() {
     val context = LocalContext.current
-
-    /*val callback = rememberUpdatedState(onBackPressedDispatcher) {
-        OnBackPressedCallback {
-            (context as? ComponentActivity)?.finish()
-        }
-    }
-
-    DisposableEffect(callback) {
-        callback.value.isEnabled = true
-        onBackPressedDispatcher.addCallback(callback.value)
-
-        onDispose {
-            callback.value.remove()
-        }
-    }*/
-
+    createFile(context = context)
     MainMenu(modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center), context)
@@ -121,7 +106,8 @@ fun MainMenu(modifier : Modifier = Modifier, context: Context) {
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                TODO()
+                val intentButton = Intent(context, HistoryAnalysisActivity::class.java)
+                context.startActivity(intentButton)
             }) {
             Text(stringResource(R.string.button5Text))
         }
@@ -136,5 +122,37 @@ fun MainMenu(modifier : Modifier = Modifier, context: Context) {
         }) {
             Text(stringResource(R.string.button4Text))
         }
+    }
+}
+
+@Composable
+fun createFile(context: Context)
+{
+    val externalDir = context.getExternalFilesDir(null)
+    try {
+        var file = File(externalDir, "revenues.txt")
+        if (!file.exists()) {
+            file.createNewFile()
+        }
+        file = File(externalDir, "expenses.txt")
+        if (!file.exists()) {
+            file.createNewFile()
+        }
+        file = File(externalDir, "accountBalance.txt")
+        if (!file.exists()) {
+            file.createNewFile()
+        }
+        file = File(externalDir, "revenuesPlan.txt")
+        if (!file.exists()) {
+            file.createNewFile()
+        }
+        file = File(externalDir, "expensesPlan.txt")
+        if (!file.exists()) {
+            file.createNewFile()
+        }
+    }
+    catch (e: Exception)
+    {
+
     }
 }

@@ -117,6 +117,7 @@ fun CreateAccount(modifier : Modifier = Modifier, context: Context){
             Spacer(modifier = Modifier
                 .height(65.dp)
                 .padding(8.dp))
+
         }
     }
 }
