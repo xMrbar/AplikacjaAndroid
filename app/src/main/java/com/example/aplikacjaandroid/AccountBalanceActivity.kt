@@ -286,9 +286,6 @@ fun AccountList(
                 .fillMaxSize()
                 .weight(1f)
         ) {
-            //var index = 0
-            //for(itemD in myItems) {
-                //index += 1
             items(myItems.size) {index ->
                 ItemScroll(index = index,
                     itemD = myItems[index],

@@ -26,6 +26,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -52,7 +56,16 @@ class RevenuesPlanActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RevenuesPlanView()
+                    RevenuesPlanList(appender = { string, context ->
+                        appendToFile(string, context)
+                    },
+                        reader = { context ->
+                            readItemsFromFile(context)
+                        },
+                        deleter = { context, position ->
+                            deleteItemFromFile(context, position)
+                        }
+                    )
                 }
             }
         }
@@ -144,15 +157,22 @@ class RevenuesPlanActivity : ComponentActivity() {
 }
 
 @Composable
-fun RevenuesPlanView() {
-    RevenuesPlan(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center), LocalContext.current)
-}
-
-@Composable
-fun RevenuesPlan(modifier : Modifier = Modifier, context: Context) {
+fun RevenuesPlanList(
+    appender: (String, Context) -> Unit,
+    reader: (Context) -> List<ItemData>,
+    deleter: (Context, Int) -> Unit
+) {
+    val context = LocalContext.current
     val localActivity = (LocalContext.current as? Activity)
+    val modifier = Modifier
+        .fillMaxSize()
+        .wrapContentSize(Alignment.Center)
+
+    var myItems by remember { mutableStateOf(reader(context)) }
+    var newItem by remember { mutableStateOf("LAMBO; CO MIESIĄC; 100000; AUTO; tak; nie") }
+    //var newItem by remember { mutableStateOf("") }
+    var selectedIndex by remember { mutableStateOf(-1) }
+
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.PlanowanieBudzetu),
             color = MaterialTheme.colorScheme.primary,
@@ -189,7 +209,7 @@ fun RevenuesPlan(modifier : Modifier = Modifier, context: Context) {
                     localActivity?.finish()
                 },
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
-                ) {
+            ) {
                 Text(
                     stringResource(R.string.stanKonta),
                     color=MaterialTheme.colorScheme.tertiary)
@@ -226,11 +246,14 @@ fun RevenuesPlan(modifier : Modifier = Modifier, context: Context) {
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            /*itemsIndexed(listItems) { index, listItem ->
-                ListItemView(listItem, index)
-            }*/
-            items(6) {
-                Test()
+            items(myItems.size) {index ->
+                ItemScroll(index = index,
+                    itemD = myItems[index],
+                    isSelected = index == selectedIndex,
+                    onTaskClick = {
+                        selectedIndex = if (index == selectedIndex) -1 else index
+                    }
+                )
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -239,7 +262,9 @@ fun RevenuesPlan(modifier : Modifier = Modifier, context: Context) {
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                TODO()
+                selectedIndex = -1
+                appender(newItem, context)
+                myItems = reader(context)
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -252,7 +277,9 @@ fun RevenuesPlan(modifier : Modifier = Modifier, context: Context) {
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                TODO()
+                deleter(context, selectedIndex)
+                selectedIndex = -1
+                myItems = reader(context)
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -261,41 +288,3 @@ fun RevenuesPlan(modifier : Modifier = Modifier, context: Context) {
         }
     }
 }
-
-
-/*@Composable
-fun ListItemView(listItem: LauncherActivity.ListItem, index: Int) {
-    val backgroundColor = if (index % 2 == 0) {
-        MaterialTheme.colorScheme.background
-    } else {
-        MaterialTheme.colorScheme.secondary
-    }
-
-    val textColor = if (index % 2 == 0) {
-        MaterialTheme.colorScheme.secondary
-    } else {
-        MaterialTheme.colorScheme.background
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .background(backgroundColor)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = listItem.imageResource),
-                contentDescription = null
-            )
-            // Tekst
-            Text(listItem.text, color = Color.White, modifier = Modifier.padding(start = 16.dp))
-        }
-    }
-}
-*/
