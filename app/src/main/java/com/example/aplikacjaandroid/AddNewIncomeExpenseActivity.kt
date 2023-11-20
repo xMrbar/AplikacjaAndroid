@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,12 +25,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
+import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.selectfield.SelectField
+import com.example.aplikacjaandroid.textfield.TextField
 import com.example.aplikacjaandroid.textinput.TextInput
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
+import com.google.relay.compose.Attachment
 
-class CreateAccountActivity : ComponentActivity() {
+class AddNewIncomeExpenseActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,7 +45,7 @@ class CreateAccountActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CreateAccountView()
+                    AddNewExpenseView()
                 }
             }
         }
@@ -47,15 +54,17 @@ class CreateAccountActivity : ComponentActivity() {
 
 @Composable
 @Preview
-fun CreateAccountView(){
-    CreateAccount(modifier = Modifier
+fun AddNewExpenseView(){
+    AddExpense(modifier = Modifier
         .fillMaxSize(), LocalContext.current)
 }
 
 @Composable
-fun CreateAccount(modifier : Modifier = Modifier, context: Context){
+fun AddExpense(modifier : Modifier = Modifier, context: Context){
 
-    val inputModifier: Modifier = Modifier.padding(8.dp).fillMaxWidth()
+    val inputModifier: Modifier = Modifier
+        .padding(4.dp)
+        .fillMaxWidth()
 
     Column(
         modifier = modifier
@@ -64,6 +73,21 @@ fun CreateAccount(modifier : Modifier = Modifier, context: Context){
             .padding(16.dp)
 
     ) {
+        LabelLarge(text = stringResource(id = R.string.dodaj))
+
+
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically){
+            ButtonNarrow(
+                text = stringResource(id = R.string.wydatek),
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+                }, property1 = Property1.Variant2
+            )
+            ButtonNarrow(text = stringResource(id = R.string.przychod),
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+                })
+        }
 
         Column(modifier = Modifier
             .padding(20.dp)
@@ -71,8 +95,6 @@ fun CreateAccount(modifier : Modifier = Modifier, context: Context){
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally) {
 
-            LabelLarge(text = stringResource(id = R.string.rejestracja))
-            Spacer(modifier = Modifier.height(40.dp))
 
             TextInput(modifier = inputModifier, title = stringResource(id = R.string.imie),
                 onClick = {
@@ -86,38 +108,22 @@ fun CreateAccount(modifier : Modifier = Modifier, context: Context){
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
             )
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.haslo),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
-            )
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.powtorz_haslo),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
-            )
+            SelectField(modifier =  inputModifier, text = stringResource(id = R.string.kateogria))
+            SelectField(modifier =  inputModifier, text = stringResource(id = R.string.sposob_platnosci))
+            TextField( modifier = inputModifier, textContent = stringResource(id = R.string.notatka))
 
 
         }
-
 
         Spacer(modifier = Modifier.weight(1f))
+        ButtonWide(
+            modifier = Modifier.padding(8.dp),
+            text = stringResource(id = R.string.dodaj),
+            onClick = {
+                Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+            }
+        )
 
-        // button at the bottom
-        Column(
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            ButtonWide(
-                modifier = Modifier.padding(8.dp),
-                text = stringResource(id = R.string.utworz_konto),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
-                    val navigate = Intent(context, MainMenuActivity::class.java)
-                    context.startActivity(navigate)
-                }
-            )
-            Spacer(modifier = Modifier
-                .height(65.dp)
-                .padding(8.dp))
 
-        }
     }
 }

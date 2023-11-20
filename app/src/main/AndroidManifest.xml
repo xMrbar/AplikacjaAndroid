@@ -23,6 +23,26 @@
             android:label="@string/title_activity_expenses"
             android:theme="@style/Theme.AplikacjaAndroid" />
         <activity
+            android:name=".StatisticsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_statistics"
+            android:theme="@style/Theme.AplikacjaAndroid" />
+        <activity
+            android:name=".AddNewIncomeExpenseActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_new_income_expense"
+            android:theme="@style/Theme.AplikacjaAndroid" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false"
+            android:label="@string/title_activity_change_password"
+            android:theme="@style/Theme.AplikacjaAndroid" />
+        <activity
+            android:name=".UserAccountActivity"
+            android:exported="false"
+            android:label="@string/title_activity_user_account"
+            android:theme="@style/Theme.AplikacjaAndroid" />
+        <activity
             android:name=".RevenuesActivity"
             android:exported="false"
             android:label="@string/title_activity_revenues"

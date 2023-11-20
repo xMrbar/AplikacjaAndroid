@@ -1,0 +1,123 @@
+{
+  "name": "underlined_text",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "HeeN8IsE1XbPKKPMinXUmW",
+    "node": "2:110",
+    "version": "4645432899",
+    "component-id": "23ce4f7bf8ad41e38447d7a1d98181e2db739e2e"
+  },
+  "default": "UnderlinedText",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Frame 4"
+      },
+      {
+        "type": "text",
+        "id": "Text"
+      }
+    ],
+    "modes": {
+      "UnderlinedText": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "10.0",
+              "top": "5.0",
+              "right": "10.0",
+              "bottom": "5.0"
+            },
+            "tap-handler": "$onClick",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "stroke-width": "1.0",
+            "stroke-color": {
+              "alpha": "1.0",
+              "hue": "259.0909090909091",
+              "saturation": "0.1946902654867256",
+              "value": "0.44313725490196076"
+            },
+            "children": [
+              "Frame 4"
+            ],
+            "item-spacing": "10.0"
+          },
+          {
+            "id": "Frame 4",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "Text"
+            ]
+          },
+          {
+            "id": "Text",
+            "color": {
+              "alpha": "1.0",
+              "hue": "259.0909090909091",
+              "saturation": "0.1946902654867256",
+              "value": "0.44313725490196076"
+            },
+            "text-content": "$text",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "text-size": "16.0",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.625"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "onClick": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "UnderlinedText",
+      "size": {
+        "width": 303.0,
+        "height": 36.0
+      },
+      "parameters": {
+        "text": "Text"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

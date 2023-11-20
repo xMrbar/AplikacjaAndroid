@@ -45,7 +45,32 @@
     <string name="title_activity_main_menu">MainMenuActivity</string>
     <string name="title_activity_account_balance">AccountBalanceActivity</string>
     <string name="title_activity_revenues">RevenuesActivity</string>
+    <string name="haslo">Hasło</string>
+    <string name="adres_email">Adres email</string>
+    <string name="imie">Imię</string>
+    <string name="nazwisko">Nazwisko</string>
+    <string name="powtorz_haslo">Powtórz hasło</string>
+    <string name="twoje_konto">Twoje konto</string>
+    <string name="zmien_haslo">ZMIEŃ HASŁO</string>
+    <string name="title_activity_user_account">UserAccountActivity</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="obecne_haslo">Obecne hasło</string>
+    <string name="nowe_haslo">Nowe hasło</string>
+    <string name="powtorz_nowe_haslo">Powtórz nowe hasło</string>
+    <string name="zatwierdz">ZATWIERDŹ</string>
+    <string name="title_activity_add_new_income_expense">AddNewIncomeExpenseActivity</string>
+    <string name="tytul">Tytuł</string>
+    <string name="kwota">Kwota</string>
+    <string name="data">Data</string>
+    <string name="kateogria">Kategoria</string>
+    <string name="sposob_platnosci">Sposób płatności</string>
+    <string name="notatka">Notatka</string>
+    <string name="przychod">Przychód</string>
+    <string name="wydatek">Wydatek</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
+    <string name="statystyki">STATYSTYKI</string>
     <string name="miesiac">MIESIĄC</string>
     <string name="rok">ROK</string>
     <string name="title_activity_expenses">ExpensesActivity</string>
+
 </resources>

@@ -1,0 +1,147 @@
+{
+  "name": "list_item",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "HeeN8IsE1XbPKKPMinXUmW",
+    "node": "2:100",
+    "version": "4645432899",
+    "component-id": "ecfed13787275c380450f998de6b3e6095d87531"
+  },
+  "default": "ListItem",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "circle"
+      },
+      {
+        "type": "text",
+        "id": "ItemName"
+      },
+      {
+        "type": "text",
+        "id": "ItemValue"
+      }
+    ],
+    "modes": {
+      "ListItem": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": {
+              "left": "5.0",
+              "top": "7.0",
+              "right": "5.0",
+              "bottom": "7.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "circle",
+              "ItemName",
+              "ItemValue"
+            ]
+          },
+          {
+            "id": "circle",
+            "border-radius": "100.0",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "20.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "20.0"
+              }
+            },
+            "is-structured": "false",
+            "background-color": "$color"
+          },
+          {
+            "id": "ItemName",
+            "color": {
+              "alpha": "1.0",
+              "hue": "259.0909090909091",
+              "saturation": "0.1946902654867256",
+              "value": "0.44313725490196076"
+            },
+            "text-content": "$itemName",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.857142791748047"
+          },
+          {
+            "id": "ItemValue",
+            "color": {
+              "alpha": "1.0",
+              "hue": "259.0909090909091",
+              "saturation": "0.1946902654867256",
+              "value": "0.44313725490196076"
+            },
+            "text-content": "$itemValue",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": "0.46000000834465027",
+            "line-height": "1.857142791748047"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "color": {
+      "data-type": "color",
+      "required": false,
+      "description": ""
+    },
+    "itemName": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "itemValue": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "ListItem",
+      "size": {
+        "width": 303.0,
+        "height": 40.0
+      },
+      "parameters": {
+        "color": {
+          "alpha": "1.0",
+          "hue": "0.0",
+          "saturation": "0.7030303030303031",
+          "value": "0.6470588235294118"
+        },
+        "itemName": "ItemName",
+        "itemValue": "ItemValue"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

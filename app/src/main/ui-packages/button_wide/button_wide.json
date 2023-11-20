@@ -1,14 +1,14 @@
 {
-  "name": "label_medium",
+  "name": "button_wide",
   "version": 32,
   "source-key": {
     "type": "figma",
-    "file": "YW71XujSL2uB5BtFTUbjxt",
-    "node": "6620:6575",
-    "version": "4599138138",
-    "component-id": "f094f53d47b03f7f2b764b760e992b5cc0222eaf"
+    "file": "HeeN8IsE1XbPKKPMinXUmW",
+    "node": "2:2",
+    "version": "4645432899",
+    "component-id": "c4ef8e59643a15ba855d6f77e01550896512838c"
   },
-  "default": "LabelMedium",
+  "default": "ButtonWide",
   "design": {
     "atoms": [
       {
@@ -18,14 +18,20 @@
       },
       {
         "type": "text",
-        "id": "DODAJ"
+        "id": "Button"
       }
     ],
     "modes": {
-      "LabelMedium": {
+      "ButtonWide": {
         "rules": [
           {
             "id": "top_level",
+            "padding": {
+              "top": "11.0",
+              "bottom": "11.0"
+            },
+            "border-radius": "4.0",
+            "tap-handler": "$onClick",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "proportional",
@@ -36,39 +42,43 @@
               }
             },
             "arrangement": "row",
-            "main-axis-align": "space-between",
             "children": [
-              "DODAJ"
+              "Button"
             ],
+            "item-spacing": "10.0",
             "background-color": {
-              "alpha": "1.0",
-              "hue": "0.0",
-              "saturation": "0.0",
-              "value": "1.0"
-            }
-          },
-          {
-            "id": "DODAJ",
-            "font-weight": "500.0",
-            "color": {
               "alpha": "1.0",
               "hue": "256.42857142857144",
               "saturation": "0.5121951219512195",
               "value": "0.6431372549019608"
             },
+            "clip-content": "false"
+          },
+          {
+            "id": "Button",
+            "color": {
+              "alpha": "1.0",
+              "hue": "314.9999999999999",
+              "saturation": "0.015686274509803977",
+              "value": "1.0"
+            },
             "text-content": "$text",
             "overflow": "visible",
-            "text-align": "left",
-            "text-size": "28.0",
+            "text-align-vertical": "center",
+            "text-size": "15.0",
             "letter-spacing": "0.46000000834465027",
-            "line-height": "0.9285713958740235",
-            "case": "upper"
+            "line-height": "1.733333282470703"
           }
         ]
       }
     }
   },
   "parameters": {
+    "onClick": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
     "text": {
       "data-type": "text",
       "required": false,
@@ -77,13 +87,13 @@
   },
   "previews": [
     {
-      "design": "LabelMedium",
+      "design": "ButtonWide",
       "size": {
-        "width": 92.0,
-        "height": 26.0
+        "width": 303.0,
+        "height": 48.0
       },
       "parameters": {
-        "text": "DODAJ"
+        "text": "Button"
       }
     }
   ],
