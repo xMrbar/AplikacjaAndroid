@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "HeeN8IsE1XbPKKPMinXUmW",
     "node": "2:100",
-    "version": "4605082375",
+    "version": "4645264716",
     "component-id": "ecfed13787275c380450f998de6b3e6095d87531"
   },
   "default": "ListItem",
@@ -18,7 +18,7 @@
       },
       {
         "type": "group",
-        "id": "🦆 icon \"Circle\""
+        "id": "circle"
       },
       {
         "type": "text",
@@ -27,10 +27,6 @@
       {
         "type": "text",
         "id": "ItemValue"
-      },
-      {
-        "type": "vector",
-        "id": "Vector"
       }
     ],
     "modes": {
@@ -40,47 +36,45 @@
             "id": "top_level",
             "padding": {
               "left": "5.0",
-              "right": "5.0"
+              "top": "7.0",
+              "right": "5.0",
+              "bottom": "7.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
             },
             "arrangement": "row",
             "main-axis-align": "space-between",
             "children": [
-              "🦆 icon \"Circle\"",
+              "circle",
               "ItemName",
               "ItemValue"
             ]
           },
           {
-            "id": "🦆 icon \"Circle\"",
+            "id": "circle",
+            "border-radius": "100.0",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
-                "value": "16.0"
+                "value": "20.0"
               },
               "height-constraints": {
                 "sizing-mode": "fixed",
-                "value": "16.0"
+                "value": "20.0"
               }
             },
             "is-structured": "false",
-            "children": [
-              "Vector"
-            ],
-            "background-color": "$color",
-            "clip-content": "false"
+            "background-color": "$color"
           },
           {
             "id": "ItemName",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": "98.0"
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": "16.0"
-              }
-            },
             "color": {
               "alpha": "1.0",
               "hue": "259.0909090909091",
@@ -89,23 +83,12 @@
             },
             "text-content": "$itemName",
             "overflow": "visible",
-            "max-lines": "-1",
             "text-align-vertical": "center",
             "letter-spacing": "0.46000000834465027",
             "line-height": "1.857142791748047"
           },
           {
             "id": "ItemValue",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": "98.0"
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": "16.0"
-              }
-            },
             "color": {
               "alpha": "1.0",
               "hue": "259.0909090909091",
@@ -114,24 +97,9 @@
             },
             "text-content": "$itemValue",
             "overflow": "visible",
-            "max-lines": "-1",
             "text-align-vertical": "center",
             "letter-spacing": "0.46000000834465027",
             "line-height": "1.857142791748047"
-          },
-          {
-            "id": "Vector",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "proportional",
-                "value": "1.0"
-              },
-              "height-constraints": {
-                "sizing-mode": "proportional",
-                "value": "1.0"
-              }
-            },
-            "vector-content": "vector.svg"
           }
         ]
       }
@@ -159,9 +127,15 @@
       "design": "ListItem",
       "size": {
         "width": 303.0,
-        "height": 48.0
+        "height": 40.0
       },
       "parameters": {
+        "color": {
+          "alpha": "1.0",
+          "hue": "0.0",
+          "saturation": "0.7030303030303031",
+          "value": "0.6470588235294118"
+        },
         "itemName": "ItemName",
         "itemValue": "ItemValue"
       }

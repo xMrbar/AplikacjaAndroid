@@ -61,6 +61,8 @@
     <string name="notatka">Notatka</string>
     <string name="przychod">Przychód</string>
     <string name="wydatek">Wydatek</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
+    <string name="statystyki">STATYSTYKI</string>
 
     \\
 </resources>
