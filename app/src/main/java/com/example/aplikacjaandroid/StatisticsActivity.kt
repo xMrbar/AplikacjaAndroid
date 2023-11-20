@@ -76,27 +76,11 @@ fun Statistics(modifier : Modifier = Modifier, context: Context){
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(16.dp)
+            .padding(16.dp), verticalArrangement = Arrangement.SpaceAround
 
     ) {
         LabelLarge(text = stringResource(id = R.string.statystyki))
 
-
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){
-            ButtonNarrow(
-                text = stringResource(id = R.string.wydatek),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
-                },
-                property1 = Property1.Variant2
-            )
-            ButtonNarrow(
-                text = stringResource(id = R.string.przychod),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
-                },
-            )
-        }
 
         SelectField(
             modifier =  Modifier.fillMaxWidth(),
@@ -144,11 +128,28 @@ fun Statistics(modifier : Modifier = Modifier, context: Context){
 
         }
         Row(modifier = Modifier.fillMaxWidth()
-            .background(Color(ContextCompat.getColor(LocalContext.current, R.color.primary)), shape = RoundedCornerShape(4.dp)),
+            .background(Color(ContextCompat.getColor(LocalContext.current, R.color.primary)), shape = RoundedCornerShape(4.dp))
+            .padding(5.dp),
             horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically){
 
             Text(text = "Suma:")
             Text(text = "999.99zł")
+        }
+
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){
+            ButtonNarrow(
+                text = stringResource(id = R.string.wydatek),
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+                },
+                property1 = Property1.Variant2
+            )
+            ButtonNarrow(
+                text = stringResource(id = R.string.przychod),
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+                },
+            )
         }
 
 
