@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -32,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
@@ -47,7 +45,7 @@ class ExpensesActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ExpensesView()
+                    RevenuesView()
                 }
             }
         }
@@ -55,17 +53,17 @@ class ExpensesActivity : ComponentActivity() {
 }
 
 @Composable
-fun ExpensesView() {
-    Expenses(modifier = Modifier
+fun RevenuesView() {
+    Revenues(modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center), LocalContext.current)
 }
 
 @Composable
-fun Expenses(modifier : Modifier = Modifier, context: Context) {
+fun Revenues(modifier : Modifier = Modifier, context: Context) {
     val localActivity = (LocalContext.current as? Activity)
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
-        Text(text = stringResource(R.string.przegladPrzychodow),
+        Text(text = stringResource(R.string.przegladWydatkow),
             color = MaterialTheme.colorScheme.primary,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
@@ -75,15 +73,21 @@ fun Expenses(modifier : Modifier = Modifier, context: Context) {
             Button(
                 modifier = Modifier
                     .width(130.dp)
-                    .height(50.dp),
+                    .height(50.dp)
+                    .border(
+                        2.dp,
+                        MaterialTheme.colorScheme.tertiary,
+                        shape = MaterialTheme.shapes.extraLarge),
                 onClick = {
-
+                    val intentButtonPBA = Intent(context, RevenuesActivity::class.java)
+                    context.startActivity(intentButtonPBA)
+                    localActivity?.finish()
                 },
-                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.tertiary)
+                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {
                 Text(
-                    text= stringResource(R.string.przychody),
-                    color=MaterialTheme.colorScheme.background)
+                    text=stringResource(R.string.przychody),
+                    color=MaterialTheme.colorScheme.tertiary)
             }
             Spacer(modifier = Modifier.width(5.dp))
             Button(
@@ -102,28 +106,22 @@ fun Expenses(modifier : Modifier = Modifier, context: Context) {
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {
                 Text(
-                    text= stringResource(R.string.stanKonta),
+                    text=stringResource(R.string.stanKonta),
                     color=MaterialTheme.colorScheme.tertiary)
             }
             Spacer(modifier = Modifier.width(5.dp))
             Button(
                 modifier = Modifier
                     .width(130.dp)
-                    .height(50.dp)
-                    .border(
-                        2.dp,
-                        MaterialTheme.colorScheme.tertiary,
-                        shape = MaterialTheme.shapes.extraLarge),
+                    .height(50.dp),
                 onClick = {
-                    val intentButtonPBA = Intent(context, RevenuesActivity::class.java)
-                    context.startActivity(intentButtonPBA)
-                    localActivity?.finish()
+
                 },
-                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
+                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.tertiary)
             ) {
                 Text(
                     stringResource(R.string.wydatki),
-                    color=MaterialTheme.colorScheme.tertiary)
+                    color=MaterialTheme.colorScheme.background)
             }
         }
         Spacer(modifier = Modifier.width(10.dp))
@@ -138,7 +136,7 @@ fun Expenses(modifier : Modifier = Modifier, context: Context) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.dochodyWplynelo),
+                    text = stringResource(id = R.string.remainingMoneyForMonth),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 18.sp
                 )
@@ -150,7 +148,7 @@ fun Expenses(modifier : Modifier = Modifier, context: Context) {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = stringResource(id = R.string.dochodyZPlanowanych),
+                    text = stringResource(id = R.string.remainingMoneyForMonthAll),
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 18.sp
                 )
@@ -185,8 +183,7 @@ fun Expenses(modifier : Modifier = Modifier, context: Context) {
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
-            Text(
-                stringResource(R.string.dodaj),
+            Text(stringResource(R.string.dodaj),
                 color=MaterialTheme.colorScheme.background)
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -199,8 +196,7 @@ fun Expenses(modifier : Modifier = Modifier, context: Context) {
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
-            Text(
-                stringResource(R.string.usun),
+            Text(stringResource(R.string.usun),
                 color=MaterialTheme.colorScheme.background)
         }
     }

@@ -147,11 +147,11 @@ class AccountBalanceActivity : ComponentActivity() {
         try {
             val outputStream = FileOutputStream(file)
             for(item in items) {
-                outputStream.write((item.text + "; "
-                        + item.date + "; "
-                        + item.amount.toString() + "; "
-                        + item.imageResource.toString() + "; "
-                        + item.platnosc + "; "
+                outputStream.write((item.text + ";"
+                        + item.date + ";"
+                        + item.amount.toString() + ";"
+                        + item.imageResource.toString() + ";"
+                        + item.platnosc + ";"
                         + item.notatka + "\n").toByteArray())
             }
             outputStream.close()
@@ -175,7 +175,7 @@ fun AccountList(
         .wrapContentSize(Alignment.Center)
 
     var myItems by remember { mutableStateOf(reader(context)) }
-    var newItem by remember { mutableStateOf("LAMBO; 03.10.2023; 100000; AUTO; tak; nie") }
+    var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO;tak;nie") }
     //var newItem by remember { mutableStateOf("") }
     var selectedIndex by remember { mutableStateOf(-1) }
 
@@ -198,7 +198,7 @@ fun AccountList(
                         shape = MaterialTheme.shapes.extraLarge
                     ),
                 onClick = {
-                    val intentButtonPBA = Intent(context, ExpensesActivity::class.java)
+                    val intentButtonPBA = Intent(context, RevenuesActivity::class.java)
                     context.startActivity(intentButtonPBA)
                     localActivity?.finish()
                 },
@@ -233,7 +233,7 @@ fun AccountList(
                         shape = MaterialTheme.shapes.extraLarge
                     ),
                 onClick = {
-                    val intentButtonPBA = Intent(context, RevenuesActivity::class.java)
+                    val intentButtonPBA = Intent(context, ExpensesActivity::class.java)
                     context.startActivity(intentButtonPBA)
                     localActivity?.finish()
                 },
@@ -323,7 +323,6 @@ fun AccountList(
                 deleter(context, selectedIndex)
                 selectedIndex = -1
                 myItems = reader(context)
-                //readBalanceActivity(context)
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -396,7 +395,7 @@ fun ItemScroll(
                 modifier = Modifier
                     .height(90.dp)
                     .width(300.dp)
-                    .wrapContentSize(Alignment.BottomEnd)
+                    .wrapContentSize(Alignment.CenterEnd)
             ) {
                 Text(
                     text = itemD.amount.toString() + "zł",
