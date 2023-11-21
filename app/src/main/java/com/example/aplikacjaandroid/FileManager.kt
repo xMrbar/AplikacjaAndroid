@@ -8,6 +8,7 @@ import java.io.FileOutputStream
 import java.io.FileWriter
 import java.io.IOException
 import java.io.InputStreamReader
+import java.math.BigDecimal
 
 class FileManager {
     private var plik = ""
@@ -53,8 +54,6 @@ class FileManager {
             val date = parts[1]
             val money = parts[2]
             val type = parts[3]
-            val platnosc = parts[4]
-            val notatka = parts[5]
             val typeInt = if (type.contains("CAR", ignoreCase = true)) {
                 0
             } else if(type.contains("ELECTRICITY", ignoreCase = true)) {
@@ -70,7 +69,7 @@ class FileManager {
             } else {
                 6
             }
-            items.add(ItemData(typeInt, title, money.toFloat(), date, platnosc, notatka))
+            items.add(ItemData(typeInt, title, BigDecimal(money), date))
             line = reader.readLine()
             index += 1
         }
@@ -86,12 +85,12 @@ class FileManager {
         try {
             val outputStream = FileOutputStream(file)
             for(item in items) {
-                outputStream.write((item.text + "; "
-                        + item.date + "; "
-                        + item.amount.toString() + "; "
-                        + item.imageResource.toString() + "; "
-                        + item.platnosc + "; "
-                        + item.notatka + "\n").toByteArray())
+                outputStream.write((
+                        item.text + ";"
+                        + item.date + ";"
+                        + item.amount.toString() + ";"
+                        + item.imageResource.toString() + "\n"
+                        ).toByteArray())
             }
             outputStream.close()
         } catch (e: IOException) {

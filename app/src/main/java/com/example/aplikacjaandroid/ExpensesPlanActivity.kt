@@ -72,10 +72,15 @@ fun ExpensesPlanList() {
     val modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
+
+    val counter = Counter(LocalContext.current)
+    var planowaneWydatkiWMiesiacuKwota by remember { mutableStateOf(counter.countExpensesPlan().toString() + "zł") }
+
     val fileManager = FileManager("expensesPlan.txt")
     var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO; CO MIESIĄC; 100000; AUTO; tak; nie") }
+    var newItem by remember { mutableStateOf("LAMBO;CO MIESIĄC;100000;AUTO") }
     //var newItem by remember { mutableStateOf("") }
+
     var selectedIndex by remember { mutableStateOf(-1) }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
@@ -138,7 +143,7 @@ fun ExpensesPlanList() {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = stringResource(id = R.string.planowanyBudzetWMiesiacu_kwota),
+                    text = planowaneWydatkiWMiesiacuKwota,
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -170,6 +175,7 @@ fun ExpensesPlanList() {
                 selectedIndex = -1
                 fileManager.appendToFile(newItem, context)
                 myItems = fileManager.readItemsFromFile(context)
+                planowaneWydatkiWMiesiacuKwota = counter.countExpensesPlan().toString() + "zł"
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -185,6 +191,7 @@ fun ExpensesPlanList() {
                 fileManager.deleteItemFromFile(context, selectedIndex)
                 selectedIndex = -1
                 myItems = fileManager.readItemsFromFile(context)
+                planowaneWydatkiWMiesiacuKwota = counter.countExpensesPlan().toString() + "zł"
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

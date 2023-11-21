@@ -4,15 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
@@ -20,16 +16,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
@@ -54,7 +45,7 @@ class MainMenuActivity : ComponentActivity() {
 @Composable
 fun MainMenuView() {
     val context = LocalContext.current
-    createFile(context = context)
+    CreateFile(context = context)
     MainMenu(modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center), context)
@@ -126,33 +117,38 @@ fun MainMenu(modifier : Modifier = Modifier, context: Context) {
 }
 
 @Composable
-fun createFile(context: Context)
+fun CreateFile(context: Context)
 {
     val externalDir = context.getExternalFilesDir(null)
     try {
         var file = File(externalDir, "revenues.txt")
+        //file.delete()
         if (!file.exists()) {
             file.createNewFile()
         }
         file = File(externalDir, "expenses.txt")
+        //file.delete()
         if (!file.exists()) {
             file.createNewFile()
         }
         file = File(externalDir, "accountBalance.txt")
+        //file.delete()
         if (!file.exists()) {
             file.createNewFile()
         }
         file = File(externalDir, "revenuesPlan.txt")
+        //file.delete()
         if (!file.exists()) {
             file.createNewFile()
         }
         file = File(externalDir, "expensesPlan.txt")
+        //file.delete()
         if (!file.exists()) {
             file.createNewFile()
         }
     }
     catch (e: Exception)
     {
-
+        e.printStackTrace()
     }
 }

@@ -3,6 +3,7 @@ package com.example.aplikacjaandroid
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -79,7 +80,7 @@ fun AccountList()
         .wrapContentSize(Alignment.Center)
     val fileManager = FileManager("accountBalance.txt")
     var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO;tak;nie") }
+    var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO") }
     //var newItem by remember { mutableStateOf("") }
     var selectedIndex by remember { mutableStateOf(-1) }
 

@@ -70,10 +70,15 @@ fun RevenuesPlanList() {
     val modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
+
+    val counter = Counter(LocalContext.current)
+    var planowaneDochodyWMiesiacuKwota by remember { mutableStateOf(counter.countRevenuesPlan().toString() + "zł") }
+
     val fileManager = FileManager("revenuesPlan.txt")
     var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO; CO MIESIĄC; 100000; AUTO; tak; nie") }
+    var newItem by remember { mutableStateOf("LAMBO;CO MIESIĄC;102001.11;AUTO") }
     //var newItem by remember { mutableStateOf("") }
+
     var selectedIndex by remember { mutableStateOf(-1) }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
@@ -105,7 +110,8 @@ fun RevenuesPlanList() {
                     .border(
                         2.dp,
                         MaterialTheme.colorScheme.tertiary,
-                        shape = MaterialTheme.shapes.extraLarge),
+                        shape = MaterialTheme.shapes.extraLarge
+                    ),
                 onClick = {
                     val intentButtonPBA = Intent(context, ExpensesPlanActivity::class.java)
                     context.startActivity(intentButtonPBA)
@@ -114,7 +120,7 @@ fun RevenuesPlanList() {
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {
                 Text(
-                    stringResource(R.string.stanKonta),
+                    stringResource(R.string.wydatki),
                     color=MaterialTheme.colorScheme.tertiary)
             }
         }
@@ -136,7 +142,7 @@ fun RevenuesPlanList() {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = stringResource(id = R.string.planowaneDochodyWMiesiacu_kwota),
+                    text = planowaneDochodyWMiesiacuKwota,
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -168,6 +174,7 @@ fun RevenuesPlanList() {
                 selectedIndex = -1
                 fileManager.appendToFile(newItem, context)
                 myItems = fileManager.readItemsFromFile(context)
+                planowaneDochodyWMiesiacuKwota = counter.countRevenuesPlan().toString() + "zł"
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -183,6 +190,7 @@ fun RevenuesPlanList() {
                 fileManager.deleteItemFromFile(context, selectedIndex)
                 selectedIndex = -1
                 myItems = fileManager.readItemsFromFile(context)
+                planowaneDochodyWMiesiacuKwota = counter.countRevenuesPlan().toString() + "zł"
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

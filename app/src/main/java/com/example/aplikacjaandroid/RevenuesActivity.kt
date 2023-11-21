@@ -74,7 +74,7 @@ fun RevenuesList() {
         .wrapContentSize(Alignment.Center)
     val fileManager = FileManager("revenues.txt")
     var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO; 03.10.2023; 100000; AUTO; tak; nie") }
+    var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO") }
     //var newItem by remember { mutableStateOf("") }
     var selectedIndex by remember { mutableStateOf(-1) }
 
