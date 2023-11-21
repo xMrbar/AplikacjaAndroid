@@ -62,119 +62,23 @@ class AccountBalanceActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AccountList(appender = { string, context ->
-                            appendToFile(string, context)
-                        },
-                        reader = { context ->
-                            readItemsFromFile(context)
-                        },
-                        deleter = { context, position ->
-                            deleteItemFromFile(context, position)
-                        }
-                    )
+                    AccountList()
                 }
             }
-        }
-    }
-    fun appendToFile(s: String, context: Context) {
-        val externalDir = context.getExternalFilesDir(null)
-        val file = File(externalDir, "accountBalance.txt")
-
-        try {
-            val fileWriter = FileWriter(file, true)
-            fileWriter.append("$s\n")
-            fileWriter.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    fun deleteItemFromFile(context: Context, position: Int)
-    {
-        val items = readItemsFromFile(context).toMutableList()
-        if (position in items.indices)
-        {
-            items.removeAt(position)
-            writeItemsToFile(context, items)
-        }
-    }
-
-    fun readItemsFromFile(context: Context): List<ItemData>
-    {
-        val externalDir = context.getExternalFilesDir(null)
-        val file = File(externalDir, "accountBalance.txt")
-        val inputStream = FileInputStream(file)
-        val reader = BufferedReader(InputStreamReader(inputStream))
-        var line: String? = reader.readLine()
-        var index: Int = 0
-        var items = mutableListOf<ItemData>()
-        while (line != null) {
-            val parts = line.split(";")
-            val title = parts[0]
-            val date = parts[1]
-            val money = parts[2]
-            val type = parts[3]
-            val platnosc = parts[4]
-            val notatka = parts[5]
-            val typeInt = if (type.contains("CAR", ignoreCase = true)) {
-                0
-            } else if(type.contains("ELECTRICITY", ignoreCase = true)) {
-                1
-            } else if(type.contains("INCOME", ignoreCase = true)) {
-                2
-            } else if(type.contains("TRAVEL", ignoreCase = true)) {
-                3
-            } else if(type.contains("HOME", ignoreCase = true)) {
-                4
-            } else if(type.contains("CLOTHES", ignoreCase = true)) {
-                5
-            } else {
-                6
-            }
-            items.add(ItemData(typeInt, title, money.toFloat(), date, platnosc, notatka))
-            line = reader.readLine()
-            index += 1
-        }
-        inputStream.close()
-        return items
-    }
-
-    fun writeItemsToFile(context: Context, items: List<ItemData>)
-    {
-        val externalDir = context.getExternalFilesDir(null)
-        val file = File(externalDir, "accountBalance.txt")
-
-        try {
-            val outputStream = FileOutputStream(file)
-            for(item in items) {
-                outputStream.write((item.text + ";"
-                        + item.date + ";"
-                        + item.amount.toString() + ";"
-                        + item.imageResource.toString() + ";"
-                        + item.platnosc + ";"
-                        + item.notatka + "\n").toByteArray())
-            }
-            outputStream.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 }
 
 @Composable
-fun AccountList(
-    appender: (String, Context) -> Unit,
-    reader: (Context) -> List<ItemData>,
-    deleter: (Context, Int) -> Unit
-    )
+fun AccountList()
 {
     val context = LocalContext.current
     val localActivity = (LocalContext.current as? Activity)
     val modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
-
-    var myItems by remember { mutableStateOf(reader(context)) }
+    val fileManager = FileManager("accountBalance.txt")
+    var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
     var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO;tak;nie") }
     //var newItem by remember { mutableStateOf("") }
     var selectedIndex by remember { mutableStateOf(-1) }
@@ -303,8 +207,8 @@ fun AccountList(
                 .height(50.dp),
             onClick = {
                 selectedIndex = -1
-                appender(newItem, context)
-                myItems = reader(context)
+                fileManager.appendToFile(newItem, context)
+                myItems = fileManager.readItemsFromFile(context)
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -317,9 +221,9 @@ fun AccountList(
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                deleter(context, selectedIndex)
+                fileManager.deleteItemFromFile(context, selectedIndex)
                 selectedIndex = -1
-                myItems = reader(context)
+                myItems = fileManager.readItemsFromFile(context)
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -406,12 +310,3 @@ fun ItemScroll(
         }
     }
 }
-
-data class ItemData(
-    val imageResource: Int,
-    val text: String,
-    val amount: Float,
-    val date: String,
-    val platnosc: String,
-    val notatka: String
-)
