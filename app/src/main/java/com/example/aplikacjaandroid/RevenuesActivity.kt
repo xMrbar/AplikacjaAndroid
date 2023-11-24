@@ -72,10 +72,16 @@ fun RevenuesList() {
     val modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
+
+    val counter = Counter(LocalContext.current)
+    var dochodyWTymMiesiacu by remember { mutableStateOf(counter.countRevenuesThisMonth().toString() + "zł") }
+    var planowaneDochodyWMiesiacuKwota by remember { mutableStateOf(counter.countRevenuesPlan().toString() + "zł") }
+
     val fileManager = FileManager("revenues.txt")
     var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO") }
+    var newItem by remember { mutableStateOf("LAMBO;03.11.2023;100000;AUTO") }
     //var newItem by remember { mutableStateOf("") }
+
     var selectedIndex by remember { mutableStateOf(-1) }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
@@ -157,7 +163,7 @@ fun RevenuesList() {
                     fontSize = 18.sp
                 )
                 Text(
-                    text = stringResource(id = R.string.remainingMoneyForMonth_kwota),
+                    text = dochodyWTymMiesiacu,
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -169,7 +175,7 @@ fun RevenuesList() {
                     fontSize = 18.sp
                 )
                 Text(
-                    text = stringResource(id = R.string.remainingMoneyForMonthAll_kwota),
+                    text = planowaneDochodyWMiesiacuKwota,
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -201,6 +207,7 @@ fun RevenuesList() {
                 selectedIndex = -1
                 fileManager.appendToFile(newItem, context)
                 myItems = fileManager.readItemsFromFile(context)
+                dochodyWTymMiesiacu = counter.countRevenuesThisMonth().toString() + "zł"
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -217,6 +224,7 @@ fun RevenuesList() {
                 fileManager.deleteItemFromFile(context, selectedIndex)
                 selectedIndex = -1
                 myItems = fileManager.readItemsFromFile(context)
+                dochodyWTymMiesiacu = counter.countRevenuesThisMonth().toString() + "zł"
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

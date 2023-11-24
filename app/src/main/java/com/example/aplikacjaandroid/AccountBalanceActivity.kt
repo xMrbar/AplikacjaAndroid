@@ -78,10 +78,16 @@ fun AccountList()
     val modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
+
+    val counter = Counter(LocalContext.current)
+    var stanKonta by remember { mutableStateOf(counter.countActualBallance().toString() + "zł") }
+    var stanKontaNaKoniecMiesiaca by remember { mutableStateOf(counter.countEstaminatedBallance().toString() + "zł") }
+
     val fileManager = FileManager("accountBalance.txt")
     var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
     var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO") }
     //var newItem by remember { mutableStateOf("") }
+
     var selectedIndex by remember { mutableStateOf(-1) }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
@@ -166,7 +172,7 @@ fun AccountList()
                     fontSize = 18.sp
                 )
                 Text(
-                    text = stringResource(id = R.string.accountBalance_kwota),
+                    text = stanKonta,
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -178,7 +184,7 @@ fun AccountList()
                     fontSize = 18.sp
                 )
                 Text(
-                    text = stringResource(id = R.string.accountBalancePlanEnd_kwota),
+                    text = stanKontaNaKoniecMiesiaca,
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold

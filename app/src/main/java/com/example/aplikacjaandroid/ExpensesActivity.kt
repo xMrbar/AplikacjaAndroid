@@ -70,10 +70,18 @@ fun ExpensesList() {
     val modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
+
+    val counter = Counter(LocalContext.current)
+    var wydatkiWTymMiesiacu by remember { mutableStateOf(
+        (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
+    ) }
+    var planowaneWydatkiWMiesiacuKwota by remember { mutableStateOf(counter.countExpensesPlan().toString() + "zł") }
+
     val fileManager = FileManager("expenses.txt")
     var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO;") }
+    var newItem by remember { mutableStateOf("LAMBO;03.11.2023;100000;AUTO;") }
     //var newItem by remember { mutableStateOf("") }
+
     var selectedIndex by remember { mutableStateOf(-1) }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
@@ -91,7 +99,8 @@ fun ExpensesList() {
                     .border(
                         2.dp,
                         MaterialTheme.colorScheme.tertiary,
-                        shape = MaterialTheme.shapes.extraLarge),
+                        shape = MaterialTheme.shapes.extraLarge
+                    ),
                 onClick = {
                     val intentButtonPBA = Intent(context, RevenuesActivity::class.java)
                     context.startActivity(intentButtonPBA)
@@ -111,7 +120,8 @@ fun ExpensesList() {
                     .border(
                         2.dp,
                         MaterialTheme.colorScheme.tertiary,
-                        shape = MaterialTheme.shapes.extraLarge),
+                        shape = MaterialTheme.shapes.extraLarge
+                    ),
                 onClick = {
                     val intentButtonPBA = Intent(context, AccountBalanceActivity::class.java)
                     context.startActivity(intentButtonPBA)
@@ -155,7 +165,7 @@ fun ExpensesList() {
                     fontSize = 18.sp
                 )
                 Text(
-                    text = stringResource(id = R.string.remainingMoneyForMonth_kwota),
+                    text = wydatkiWTymMiesiacu,
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -167,7 +177,7 @@ fun ExpensesList() {
                     fontSize = 18.sp
                 )
                 Text(
-                    text = stringResource(id = R.string.remainingMoneyForMonthAll_kwota),
+                    text = planowaneWydatkiWMiesiacuKwota,
                     color = MaterialTheme.colorScheme.background,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -199,6 +209,8 @@ fun ExpensesList() {
                 selectedIndex = -1
                 fileManager.appendToFile(newItem, context)
                 myItems = fileManager.readItemsFromFile(context)
+                wydatkiWTymMiesiacu =
+                    (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -215,6 +227,8 @@ fun ExpensesList() {
                 fileManager.deleteItemFromFile(context, selectedIndex)
                 selectedIndex = -1
                 myItems = fileManager.readItemsFromFile(context)
+                wydatkiWTymMiesiacu =
+                    (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
