@@ -1,39 +1,45 @@
 package com.example.aplikacjaandroid
 
-import android.app.Activity
+import android.app.LauncherActivity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
+import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
+import com.example.aplikacjaandroid.buttonnarrow.Property1
+import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.listitem.ListItem
+import com.example.aplikacjaandroid.selectfield.SelectField
+import com.example.aplikacjaandroid.selectfield.Text
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
+import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
 
 class HistoryAnalysisActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,15 +59,113 @@ class HistoryAnalysisActivity : ComponentActivity() {
 }
 
 @Composable
+@Preview
 fun HistoryAnalysisView() {
     HistoryAnalysis(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center), LocalContext.current)
+        .fillMaxSize(), LocalContext.current)
 }
 
 @Composable
 fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
-    val localActivity = (LocalContext.current as? Activity)
+    //val localActivity = (LocalContext.current as? Activity)
+
+    val innerModifier: Modifier = Modifier
+        .padding(4.dp)
+        .fillMaxWidth()
+
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(16.dp), verticalArrangement = Arrangement.SpaceAround
+
+    ) {
+        LabelLarge(text = stringResource(id = R.string.button5Text))
+
+
+        SelectField(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Miesiąc",
+        )
+
+
+        Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .border(
+                    BorderStroke(
+                        1.dp,
+                        Color(ContextCompat.getColor(LocalContext.current, R.color.outline))
+                    ),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .clip(RoundedCornerShape(4.dp))
+                .padding(4.dp)
+
+        ) {
+
+            UnderlinedText(text = "Grudzień 2023", modifier = Modifier.fillMaxWidth())
+            Spacer(
+                modifier = Modifier
+                    .height(230.dp)
+                    .background(Color.Gray)
+            )
+        }
+
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .background(
+                    Color(ContextCompat.getColor(LocalContext.current, R.color.primary)),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .padding(5.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            com.example.aplikacjaandroid.selectfield.Text(text = "5988.19zł")
+            com.example.aplikacjaandroid.selectfield.Text(text = "WYDATKI")
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .background(
+                    Color(ContextCompat.getColor(LocalContext.current, R.color.primary)),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .padding(5.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            com.example.aplikacjaandroid.selectfield.Text(text = "7860.00zł")
+            com.example.aplikacjaandroid.selectfield.Text(text = "PRZYCHODY")
+
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            ButtonNarrow(
+                text = "Miesiąc",
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+                },
+                property1 = Property1.Variant2
+            )
+            ButtonNarrow(
+                text = "Rok",
+                onClick = {
+                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+                },
+            )
+        }
+    }
+}
+
+/**
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.button5Text),
             color = MaterialTheme.colorScheme.primary,
@@ -114,3 +218,4 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
         }
     }
 }
+       **/
