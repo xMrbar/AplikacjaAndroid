@@ -5,7 +5,7 @@ import java.math.BigDecimal
 import java.util.Calendar
 
 class Counter(private var context: Context) {
-    private val fileAccountBalanceManager = FileManager("accountBalance.txt")
+    //private val fileAccountBalanceManager = FileManager("accountBalance.txt")
     private val fileExpensesManager = FileManager("expenses.txt")
     private val fileExpensesPlanManager = FileManager("expensesPlan.txt")
     private val fileRevenuesManager = FileManager("revenues.txt")

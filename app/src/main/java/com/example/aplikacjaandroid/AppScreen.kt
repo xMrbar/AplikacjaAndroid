@@ -15,7 +15,6 @@ import com.example.aplikacjaandroid.ui.AccountScreen
 import com.example.aplikacjaandroid.ui.ChangePasswordScreen
 import com.example.aplikacjaandroid.ui.CreateAccountScreen
 import com.example.aplikacjaandroid.ui.ExpensesPlanScreen
-import com.example.aplikacjaandroid.ui.ExpensesPlanView
 import com.example.aplikacjaandroid.ui.ExpensesScreen
 import com.example.aplikacjaandroid.ui.MainMenuScreen
 import com.example.aplikacjaandroid.ui.RevenuesPlanScreen

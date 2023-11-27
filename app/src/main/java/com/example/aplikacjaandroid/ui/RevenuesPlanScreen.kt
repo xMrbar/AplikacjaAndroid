@@ -1,34 +1,24 @@
 package com.example.aplikacjaandroid.ui
 
-import android.app.Activity
-import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -37,10 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.aplikacjaandroid.Counter
-import com.example.aplikacjaandroid.FileManager
 import com.example.aplikacjaandroid.R
-import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 
 @Composable
 @Preview
@@ -51,19 +38,12 @@ fun RevenuesPlanView(){
 
 @Composable
 fun RevenuesPlanScreen(modifier : Modifier,
-                       onExpensesPlanButtonClickedHandler: () -> Unit)
+                       onExpensesPlanButtonClickedHandler: () -> Unit,
+                       revenuesPlanViewModel: RevenuesPlanViewModel = RevenuesPlanViewModel(LocalContext.current))
 {
-    val context = LocalContext.current
-
-    val counter = Counter(LocalContext.current)
-    var planowaneDochodyWMiesiacuKwota by remember { mutableStateOf(counter.countRevenuesPlan().toString() + "zł") }
-
-    val fileManager = FileManager("revenuesPlan.txt")
-    var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO;CO MIESIĄC;102001.11;AUTO") }
-    //var newItem by remember { mutableStateOf("") }
-
-    var selectedIndex by remember { mutableStateOf(-1) }
+    val planowaneDochodyWMiesiacuKwota by revenuesPlanViewModel.planowaneWydatkiWMiesiacuKwota.collectAsState()
+    val myItems1 by revenuesPlanViewModel.myItems.collectAsState()
+    val selectedIndex1 by revenuesPlanViewModel.selectedIndex.collectAsState()
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.PlanowanieBudzetu),
@@ -135,12 +115,12 @@ fun RevenuesPlanScreen(modifier : Modifier,
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            items(myItems.size) {index ->
+            items(myItems1.size) { index ->
                 ItemScroll(index = index,
-                    itemD = myItems[index],
-                    isSelected = index == selectedIndex,
+                    itemD = myItems1[index],
+                    isSelected = index == selectedIndex1,
                     onTaskClick = {
-                        selectedIndex = if (index == selectedIndex) -1 else index
+                        revenuesPlanViewModel.onClick(index)
                     }
                 )
             }
@@ -151,10 +131,7 @@ fun RevenuesPlanScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                selectedIndex = -1
-                fileManager.appendToFile(newItem, context)
-                myItems = fileManager.readItemsFromFile(context)
-                planowaneDochodyWMiesiacuKwota = counter.countRevenuesPlan().toString() + "zł"
+                revenuesPlanViewModel.add()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -167,10 +144,7 @@ fun RevenuesPlanScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                fileManager.deleteItemFromFile(context, selectedIndex)
-                selectedIndex = -1
-                myItems = fileManager.readItemsFromFile(context)
-                planowaneDochodyWMiesiacuKwota = counter.countRevenuesPlan().toString() + "zł"
+                revenuesPlanViewModel.delete()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
