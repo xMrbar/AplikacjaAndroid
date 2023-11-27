@@ -1,4 +1,4 @@
-package com.example.aplikacjaandroid
+package com.example.aplikacjaandroid.ui
 
 import android.content.Context
 import android.content.Intent
@@ -23,12 +23,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.aplikacjaandroid.R
+import com.example.aplikacjaandroid.avataricon.AvatarIcon
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
-import com.example.aplikacjaandroid.textinput.TextInput
+import com.example.aplikacjaandroid.textinputwithicon.TextInputWithIcon
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 
-class CreateAccountActivity : ComponentActivity() {
+class UserAccountActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,7 +40,7 @@ class CreateAccountActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CreateAccountView()
+                    UserAccountView()
                 }
             }
         }
@@ -47,77 +49,55 @@ class CreateAccountActivity : ComponentActivity() {
 
 @Composable
 @Preview
-fun CreateAccountView(){
-    CreateAccount(modifier = Modifier
+fun UserAccountView(){
+    UserAccount(modifier = Modifier
         .fillMaxSize(), LocalContext.current)
 }
 
 @Composable
-fun CreateAccount(modifier : Modifier = Modifier, context: Context){
+fun UserAccount(modifier : Modifier = Modifier, context: Context){
 
-    val inputModifier: Modifier = Modifier.padding(8.dp).fillMaxWidth()
+    val inputModifier: Modifier = Modifier.padding(8.dp)
 
     Column(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(16.dp)
 
     ) {
 
-        Column(modifier = Modifier
-            .padding(20.dp)
-            .fillMaxWidth()
+        Column(modifier = Modifier.padding(20.dp).fillMaxWidth()
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally) {
 
-            LabelLarge(text = stringResource(id = R.string.rejestracja))
+            LabelLarge(text = stringResource(id = R.string.twoje_konto))
+            AvatarIcon()
             Spacer(modifier = Modifier.height(40.dp))
-
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.imie),
+            TextInputWithIcon(modifier = inputModifier, title = stringResource(id = R.string.adres_email),
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
             )
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.nazwisko),
+            TextInputWithIcon(modifier = inputModifier, title = stringResource(id = R.string.imie),
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
             )
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.adres_email),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
-            )
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.haslo),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
-            )
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.powtorz_haslo),
+            TextInputWithIcon(modifier = inputModifier, title = stringResource(id = R.string.nazwisko),
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
             )
 
-
-        }
-
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        // button at the bottom
-        Column(
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.CenterHorizontally) {
+            Spacer(modifier = Modifier.height(30.dp))
             ButtonWide(
-                modifier = Modifier.padding(8.dp),
-                text = stringResource(id = R.string.utworz_konto),
+                modifier = inputModifier,
+                text = stringResource(id = R.string.zmien_haslo),
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
-                    val navigate = Intent(context, MainMenuActivity::class.java)
+                    val navigate = Intent(context, ChangePasswordActivity::class.java)
                     context.startActivity(navigate)
                 }
             )
-            Spacer(modifier = Modifier
-                .height(65.dp)
-                .padding(8.dp))
 
         }
+
     }
 }

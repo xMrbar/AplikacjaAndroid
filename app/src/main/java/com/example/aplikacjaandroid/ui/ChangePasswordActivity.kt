@@ -1,7 +1,6 @@
-package com.example.aplikacjaandroid
+package com.example.aplikacjaandroid.ui
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,14 +22,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.avataricon.AvatarIcon
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.textinput.TextInput
-import com.example.aplikacjaandroid.textinputwithicon.TextInputWithIcon
-import com.example.aplikacjaandroid.ui.theme.ui.theme.AplikacjaAndroidTheme
+import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 
-class UserAccountActivity : ComponentActivity() {
+class ChangePasswordActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -41,7 +39,7 @@ class UserAccountActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    UserAccountView()
+                    ChangePasswordView()
                 }
             }
         }
@@ -50,13 +48,13 @@ class UserAccountActivity : ComponentActivity() {
 
 @Composable
 @Preview
-fun UserAccountView(){
-    UserAccount(modifier = Modifier
+fun ChangePasswordView(){
+    ChangePassword(modifier = Modifier
         .fillMaxSize(), LocalContext.current)
 }
 
 @Composable
-fun UserAccount(modifier : Modifier = Modifier, context: Context){
+fun ChangePassword(modifier : Modifier = Modifier, context: Context){
 
     val inputModifier: Modifier = Modifier.padding(8.dp)
 
@@ -71,33 +69,30 @@ fun UserAccount(modifier : Modifier = Modifier, context: Context){
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally) {
 
-            LabelLarge(text = stringResource(id = R.string.twoje_konto))
+            LabelLarge(text = stringResource(id = R.string.zmien_haslo))
             AvatarIcon()
             Spacer(modifier = Modifier.height(40.dp))
-            TextInputWithIcon(modifier = inputModifier, title = stringResource(id = R.string.adres_email),
+            TextInput(modifier = inputModifier, title = stringResource(id = R.string.obecne_haslo),
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
             )
-            TextInputWithIcon(modifier = inputModifier, title = stringResource(id = R.string.imie),
+            TextInput(modifier = inputModifier, title = stringResource(id = R.string.nowe_haslo),
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
             )
-            TextInputWithIcon(modifier = inputModifier, title = stringResource(id = R.string.nazwisko),
+            TextInput(modifier = inputModifier, title = stringResource(id = R.string.powtorz_nowe_haslo),
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show() }
             )
-
             Spacer(modifier = Modifier.height(30.dp))
             ButtonWide(
                 modifier = inputModifier,
-                text = stringResource(id = R.string.zmien_haslo),
+                text = stringResource(id = R.string.zatwierdz),
                 onClick = {
                     Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
-                    val navigate = Intent(context, ChangePasswordActivity::class.java)
-                    context.startActivity(navigate)
+
                 }
             )
-
         }
 
     }
