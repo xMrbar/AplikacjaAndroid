@@ -27,12 +27,15 @@ import com.example.aplikacjaandroid.textinput.TextInput
 @Composable
 @Preview
 fun SignInPreview(){
-    SignInScreen(modifier = Modifier
-        .fillMaxSize())
+    SignInScreen(modifier = Modifier.fillMaxSize(),
+        onSignInButtonClickedHandler = {}
+        )
 }
 
 @Composable
-fun SignInScreen(modifier : Modifier = Modifier){
+fun SignInScreen(modifier : Modifier = Modifier,
+                 onSignInButtonClickedHandler: () -> Unit
+                 ){
 
     val inputModifier: Modifier = Modifier.padding(8.dp)
 
@@ -67,7 +70,7 @@ fun SignInScreen(modifier : Modifier = Modifier){
             ButtonWide(
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.zaloguj),
-                onClick = {}
+                onClick = onSignInButtonClickedHandler
             )
             Spacer(modifier = Modifier
                 .height(65.dp)

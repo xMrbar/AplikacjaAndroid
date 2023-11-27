@@ -27,12 +27,15 @@ import com.example.aplikacjaandroid.textinput.TextInput
 @Composable
 @Preview
 fun CreateAccountPreview(){
-    CreateAccountScreen(modifier = Modifier
-        .fillMaxSize())
+    CreateAccountScreen(modifier = Modifier.fillMaxSize(),
+        onCreateAccountButtonClickedHandler = {}
+    )
 }
 
 @Composable
-fun CreateAccountScreen(modifier : Modifier = Modifier){
+fun CreateAccountScreen(modifier : Modifier = Modifier,
+                        onCreateAccountButtonClickedHandler: () -> Unit
+                        ){
 
     val inputModifier: Modifier = Modifier.padding(8.dp).fillMaxWidth()
 
@@ -82,7 +85,7 @@ fun CreateAccountScreen(modifier : Modifier = Modifier){
             ButtonWide(
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.utworz_konto),
-                onClick = {}
+                onClick = onCreateAccountButtonClickedHandler
             )
             Spacer(modifier = Modifier
                 .height(65.dp)

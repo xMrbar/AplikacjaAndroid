@@ -1,10 +1,6 @@
 package com.example.aplikacjaandroid.ui
 
-import android.content.Context
-import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,8 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,35 +31,19 @@ import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.listitem.ListItem
 import com.example.aplikacjaandroid.selectfield.SelectField
 import com.example.aplikacjaandroid.selectfield.Text
-import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
 
-class StatisticsActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AplikacjaAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    StatisticsView()
-                }
-            }
-        }
-    }
-}
+
 
 @Composable
 @Preview
-fun StatisticsView(){
-    Statistics(modifier = Modifier
-        .fillMaxSize(), LocalContext.current)
+fun StatisticsPreview(){
+    StatisticsScreen(modifier = Modifier
+        .fillMaxSize())
 }
 
 @Composable
-fun Statistics(modifier : Modifier = Modifier, context: Context){
+fun StatisticsScreen(modifier : Modifier = Modifier){
 
     val innerModifier: Modifier = Modifier
         .padding(4.dp)
@@ -140,16 +118,12 @@ fun Statistics(modifier : Modifier = Modifier, context: Context){
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){
             ButtonNarrow(
                 text = stringResource(id = R.string.wydatek),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
-                },
+                onClick = {},
                 property1 = Property1.Variant2
             )
             ButtonNarrow(
                 text = stringResource(id = R.string.przychod),
-                onClick = {
-                    Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
-                },
+                onClick = {},
             )
         }
 
