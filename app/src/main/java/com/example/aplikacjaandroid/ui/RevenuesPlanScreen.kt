@@ -1,7 +1,6 @@
-package com.example.aplikacjaandroid
+package com.example.aplikacjaandroid.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -35,41 +34,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.aplikacjaandroid.Counter
+import com.example.aplikacjaandroid.FileManager
+import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.FileWriter
-import java.io.IOException
-import java.io.InputStreamReader
 
-class RevenuesPlanActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AplikacjaAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    RevenuesPlanList()
-                }
-            }
-        }
-    }
+@Composable
+@Preview
+fun RevenuesPlanView(){
+    RevenuesPlanScreen(modifier = Modifier.fillMaxWidth(),
+        onExpensesPlanButtonClickedHandler = { })
 }
 
 @Composable
-fun RevenuesPlanList() {
+fun RevenuesPlanScreen(modifier : Modifier,
+                       onExpensesPlanButtonClickedHandler: () -> Unit)
+{
     val context = LocalContext.current
-    val localActivity = (LocalContext.current as? Activity)
-    val modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center)
 
     val counter = Counter(LocalContext.current)
     var planowaneDochodyWMiesiacuKwota by remember { mutableStateOf(counter.countRevenuesPlan().toString() + "zł") }
@@ -112,11 +96,7 @@ fun RevenuesPlanList() {
                         MaterialTheme.colorScheme.tertiary,
                         shape = MaterialTheme.shapes.extraLarge
                     ),
-                onClick = {
-                    val intentButtonPBA = Intent(context, ExpensesPlanActivity::class.java)
-                    context.startActivity(intentButtonPBA)
-                    localActivity?.finish()
-                },
+                onClick = onExpensesPlanButtonClickedHandler,
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {
                 Text(

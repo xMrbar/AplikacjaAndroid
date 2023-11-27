@@ -1,11 +1,8 @@
-package com.example.aplikacjaandroid
+package com.example.aplikacjaandroid.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -23,7 +20,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -41,43 +37,28 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.aplikacjaandroid.Counter
+import com.example.aplikacjaandroid.FileManager
+import com.example.aplikacjaandroid.ItemData
+import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
-import com.google.relay.compose.ColumnScopeInstanceImpl.weight
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.FileWriter
-import java.io.IOException
-import java.io.InputStreamReader
-
-class AccountBalanceActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AplikacjaAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    AccountList()
-                }
-            }
-        }
-    }
-}
 
 @Composable
-fun AccountList()
+@Preview
+fun AccountView(){
+    AccountScreen(modifier = Modifier.fillMaxWidth(),
+        onRevenuesButtonClickedHandler = { },
+        onExpensesButtonClickedHandler = { })
+}
+@Composable
+fun AccountScreen(modifier : Modifier,
+                  onRevenuesButtonClickedHandler: () -> Unit,
+                  onExpensesButtonClickedHandler: () -> Unit)
 {
     val context = LocalContext.current
-    val localActivity = (LocalContext.current as? Activity)
-    val modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center)
 
     val counter = Counter(LocalContext.current)
     var stanKonta by remember { mutableStateOf(counter.countActualBallance().toString() + "zł") }
@@ -108,11 +89,7 @@ fun AccountList()
                         MaterialTheme.colorScheme.tertiary,
                         shape = MaterialTheme.shapes.extraLarge
                     ),
-                onClick = {
-                    val intentButtonPBA = Intent(context, RevenuesActivity::class.java)
-                    context.startActivity(intentButtonPBA)
-                    localActivity?.finish()
-                },
+                onClick = onRevenuesButtonClickedHandler,
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {
                 Text(
@@ -143,11 +120,7 @@ fun AccountList()
                         MaterialTheme.colorScheme.tertiary,
                         shape = MaterialTheme.shapes.extraLarge
                     ),
-                onClick = {
-                    val intentButtonPBA = Intent(context, ExpensesActivity::class.java)
-                    context.startActivity(intentButtonPBA)
-                    localActivity?.finish()
-                },
+                onClick = onExpensesButtonClickedHandler,
                 colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
             ) {
                 Text(

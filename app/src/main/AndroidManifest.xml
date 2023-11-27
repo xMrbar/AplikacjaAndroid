@@ -29,34 +29,9 @@
             android:label="@string/title_activity_history_analysis"
             android:theme="@style/Theme.AplikacjaAndroid" />
         <activity
-            android:name=".ExpensesActivity"
-            android:exported="false"
-            android:label="@string/title_activity_expenses"
-            android:theme="@style/Theme.AplikacjaAndroid" />
-        <activity
             android:name=".ui.AddNewIncomeExpenseActivity"
             android:exported="false"
             android:label="@string/title_activity_add_new_income_expense"
-            android:theme="@style/Theme.AplikacjaAndroid" />
-        <activity
-            android:name=".RevenuesActivity"
-            android:exported="false"
-            android:label="@string/title_activity_revenues"
-            android:theme="@style/Theme.AplikacjaAndroid" />
-        <activity
-            android:name=".AccountBalanceActivity"
-            android:exported="false"
-            android:label="@string/title_activity_account_balance"
-            android:theme="@style/Theme.AplikacjaAndroid" />
-        <activity
-            android:name=".ExpensesPlanActivity"
-            android:exported="false"
-            android:label="@string/title_activity_expenses_plan"
-            android:theme="@style/Theme.AplikacjaAndroid" />
-        <activity
-            android:name=".RevenuesPlanActivity"
-            android:exported="false"
-            android:label="@string/title_activity_revenues_plan"
             android:theme="@style/Theme.AplikacjaAndroid" />
 
 
