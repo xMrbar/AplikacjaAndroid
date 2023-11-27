@@ -72,5 +72,6 @@
     <string name="miesiac">MIESIĄC</string>
     <string name="rok">ROK</string>
     <string name="title_activity_expenses">ExpensesActivity</string>
+    <string name="title_activity_app_screen">AppScreen</string>
 
 </resources>

@@ -2,18 +2,13 @@ package com.example.aplikacjaandroid.ui
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,37 +21,21 @@ import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.labelsmall.LabelSmall
 import com.example.aplikacjaandroid.piggyicon.PiggyIcon
-import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AplikacjaAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    WelcomeView()
-
-
-
-                }
-            }
-        }
-    }
-}
 
 @Composable
 @Preview
 fun WelcomeView(){
-    Welcome(modifier = Modifier.fillMaxWidth()
-        .fillMaxHeight(), LocalContext.current)
+    WelcomeScreen(modifier = Modifier.fillMaxWidth(),
+        onSignInButtonClickedHandler = {},
+        onCreateAccountButtonClickedHandler = {})
 }
 
 
 @Composable
-fun Welcome(modifier : Modifier = Modifier, context: Context){
+fun WelcomeScreen(modifier : Modifier = Modifier,
+                  onSignInButtonClickedHandler: () -> Unit,
+                  onCreateAccountButtonClickedHandler: () -> Unit,
+                  ){
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -81,16 +60,12 @@ fun Welcome(modifier : Modifier = Modifier, context: Context){
             ButtonWide(
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.zaloguj),
-                onClick = {
-                    val navigate = Intent(context, SignInActivity::class.java)
-                    context.startActivity(navigate) }
+                onClick = onSignInButtonClickedHandler
             )
             ButtonWide(
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.utworz_konto),
-                onClick = {
-                    val navigate = Intent(context, CreateAccountActivity::class.java)
-                    context.startActivity(navigate) }
+                onClick = onCreateAccountButtonClickedHandler
             )
         }
     }
