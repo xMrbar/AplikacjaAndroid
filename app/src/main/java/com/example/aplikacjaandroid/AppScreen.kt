@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -77,8 +76,7 @@ fun App(navController: NavHostController = rememberNavController()){
                 onBudgetPlanButtonClickedHandler = {navController.navigate((AppScreen.RevenuesPlan.name))},
                 onStatisticsButtonClickedHandler = {navController.navigate((AppScreen.Statistics.name))},
                 onHistoryAnalysisButtonClickedHandler = {navController.navigate((AppScreen.HistoryAnalysis.name))},
-                onUserAccountButtonClickedHandler = {navController.navigate((AppScreen.UserAccount.name))},
-                onLogOutButtonClickedHandler = {navigateToWelcome(navController)}
+                onUserAccountButtonClickedHandler = {navController.navigate((AppScreen.UserAccount.name))}
             )
         }
 
@@ -119,9 +117,6 @@ fun App(navController: NavHostController = rememberNavController()){
 
     }
 
-}
 
-private fun navigateToWelcome(navController: NavController){
-    navController.popBackStack(AppScreen.Welcome.name, inclusive = false)
 }
 
