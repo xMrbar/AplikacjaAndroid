@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -28,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,6 +43,7 @@ import com.example.aplikacjaandroid.selectfield.SelectField
 import com.example.aplikacjaandroid.selectfield.Text
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
+import androidx.compose.foundation.Image
 
 class HistoryAnalysisActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,8 +112,14 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
             UnderlinedText(text = "Grudzień 2023", modifier = Modifier.fillMaxWidth())
             Spacer(
                 modifier = Modifier
-                    .height(230.dp)
+                    .height(0.dp)
                     .background(Color.Gray)
+            )
+            Image(
+                painter = painterResource(R.drawable.month_plot),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(300.dp)
             )
         }
 
