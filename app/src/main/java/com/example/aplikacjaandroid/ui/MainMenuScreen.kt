@@ -34,6 +34,7 @@ fun MainMenuView() {
         onStatisticsButtonClickedHandler = {},
         onHistoryAnalysisButtonClickedHandler = {},
         onUserAccountButtonClickedHandler = {},
+        onLogOutButtonClickedHandler = {}
         )
 }
 
@@ -43,7 +44,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
                    onBudgetPlanButtonClickedHandler: () -> Unit,
                    onStatisticsButtonClickedHandler: ()-> Unit,
                    onHistoryAnalysisButtonClickedHandler: () -> Unit,
-                   onUserAccountButtonClickedHandler: () -> Unit
+                   onUserAccountButtonClickedHandler: () -> Unit,
+                   onLogOutButtonClickedHandler: () -> Unit
                    ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.menu),
@@ -102,7 +104,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
-            onClick = {}) {
+            onClick = onLogOutButtonClickedHandler
+        ) {
             Text(stringResource(R.string.wyloguj))
         }
     }
