@@ -1,4 +1,4 @@
-package com.example.aplikacjaandroid
+package com.example.aplikacjaandroid.ui
 
 import android.content.Context
 import android.content.Intent
@@ -23,6 +23,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.aplikacjaandroid.AccountBalanceActivity
+import com.example.aplikacjaandroid.HistoryAnalysisActivity
+import com.example.aplikacjaandroid.R
+import com.example.aplikacjaandroid.RevenuesPlanActivity
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import java.io.File
 
