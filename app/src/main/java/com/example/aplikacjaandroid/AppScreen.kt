@@ -33,7 +33,11 @@ enum class AppScreen() {
     MainMenu,
     Statistics,
     UserAccount,
-    ChangePassword
+    ChangePassword,
+    HistoryAnalysis,
+    AccountBalance,
+    RevenuesPlan
+
 }
 
 
@@ -68,7 +72,10 @@ fun App(navController: NavHostController = rememberNavController()){
 
         composable( route = AppScreen.MainMenu.name){
             MainMenuScreen(modifier = Modifier.fillMaxSize(),
+                onAccountBalanceButtonClickedHandler = {navController.navigate((AppScreen.AccountBalance.name))},
+                onBudgetPlanButtonClickedHandler = {navController.navigate((AppScreen.RevenuesPlan.name))},
                 onStatisticsButtonClickedHandler = {navController.navigate((AppScreen.Statistics.name))},
+                onHistoryAnalysisButtonClickedHandler = {navController.navigate((AppScreen.HistoryAnalysis.name))},
                 onUserAccountButtonClickedHandler = {navController.navigate((AppScreen.UserAccount.name))}
             )
         }
@@ -85,6 +92,27 @@ fun App(navController: NavHostController = rememberNavController()){
 
         composable( route = AppScreen.ChangePassword.name){
             ChangePasswordScreen(modifier = Modifier.fillMaxSize())
+        }
+
+        //---------------------------------------------------------------------------
+        // Not decoupled yet, still activities
+
+        composable( route = AppScreen.HistoryAnalysis.name){
+            val context = LocalContext.current
+            HistoryAnalysis(modifier = Modifier.fillMaxSize(), context)
+        }
+
+        composable( route = AppScreen.HistoryAnalysis.name){
+            val context = LocalContext.current
+            HistoryAnalysis(modifier = Modifier.fillMaxSize(), context)
+        }
+
+        composable( route = AppScreen.AccountBalance.name){
+            AccountList()
+        }
+
+        composable( route = AppScreen.RevenuesPlan.name){
+            RevenuesPlanList()
         }
 
     }

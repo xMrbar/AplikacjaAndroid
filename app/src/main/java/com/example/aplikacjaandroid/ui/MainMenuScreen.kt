@@ -29,14 +29,20 @@ fun MainMenuView() {
     val context = LocalContext.current
     CreateFile(context = context)
     MainMenuScreen(modifier = Modifier.fillMaxSize(),
+        onAccountBalanceButtonClickedHandler = {},
+        onBudgetPlanButtonClickedHandler = {},
         onStatisticsButtonClickedHandler = {},
-        onUserAccountButtonClickedHandler = {}
+        onHistoryAnalysisButtonClickedHandler = {},
+        onUserAccountButtonClickedHandler = {},
         )
 }
 
 @Composable
 fun MainMenuScreen(modifier : Modifier = Modifier,
+                   onAccountBalanceButtonClickedHandler: () ->  Unit,
+                   onBudgetPlanButtonClickedHandler: () -> Unit,
                    onStatisticsButtonClickedHandler: ()-> Unit,
+                   onHistoryAnalysisButtonClickedHandler: () -> Unit,
                    onUserAccountButtonClickedHandler: () -> Unit
                    ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
@@ -50,7 +56,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
-            onClick = {}) {
+            onClick = onAccountBalanceButtonClickedHandler
+        ) {
             Text(stringResource(R.string.button1Text))
         }
         Spacer(modifier = Modifier.height(30.dp))
@@ -58,7 +65,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
-            onClick = {}) {
+            onClick = onBudgetPlanButtonClickedHandler
+        ) {
             Text(stringResource(R.string.button2Text))
         }
         Spacer(modifier = Modifier.height(30.dp))
@@ -76,7 +84,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
-            onClick = {}) {
+            onClick = onHistoryAnalysisButtonClickedHandler
+        ) {
             Text(stringResource(R.string.button5Text))
         }
         Spacer(modifier = Modifier.height(30.dp))
