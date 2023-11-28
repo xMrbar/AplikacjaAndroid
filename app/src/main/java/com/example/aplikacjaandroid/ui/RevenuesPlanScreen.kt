@@ -41,7 +41,7 @@ fun RevenuesPlanScreen(modifier : Modifier,
                        onExpensesPlanButtonClickedHandler: () -> Unit,
                        revenuesPlanViewModel: RevenuesPlanViewModel = RevenuesPlanViewModel(LocalContext.current))
 {
-    val planowaneDochodyWMiesiacuKwota by revenuesPlanViewModel.planowaneWydatkiWMiesiacuKwota.collectAsState()
+    val planowaneDochodyWMiesiacuKwota by revenuesPlanViewModel.planowaneDochodyWMiesiacuKwota.collectAsState()
     val myItems1 by revenuesPlanViewModel.myItems.collectAsState()
     val selectedIndex1 by revenuesPlanViewModel.selectedIndex.collectAsState()
 

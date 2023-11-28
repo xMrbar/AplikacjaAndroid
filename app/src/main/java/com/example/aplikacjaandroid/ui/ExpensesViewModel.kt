@@ -14,13 +14,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 
-class RevenuesPlanViewModel(private val context: Context): ViewModel() {
+class ExpensesViewModel(private val context: Context): ViewModel() {
     private val counter: Counter = Counter(context)
-    private val fileManager = FileManager("revenuesPlan.txt")
+    private val fileManager = FileManager("expenses.txt")
 
-    val planowaneDochodyWMiesiacuKwota = MutableStateFlow(counter.countRevenuesPlan().toString() + "zł")
+    val wydatkiWTymMiesiacu = MutableStateFlow((counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł")
+    val planowaneWydatkiWMiesiacu = MutableStateFlow(counter.countExpensesPlan().toString() + "zł")
+
     val myItems = MutableStateFlow(fileManager.readItemsFromFile(context))
-    val newItem = MutableStateFlow("LAMBO;CO MIESIĄC;100000;AUTO")
+    val newItem = MutableStateFlow("LAMBO;03.11.2023;100000;AUTO")
     //var newItem by remember { mutableStateOf("") }
 
     val selectedIndex = MutableStateFlow(-1)
@@ -30,7 +32,8 @@ class RevenuesPlanViewModel(private val context: Context): ViewModel() {
         selectedIndex.value = -1
         fileManager.appendToFile(newItem.value, context)
         myItems.value = fileManager.readItemsFromFile(context)
-        planowaneDochodyWMiesiacuKwota.value = counter.countRevenuesPlan().toString() + "zł"
+        wydatkiWTymMiesiacu.value =
+            (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
     }
 
     fun delete()
@@ -38,7 +41,8 @@ class RevenuesPlanViewModel(private val context: Context): ViewModel() {
         fileManager.deleteItemFromFile(context, selectedIndex.value)
         selectedIndex.value = -1
         myItems.value = fileManager.readItemsFromFile(context)
-        planowaneDochodyWMiesiacuKwota.value = counter.countRevenuesPlan().toString() + "zł"
+        wydatkiWTymMiesiacu.value =
+            (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
     }
 
     fun onClick(index: Int)

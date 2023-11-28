@@ -27,7 +27,6 @@ import java.io.File
 @Preview
 fun MainMenuView() {
     val context = LocalContext.current
-    CreateFile(context = context)
     MainMenuScreen(modifier = Modifier.fillMaxSize(),
         onAccountBalanceButtonClickedHandler = {},
         onBudgetPlanButtonClickedHandler = {},

@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.aplikacjaandroid.ui.AccountScreen
 import com.example.aplikacjaandroid.ui.ChangePasswordScreen
 import com.example.aplikacjaandroid.ui.CreateAccountScreen
+import com.example.aplikacjaandroid.ui.CreateFile
 import com.example.aplikacjaandroid.ui.ExpensesPlanScreen
 import com.example.aplikacjaandroid.ui.ExpensesScreen
 import com.example.aplikacjaandroid.ui.MainMenuScreen
@@ -71,6 +72,7 @@ fun App(navController: NavHostController = rememberNavController()){
         }
 
         composable( route = AppScreen.MainMenu.name){
+            CreateFile(LocalContext.current)
             MainMenuScreen(modifier = Modifier.fillMaxSize(),
                 onAccountBalanceButtonClickedHandler = {navController.navigate((AppScreen.AccountBalance.name))},
                 onBudgetPlanButtonClickedHandler = {navController.navigate((AppScreen.RevenuesPlan.name))},

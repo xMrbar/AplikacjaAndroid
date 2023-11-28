@@ -14,13 +14,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 
-class RevenuesPlanViewModel(private val context: Context): ViewModel() {
+class AccountBalanceViewModel(private val context: Context): ViewModel() {
     private val counter: Counter = Counter(context)
-    private val fileManager = FileManager("revenuesPlan.txt")
+    private val fileManager = FileManager("accountBalance.txt")
 
-    val planowaneDochodyWMiesiacuKwota = MutableStateFlow(counter.countRevenuesPlan().toString() + "zł")
+    val stanKonta = MutableStateFlow(counter.countActualBallance().toString() + "zł")
+    val stanKontaNaKoniecMiesiaca = MutableStateFlow(counter.countEstaminatedBallance().toString() + "zł")
     val myItems = MutableStateFlow(fileManager.readItemsFromFile(context))
-    val newItem = MutableStateFlow("LAMBO;CO MIESIĄC;100000;AUTO")
+    val newItem = MutableStateFlow("LAMBO;03.11.2023;100000;AUTO")
     //var newItem by remember { mutableStateOf("") }
 
     val selectedIndex = MutableStateFlow(-1)
@@ -30,7 +31,6 @@ class RevenuesPlanViewModel(private val context: Context): ViewModel() {
         selectedIndex.value = -1
         fileManager.appendToFile(newItem.value, context)
         myItems.value = fileManager.readItemsFromFile(context)
-        planowaneDochodyWMiesiacuKwota.value = counter.countRevenuesPlan().toString() + "zł"
     }
 
     fun delete()
@@ -38,12 +38,10 @@ class RevenuesPlanViewModel(private val context: Context): ViewModel() {
         fileManager.deleteItemFromFile(context, selectedIndex.value)
         selectedIndex.value = -1
         myItems.value = fileManager.readItemsFromFile(context)
-        planowaneDochodyWMiesiacuKwota.value = counter.countRevenuesPlan().toString() + "zł"
     }
 
     fun onClick(index: Int)
     {
-        selectedIndex.value =
-            if (index == selectedIndex.value) -1 else index
+        selectedIndex.value = if (index == selectedIndex.value) -1 else index
     }
 }

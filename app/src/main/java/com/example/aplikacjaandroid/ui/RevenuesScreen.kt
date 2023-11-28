@@ -22,6 +22,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,20 +50,14 @@ fun RevenuesView(){
 @Composable
 fun RevenuesScreen(modifier : Modifier,
                  onAccountBalanceButtonClickedHandler: () -> Unit,
-                 onExpensesButtonClickedHandler: () -> Unit)
+                 onExpensesButtonClickedHandler: () -> Unit,
+                   revenuesViewModel: RevenuesViewModel = RevenuesViewModel(LocalContext.current)
+)
 {
-    val context = LocalContext.current
-
-    val counter = Counter(LocalContext.current)
-    var dochodyWTymMiesiacu by remember { mutableStateOf(counter.countRevenuesThisMonth().toString() + "zł") }
-    val planowaneDochodyWMiesiacuKwota by remember { mutableStateOf(counter.countRevenuesPlan().toString() + "zł") }
-
-    val fileManager = FileManager("revenues.txt")
-    var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    val newItem by remember { mutableStateOf("LAMBO;03.11.2023;100000;AUTO") }
-    //var newItem by remember { mutableStateOf("") }
-
-    var selectedIndex by remember { mutableStateOf(-1) }
+    val dochodyWTymMiesiacu by revenuesViewModel.dochodyWTymMiesiacu.collectAsState()
+    val planowaneDochodyWMiesiacuKwota by revenuesViewModel.planowaneDochodyWMiesiacuKwota.collectAsState()
+    val myItems by revenuesViewModel.myItems.collectAsState()
+    val selectedIndex by revenuesViewModel.selectedIndex.collectAsState()
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.przegladPrzychodow),
@@ -165,7 +160,7 @@ fun RevenuesScreen(modifier : Modifier,
                     itemD = myItems[index],
                     isSelected = index == selectedIndex,
                     onTaskClick = {
-                        selectedIndex = if (index == selectedIndex) -1 else index
+                        revenuesViewModel.onClick(index)
                     }
                 )
             }
@@ -176,10 +171,7 @@ fun RevenuesScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                selectedIndex = -1
-                fileManager.appendToFile(newItem, context)
-                myItems = fileManager.readItemsFromFile(context)
-                dochodyWTymMiesiacu = counter.countRevenuesThisMonth().toString() + "zł"
+                revenuesViewModel.add()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -193,10 +185,7 @@ fun RevenuesScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                fileManager.deleteItemFromFile(context, selectedIndex)
-                selectedIndex = -1
-                myItems = fileManager.readItemsFromFile(context)
-                dochodyWTymMiesiacu = counter.countRevenuesThisMonth().toString() + "zł"
+                revenuesViewModel.delete()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

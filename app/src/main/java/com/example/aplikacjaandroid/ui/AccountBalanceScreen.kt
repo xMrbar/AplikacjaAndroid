@@ -27,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,20 +57,14 @@ fun AccountView(){
 @Composable
 fun AccountScreen(modifier : Modifier,
                   onRevenuesButtonClickedHandler: () -> Unit,
-                  onExpensesButtonClickedHandler: () -> Unit)
+                  onExpensesButtonClickedHandler: () -> Unit,
+                  accountBalanceViewModel: AccountBalanceViewModel = AccountBalanceViewModel(LocalContext.current))
 {
-    val context = LocalContext.current
+    val stanKonta by accountBalanceViewModel.stanKonta.collectAsState()
+    val stanKontaNaKoniecMiesiaca by accountBalanceViewModel.stanKontaNaKoniecMiesiaca.collectAsState()
+    val myItems by accountBalanceViewModel.myItems.collectAsState()
+    val selectedIndex by accountBalanceViewModel.selectedIndex.collectAsState()
 
-    val counter = Counter(LocalContext.current)
-    var stanKonta by remember { mutableStateOf(counter.countActualBallance().toString() + "zł") }
-    var stanKontaNaKoniecMiesiaca by remember { mutableStateOf(counter.countEstaminatedBallance().toString() + "zł") }
-
-    val fileManager = FileManager("accountBalance.txt")
-    var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO;03.10.2023;100000;AUTO") }
-    //var newItem by remember { mutableStateOf("") }
-
-    var selectedIndex by remember { mutableStateOf(-1) }
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(
@@ -175,7 +170,7 @@ fun AccountScreen(modifier : Modifier,
                     itemD = myItems[index],
                     isSelected = index == selectedIndex,
                     onTaskClick = {
-                        selectedIndex = if (index == selectedIndex) -1 else index
+                        accountBalanceViewModel.onClick(index)
                     }
                 )
             }
@@ -186,9 +181,7 @@ fun AccountScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                selectedIndex = -1
-                fileManager.appendToFile(newItem, context)
-                myItems = fileManager.readItemsFromFile(context)
+                accountBalanceViewModel.add()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -201,9 +194,7 @@ fun AccountScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                fileManager.deleteItemFromFile(context, selectedIndex)
-                selectedIndex = -1
-                myItems = fileManager.readItemsFromFile(context)
+                accountBalanceViewModel.delete()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

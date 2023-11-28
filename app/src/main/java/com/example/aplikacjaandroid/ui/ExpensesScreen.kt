@@ -25,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,22 +54,14 @@ fun ExpensesView(){
 @Composable
 fun ExpensesScreen(modifier : Modifier,
                    onAccountBalanceButtonClickedHandler: () -> Unit,
-                   onRevenuesButtonClickedHandler: () -> Unit)
+                   onRevenuesButtonClickedHandler: () -> Unit,
+                   expensesViewModel: ExpensesViewModel = ExpensesViewModel(LocalContext.current)
+)
 {
-    val context = LocalContext.current
-
-    val counter = Counter(LocalContext.current)
-    var wydatkiWTymMiesiacu by remember { mutableStateOf(
-        (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
-    ) }
-    var planowaneWydatkiWMiesiacuKwota by remember { mutableStateOf(counter.countExpensesPlan().toString() + "zł") }
-
-    val fileManager = FileManager("expenses.txt")
-    var myItems by remember { mutableStateOf(fileManager.readItemsFromFile(context)) }
-    var newItem by remember { mutableStateOf("LAMBO;03.11.2023;100000;AUTO") }
-    //var newItem by remember { mutableStateOf("") }
-
-    var selectedIndex by remember { mutableStateOf(-1) }
+    val wydatkiWTymMiesiacu by expensesViewModel.wydatkiWTymMiesiacu.collectAsState()
+    val planowaneWydatkiWMiesiacuKwota by expensesViewModel.planowaneWydatkiWMiesiacu.collectAsState()
+    val myItems by expensesViewModel.myItems.collectAsState()
+    val selectedIndex by expensesViewModel.selectedIndex.collectAsState()
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.przegladWydatkow),
@@ -173,7 +166,7 @@ fun ExpensesScreen(modifier : Modifier,
                     itemD = myItems[index],
                     isSelected = index == selectedIndex,
                     onTaskClick = {
-                        selectedIndex = if (index == selectedIndex) -1 else index
+                        expensesViewModel.onClick(index)
                     }
                 )
             }
@@ -184,11 +177,7 @@ fun ExpensesScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                selectedIndex = -1
-                fileManager.appendToFile(newItem, context)
-                myItems = fileManager.readItemsFromFile(context)
-                wydatkiWTymMiesiacu =
-                    (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
+                expensesViewModel.add()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
@@ -202,11 +191,7 @@ fun ExpensesScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                fileManager.deleteItemFromFile(context, selectedIndex)
-                selectedIndex = -1
-                myItems = fileManager.readItemsFromFile(context)
-                wydatkiWTymMiesiacu =
-                    (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
+                expensesViewModel.delete()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

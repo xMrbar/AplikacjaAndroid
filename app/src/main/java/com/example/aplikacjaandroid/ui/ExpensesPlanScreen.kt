@@ -54,7 +54,7 @@ fun ExpensesPlanScreen(modifier : Modifier,
     val myItems by expensesPlanViewModel.myItems.collectAsState()
     val selectedIndex by expensesPlanViewModel.selectedIndex.collectAsState()
 
-        Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.PlanowanieBudzetu),
             color = MaterialTheme.colorScheme.primary,
             fontSize = 30.sp,
