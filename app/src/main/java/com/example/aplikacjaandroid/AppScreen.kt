@@ -12,6 +12,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.aplikacjaandroid.ui.AccountScreen
+import com.example.aplikacjaandroid.ui.AddExpensePlanScreen
+import com.example.aplikacjaandroid.ui.AddRevenuePlanScreen
 import com.example.aplikacjaandroid.ui.ChangePasswordScreen
 import com.example.aplikacjaandroid.ui.CreateAccountScreen
 import com.example.aplikacjaandroid.ui.CreateFile
@@ -38,7 +40,11 @@ enum class AppScreen() {
     Revenues,
     Expenses,
     RevenuesPlan,
-    ExpensesPlan
+    ExpensesPlan,
+    AddNewExpense,
+    AddNewRevenue,
+    AddNewExpensePlan,
+    AddNewRevenuePlan
 }
 
 
@@ -126,14 +132,28 @@ fun App(navController: NavHostController = rememberNavController()){
             RevenuesPlanScreen(modifier = Modifier
                 .fillMaxSize()
                 .wrapContentSize(Alignment.Center),
-                onExpensesPlanButtonClickedHandler = { navigateDirectTo(navController, AppScreen.ExpensesPlan) })
+                onExpensesPlanButtonClickedHandler = { navigateDirectTo(navController, AppScreen.ExpensesPlan) },
+                onAddRevenuesPlanAddButtonClieckedHandler = { navController.navigate((AppScreen.AddNewRevenuePlan.name)) })
         }
 
         composable( route = AppScreen.ExpensesPlan.name){
             ExpensesPlanScreen(modifier = Modifier
                 .fillMaxSize()
                 .wrapContentSize(Alignment.Center),
-                onRevenuesPlanButtonClickedHandler = { navigateDirectTo(navController, AppScreen.RevenuesPlan) })
+                onRevenuesPlanButtonClickedHandler = { navigateDirectTo(navController, AppScreen.RevenuesPlan) },
+                onAddExpensesPlanAddButtonClieckedHandler = { navController.navigate((AppScreen.AddNewExpensePlan.name)) })
+        }
+
+        composable( route = AppScreen.AddNewExpensePlan.name){
+            AddExpensePlanScreen(modifier = Modifier
+                .fillMaxSize(),
+                onRevenuesAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewRevenuePlan) })
+        }
+
+        composable( route = AppScreen.AddNewRevenuePlan.name){
+            AddRevenuePlanScreen(modifier = Modifier
+                .fillMaxSize(),
+                onExpenseAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewExpensePlan) })
         }
 
         //---------------------------------------------------------------------------

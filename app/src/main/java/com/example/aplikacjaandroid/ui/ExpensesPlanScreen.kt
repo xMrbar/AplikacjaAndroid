@@ -41,6 +41,7 @@ import com.example.aplikacjaandroid.R
 @Preview
 fun ExpensesPlanView(){
     ExpensesPlanScreen(modifier = Modifier.fillMaxWidth(),
+        onAddExpensesPlanAddButtonClieckedHandler = { },
         onRevenuesPlanButtonClickedHandler = { })
 }
 
@@ -48,6 +49,7 @@ fun ExpensesPlanView(){
 @Composable
 fun ExpensesPlanScreen(modifier : Modifier,
                        onRevenuesPlanButtonClickedHandler: () -> Unit,
+                       onAddExpensesPlanAddButtonClieckedHandler: () -> Unit,
                        expensesPlanViewModel: ExpensesPlanViewModel = ExpensesPlanViewModel(LocalContext.current))
 {
     val planowaneWydatkiWMiesiacuKwota by expensesPlanViewModel.planowaneWydatkiWMiesiacuKwota.collectAsState()
@@ -138,7 +140,10 @@ fun ExpensesPlanScreen(modifier : Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
-            onClick = { expensesPlanViewModel.add() },
+            onClick = {
+                expensesPlanViewModel.resetIndex()
+                onAddExpensesPlanAddButtonClieckedHandler()
+            },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
             Text(stringResource(R.string.dodaj),

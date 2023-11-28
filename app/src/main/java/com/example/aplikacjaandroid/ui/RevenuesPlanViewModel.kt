@@ -20,18 +20,16 @@ class RevenuesPlanViewModel(private val context: Context): ViewModel() {
 
     val planowaneDochodyWMiesiacuKwota = MutableStateFlow(counter.countRevenuesPlan().toString() + "zł")
     val myItems = MutableStateFlow(fileManager.readItemsFromFile(context))
-    val newItem = MutableStateFlow("LAMBO;CO MIESIĄC;100000;AUTO")
-    //var newItem by remember { mutableStateOf("") }
 
     val selectedIndex = MutableStateFlow(-1)
 
-    fun add()
+    /*fun add()
     {
         selectedIndex.value = -1
         fileManager.appendToFile(newItem.value, context)
         myItems.value = fileManager.readItemsFromFile(context)
         planowaneDochodyWMiesiacuKwota.value = counter.countRevenuesPlan().toString() + "zł"
-    }
+    }*/
 
     fun delete()
     {
@@ -45,5 +43,10 @@ class RevenuesPlanViewModel(private val context: Context): ViewModel() {
     {
         selectedIndex.value =
             if (index == selectedIndex.value) -1 else index
+    }
+
+    fun resetIndex()
+    {
+        selectedIndex.value = -1
     }
 }

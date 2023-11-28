@@ -85,11 +85,26 @@ class FileManager {
         try {
             val outputStream = FileOutputStream(file)
             for(item in items) {
+                val type = if (item.imageResource == 0) {
+                    "CAR"
+                } else if(item.imageResource == 1) {
+                    "ELECTRICITY"
+                } else if(item.imageResource == 2) {
+                    "INCOME"
+                } else if(item.imageResource == 3) {
+                    "TRAVEL"
+                } else if(item.imageResource == 4) {
+                    "HOME"
+                } else if(item.imageResource == 5) {
+                    "CLOTHES"
+                } else {
+                    "AUTO"
+                }
                 outputStream.write((
                         item.text + ";"
                         + item.date + ";"
                         + item.amount.toString() + ";"
-                        + item.imageResource.toString() + "\n"
+                        + type + "\n"
                         ).toByteArray())
             }
             outputStream.close()
