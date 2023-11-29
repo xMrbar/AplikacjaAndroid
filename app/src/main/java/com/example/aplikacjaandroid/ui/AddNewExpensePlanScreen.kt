@@ -36,14 +36,14 @@ import com.example.aplikacjaandroid.textinput.TextInput
 
 @Composable
 @Preview
-fun AddNewExpenseView(){
-    AddExpensePlanScreen(modifier = Modifier
+fun AddNewExpensePlanView(){
+    AddNewExpensePlanScreen(modifier = Modifier
         .fillMaxSize(),
         onRevenuesAddButtonClickedHandler = { })
 }
 
 @Composable
-fun AddExpensePlanScreen(modifier : Modifier = Modifier,
+fun AddNewExpensePlanScreen(modifier : Modifier = Modifier,
                          addNewExpensePlanViewModel: AddNewExpensePlanViewModel
                                 = AddNewExpensePlanViewModel(LocalContext.current),
                          onRevenuesAddButtonClickedHandler: () -> Unit

@@ -44,13 +44,15 @@ import com.example.aplikacjaandroid.R
 fun RevenuesView(){
     RevenuesScreen(modifier = Modifier.fillMaxWidth(),
         onAccountBalanceButtonClickedHandler = { },
-        onExpensesButtonClickedHandler = { })
+        onExpensesButtonClickedHandler = { },
+        onAddNewRevenueButtonClickedHandler = { })
 }
 
 @Composable
 fun RevenuesScreen(modifier : Modifier,
                  onAccountBalanceButtonClickedHandler: () -> Unit,
                  onExpensesButtonClickedHandler: () -> Unit,
+                   onAddNewRevenueButtonClickedHandler: () -> Unit,
                    revenuesViewModel: RevenuesViewModel = RevenuesViewModel(LocalContext.current)
 )
 {
@@ -171,7 +173,8 @@ fun RevenuesScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                revenuesViewModel.add()
+                revenuesViewModel.resetIndex()
+                onAddNewRevenueButtonClickedHandler()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

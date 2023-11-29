@@ -36,17 +36,19 @@ import com.example.aplikacjaandroid.textinput.TextInput
 
 @Composable
 @Preview
-fun AddNewRevenuePlanView(){
-    AddNewRevenuePlanScreen(modifier = Modifier
+fun AddNewRevenueView(){
+    AddNewRevenueScreen(modifier = Modifier
         .fillMaxSize(),
-        onExpenseAddButtonClickedHandler = { })
+        onExpensesAddButtonClickedHandler = { },
+        onOutPlanAddButtonClickedHandler = { })
 }
 
 @Composable
-fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
+fun AddNewRevenueScreen(modifier : Modifier = Modifier,
                          addNewRevenuePlanViewModel: AddNewRevenuePlanViewModel
                                 = AddNewRevenuePlanViewModel(LocalContext.current),
-                         onExpenseAddButtonClickedHandler: () -> Unit
+                        onExpensesAddButtonClickedHandler: () -> Unit,
+                        onOutPlanAddButtonClickedHandler: () -> Unit
 ){
     val selectCzestoscPlatnosci by addNewRevenuePlanViewModel.selectedOption1.collectAsState()
     val kategoria by addNewRevenuePlanViewModel.selectedOption2.collectAsState()
@@ -66,15 +68,28 @@ fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically){
             ButtonNarrow(
-                text = stringResource(id = R.string.wydatek),
-                onClick = onExpenseAddButtonClickedHandler,
-                property1 = Property1.Variant2
-            )
-            ButtonNarrow(
+                modifier = Modifier
+                    .width(120.dp),
                 text = stringResource(id = R.string.przychod),
                 onClick = {
 
                 }
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            ButtonNarrow(
+                modifier = Modifier
+                    .width(120.dp),
+                text = stringResource(id = R.string.stanKonta),
+                onClick = onOutPlanAddButtonClickedHandler,
+                property1 = Property1.Variant2
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            ButtonNarrow(
+                modifier = Modifier
+                    .width(120.dp),
+                text = stringResource(id = R.string.wydatek),
+                onClick = onExpensesAddButtonClickedHandler,
+                property1 = Property1.Variant2
             )
         }
 

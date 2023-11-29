@@ -52,12 +52,14 @@ import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 fun AccountView(){
     AccountScreen(modifier = Modifier.fillMaxWidth(),
         onRevenuesButtonClickedHandler = { },
-        onExpensesButtonClickedHandler = { })
+        onExpensesButtonClickedHandler = { },
+        onAddNewOutPlanButtonClickedHandler = { })
 }
 @Composable
 fun AccountScreen(modifier : Modifier,
                   onRevenuesButtonClickedHandler: () -> Unit,
                   onExpensesButtonClickedHandler: () -> Unit,
+                  onAddNewOutPlanButtonClickedHandler: () -> Unit,
                   accountBalanceViewModel: AccountBalanceViewModel = AccountBalanceViewModel(LocalContext.current))
 {
     val stanKonta by accountBalanceViewModel.stanKonta.collectAsState()
@@ -181,7 +183,8 @@ fun AccountScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                accountBalanceViewModel.add()
+                accountBalanceViewModel.resetIndex()
+                onAddNewOutPlanButtonClickedHandler()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

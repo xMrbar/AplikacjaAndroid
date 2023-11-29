@@ -48,13 +48,15 @@ import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 fun ExpensesView(){
     ExpensesScreen(modifier = Modifier.fillMaxWidth(),
         onAccountBalanceButtonClickedHandler = { },
-        onRevenuesButtonClickedHandler = { })
+        onRevenuesButtonClickedHandler = { },
+        onAddNewExpenseButtonClickedHandler = { })
 }
 
 @Composable
 fun ExpensesScreen(modifier : Modifier,
                    onAccountBalanceButtonClickedHandler: () -> Unit,
                    onRevenuesButtonClickedHandler: () -> Unit,
+                   onAddNewExpenseButtonClickedHandler: () -> Unit,
                    expensesViewModel: ExpensesViewModel = ExpensesViewModel(LocalContext.current)
 )
 {
@@ -177,7 +179,8 @@ fun ExpensesScreen(modifier : Modifier,
                 .width(350.dp)
                 .height(50.dp),
             onClick = {
-                expensesViewModel.add()
+                expensesViewModel.resetIndex()
+                onAddNewExpenseButtonClickedHandler()
             },
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {

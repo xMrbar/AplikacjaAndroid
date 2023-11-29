@@ -36,22 +36,24 @@ import com.example.aplikacjaandroid.textinput.TextInput
 
 @Composable
 @Preview
-fun AddNewRevenuePlanView(){
-    AddNewRevenuePlanScreen(modifier = Modifier
+fun AddNewExpenseView(){
+    AddNewExpenseScreen(modifier = Modifier
         .fillMaxSize(),
-        onExpenseAddButtonClickedHandler = { })
+        onRevenuesAddButtonClickedHandler = { },
+        onOutPlanAddButtonClickedHandler = { })
 }
 
 @Composable
-fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
-                         addNewRevenuePlanViewModel: AddNewRevenuePlanViewModel
-                                = AddNewRevenuePlanViewModel(LocalContext.current),
-                         onExpenseAddButtonClickedHandler: () -> Unit
+fun AddNewExpenseScreen(modifier : Modifier = Modifier,
+                         addNewExpenseViewModel: AddNewExpenseViewModel
+                                = AddNewExpenseViewModel(LocalContext.current),
+                         onRevenuesAddButtonClickedHandler: () -> Unit,
+                         onOutPlanAddButtonClickedHandler: () -> Unit
 ){
-    val selectCzestoscPlatnosci by addNewRevenuePlanViewModel.selectedOption1.collectAsState()
-    val kategoria by addNewRevenuePlanViewModel.selectedOption2.collectAsState()
-    val tytul by addNewRevenuePlanViewModel.tytul.collectAsState()
-    val kwota by addNewRevenuePlanViewModel.kwota.collectAsState()
+    val selectCzestoscPlatnosci by addNewExpenseViewModel.selectedOption1.collectAsState()
+    val kategoria by addNewExpenseViewModel.selectedOption2.collectAsState()
+    val tytul by addNewExpenseViewModel.tytul.collectAsState()
+    val kwota by addNewExpenseViewModel.kwota.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -66,12 +68,25 @@ fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically){
             ButtonNarrow(
-                text = stringResource(id = R.string.wydatek),
-                onClick = onExpenseAddButtonClickedHandler,
+                modifier = Modifier
+                    .width(120.dp),
+                text = stringResource(id = R.string.przychod),
+                onClick = onRevenuesAddButtonClickedHandler,
                 property1 = Property1.Variant2
             )
+            Spacer(modifier = Modifier.width(5.dp))
             ButtonNarrow(
-                text = stringResource(id = R.string.przychod),
+                modifier = Modifier
+                    .width(120.dp),
+                text = stringResource(id = R.string.stanKonta),
+                onClick = onOutPlanAddButtonClickedHandler,
+                property1 = Property1.Variant2
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            ButtonNarrow(
+                modifier = Modifier
+                    .width(120.dp),
+                text = stringResource(id = R.string.wydatek),
                 onClick = {
 
                 }
@@ -84,13 +99,13 @@ fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally)
         {
-            addNewRevenuePlanViewModel.textGet("Tytuł")
+            addNewExpenseViewModel.textGet("Tytuł")
             Spacer(modifier = Modifier.height(30.dp))
-            addNewRevenuePlanViewModel.dateSelect()
+            addNewExpenseViewModel.dateSelect()
             Spacer(modifier = Modifier.height(20.dp))
-            addNewRevenuePlanViewModel.amountGet(title = "Kwota")
+            addNewExpenseViewModel.amountGet(title = "Kwota")
             Spacer(modifier = Modifier.height(30.dp))
-            addNewRevenuePlanViewModel.categorySelect()
+            addNewExpenseViewModel.categorySelect()
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -98,9 +113,8 @@ fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.dodaj),
             onClick = {
-                //Toast.makeText(context, "SPRADŹ WPROWADZONE PARAMETRY", Toast.LENGTH_LONG).show()
-                //Log.d("T1", tytul + ";" + selectCzestoscPlatnosci + ";" + kwota + ";" + kategoria)
-                addNewRevenuePlanViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
+                //Log.d("T", tytul + ";" + selectCzestoscPlatnosci + ";" + kwota + ";" + kategoria)
+                addNewExpenseViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
             }
         )
     }

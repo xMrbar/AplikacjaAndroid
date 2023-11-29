@@ -21,17 +21,15 @@ class AccountBalanceViewModel(private val context: Context): ViewModel() {
     val stanKonta = MutableStateFlow(counter.countActualBallance().toString() + "zł")
     val stanKontaNaKoniecMiesiaca = MutableStateFlow(counter.countEstaminatedBallance().toString() + "zł")
     val myItems = MutableStateFlow(fileManager.readItemsFromFile(context))
-    val newItem = MutableStateFlow("LAMBO;03.11.2023;100000;AUTO")
-    //var newItem by remember { mutableStateOf("") }
 
     val selectedIndex = MutableStateFlow(-1)
 
-    fun add()
+    /*fun add()
     {
         selectedIndex.value = -1
         fileManager.appendToFile(newItem.value, context)
         myItems.value = fileManager.readItemsFromFile(context)
-    }
+    }*/
 
     fun delete()
     {
@@ -43,5 +41,10 @@ class AccountBalanceViewModel(private val context: Context): ViewModel() {
     fun onClick(index: Int)
     {
         selectedIndex.value = if (index == selectedIndex.value) -1 else index
+    }
+
+    fun resetIndex()
+    {
+        selectedIndex.value = -1
     }
 }
