@@ -45,15 +45,15 @@ fun AddNewOutPlanView(){
 
 @Composable
 fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
-                         addNewExpensePlanViewModel: AddNewExpensePlanViewModel
-                                = AddNewExpensePlanViewModel(LocalContext.current),
+                         addNewOutPlanViewModel: AddNewOutPlanViewModel
+                                = AddNewOutPlanViewModel(LocalContext.current),
                          onRevenuesAddButtonClickedHandler: () -> Unit,
                          onExpensesAddButtonClickedHandler: () -> Unit
 ){
-    val selectCzestoscPlatnosci by addNewExpensePlanViewModel.selectedOption1.collectAsState()
-    val kategoria by addNewExpensePlanViewModel.selectedOption2.collectAsState()
-    val tytul by addNewExpensePlanViewModel.tytul.collectAsState()
-    val kwota by addNewExpensePlanViewModel.kwota.collectAsState()
+    val selectCzestoscPlatnosci by addNewOutPlanViewModel.selectedOption1.collectAsState()
+    val kategoria by addNewOutPlanViewModel.selectedOption2.collectAsState()
+    val tytul by addNewOutPlanViewModel.tytul.collectAsState()
+    val kwota by addNewOutPlanViewModel.kwota.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -97,13 +97,13 @@ fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally)
         {
-            addNewExpensePlanViewModel.textGet("Tytuł")
+            addNewOutPlanViewModel.textGet("Tytuł")
             Spacer(modifier = Modifier.height(30.dp))
-            addNewExpensePlanViewModel.dateSelect()
+            addNewOutPlanViewModel.dateSelect()
             Spacer(modifier = Modifier.height(20.dp))
-            addNewExpensePlanViewModel.amountGet(title = "Kwota")
+            addNewOutPlanViewModel.amountGet(title = "Kwota")
             Spacer(modifier = Modifier.height(30.dp))
-            addNewExpensePlanViewModel.categorySelect()
+            addNewOutPlanViewModel.categorySelect()
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -112,7 +112,7 @@ fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
             text = stringResource(id = R.string.dodaj),
             onClick = {
                 //Log.d("T", tytul + ";" + selectCzestoscPlatnosci + ";" + kwota + ";" + kategoria)
-                addNewExpensePlanViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
+                addNewOutPlanViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
             }
         )
     }

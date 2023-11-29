@@ -45,15 +45,15 @@ fun AddNewRevenueView(){
 
 @Composable
 fun AddNewRevenueScreen(modifier : Modifier = Modifier,
-                         addNewRevenuePlanViewModel: AddNewRevenuePlanViewModel
-                                = AddNewRevenuePlanViewModel(LocalContext.current),
+                         addNewRevenueViewModel: AddNewRevenueViewModel
+                                = AddNewRevenueViewModel(LocalContext.current),
                         onExpensesAddButtonClickedHandler: () -> Unit,
                         onOutPlanAddButtonClickedHandler: () -> Unit
 ){
-    val selectCzestoscPlatnosci by addNewRevenuePlanViewModel.selectedOption1.collectAsState()
-    val kategoria by addNewRevenuePlanViewModel.selectedOption2.collectAsState()
-    val tytul by addNewRevenuePlanViewModel.tytul.collectAsState()
-    val kwota by addNewRevenuePlanViewModel.kwota.collectAsState()
+    val selectCzestoscPlatnosci by addNewRevenueViewModel.selectedOption1.collectAsState()
+    val kategoria by addNewRevenueViewModel.selectedOption2.collectAsState()
+    val tytul by addNewRevenueViewModel.tytul.collectAsState()
+    val kwota by addNewRevenueViewModel.kwota.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -99,13 +99,13 @@ fun AddNewRevenueScreen(modifier : Modifier = Modifier,
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally)
         {
-            addNewRevenuePlanViewModel.textGet("Tytuł")
+            addNewRevenueViewModel.textGet("Tytuł")
             Spacer(modifier = Modifier.height(30.dp))
-            addNewRevenuePlanViewModel.dateSelect()
+            addNewRevenueViewModel.dateSelect()
             Spacer(modifier = Modifier.height(20.dp))
-            addNewRevenuePlanViewModel.amountGet(title = "Kwota")
+            addNewRevenueViewModel.amountGet(title = "Kwota")
             Spacer(modifier = Modifier.height(30.dp))
-            addNewRevenuePlanViewModel.categorySelect()
+            addNewRevenueViewModel.categorySelect()
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -115,7 +115,7 @@ fun AddNewRevenueScreen(modifier : Modifier = Modifier,
             onClick = {
                 //Toast.makeText(context, "SPRADŹ WPROWADZONE PARAMETRY", Toast.LENGTH_LONG).show()
                 //Log.d("T1", tytul + ";" + selectCzestoscPlatnosci + ";" + kwota + ";" + kategoria)
-                addNewRevenuePlanViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
+                addNewRevenueViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
             }
         )
     }

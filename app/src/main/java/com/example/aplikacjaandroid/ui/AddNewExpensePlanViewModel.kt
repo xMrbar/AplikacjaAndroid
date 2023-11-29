@@ -77,7 +77,7 @@ class AddNewExpensePlanViewModel(private val context: Context): ViewModel() {
     @Composable
     fun textGet(title: String)
     {
-        InputText(title = title, tytul = tytul)
+        InputText(title = title, tytul = tytul, 21)
     }
 
     @Composable

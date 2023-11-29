@@ -54,7 +54,7 @@ import java.math.BigDecimal
 
 
 class AddNewOutPlanViewModel(private val context: Context): ViewModel() {
-    val selectedOption1 = MutableStateFlow("Częstość płatności")
+    val selectedOption1 = MutableStateFlow("")
     val selectedOption2 = MutableStateFlow("Kategoria")
     val tytul = MutableStateFlow("")
     val kwota = MutableStateFlow(BigDecimal("0.00"))
@@ -63,7 +63,7 @@ class AddNewOutPlanViewModel(private val context: Context): ViewModel() {
     @Composable
     fun dateSelect()
     {
-
+        myCalendar("Data", selectedOption1)
     }
 
     @Composable
@@ -76,7 +76,7 @@ class AddNewOutPlanViewModel(private val context: Context): ViewModel() {
     @Composable
     fun textGet(title: String)
     {
-        InputText(title = title, tytul = tytul)
+        InputText(title = title, tytul = tytul, 21)
     }
 
     @Composable
@@ -87,7 +87,7 @@ class AddNewOutPlanViewModel(private val context: Context): ViewModel() {
 
     fun appendToFile(tytul1: String, selectCzestoscPlatnosci: String, kwota1: BigDecimal, kategoria: String):Boolean
     {
-        if (tytul1.isEmpty() || selectCzestoscPlatnosci.equals("Częstość płatności") ||
+        if (tytul1.isEmpty() || selectCzestoscPlatnosci.isEmpty() ||
             kategoria.equals("Kategoria") || kwota1.toDouble() <= 0)
         {
             return false

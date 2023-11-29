@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +25,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -54,16 +58,17 @@ import java.math.BigDecimal
 
 
 class AddNewExpenseViewModel(private val context: Context): ViewModel() {
-    val selectedOption1 = MutableStateFlow("Częstość płatności")
+    val selectedOption1 = MutableStateFlow("")
     val selectedOption2 = MutableStateFlow("Kategoria")
     val tytul = MutableStateFlow("")
     val kwota = MutableStateFlow(BigDecimal("0.00"))
     private val fileManager = FileManager("expenses.txt")
 
+
     @Composable
     fun dateSelect()
     {
-
+        myCalendar("Data", selectedOption1)
     }
 
     @Composable
@@ -76,7 +81,7 @@ class AddNewExpenseViewModel(private val context: Context): ViewModel() {
     @Composable
     fun textGet(title: String)
     {
-        InputText(title = title, tytul = tytul)
+        InputText(title = title, tytul = tytul, 21)
     }
 
     @Composable
@@ -87,7 +92,7 @@ class AddNewExpenseViewModel(private val context: Context): ViewModel() {
 
     fun appendToFile(tytul1: String, selectCzestoscPlatnosci: String, kwota1: BigDecimal, kategoria: String):Boolean
     {
-        if (tytul1.isEmpty() || selectCzestoscPlatnosci.equals("Częstość płatności") ||
+        if (tytul1.isEmpty() || selectCzestoscPlatnosci.isEmpty() ||
             kategoria.equals("Kategoria") || kwota1.toDouble() <= 0)
         {
             return false
