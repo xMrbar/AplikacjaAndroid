@@ -12,14 +12,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,6 +32,7 @@ import com.example.aplikacjaandroid.avataricon.AvatarIcon
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.textinput.TextInput
+import com.example.aplikacjaandroid.ui.components.CustomTextInput
 
 @Composable
 @Preview
@@ -40,12 +45,11 @@ fun SignInPreview(){
 @Composable
 fun SignInScreen(modifier : Modifier = Modifier,
                  onSignInButtonClickedHandler: () -> Unit,
-                 signInViewModel: SignInViewModel = viewModel()
+                 signInViewModel: SignInViewModel = viewModel(),
                  ) {
 
     val signInUiState by signInViewModel.uiState.collectAsState()
 
-    val inputModifier: Modifier = Modifier.padding(8.dp)
 
     Column(
         modifier = modifier
@@ -65,16 +69,19 @@ fun SignInScreen(modifier : Modifier = Modifier,
 
             LabelLarge(text = stringResource(id = R.string.zaloguj))
             AvatarIcon()
-            Spacer(modifier = Modifier.height(40.dp))
-            OutlinedTextField(value = signInUiState.userEmail,
-                singleLine = true,
-                onValueChange = { signInViewModel.updateUserEmail(it) }
+            Text(
+                text = signInUiState.communicat,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally).padding(8.dp),
+                color = colorResource(R.color.outline)
             )
-            OutlinedTextField(value = signInUiState.userPassword,
-                singleLine = true,
-                onValueChange = { signInViewModel.updateUserPassword(it) }
+            CustomTextInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.adres_email),
+                onClick = {}, onValueChanged = {signInViewModel.updateUserEmail(it) }, textContent = signInViewModel.userEmail
             )
-
+            Spacer(Modifier.height(10.dp))
+            CustomTextInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.haslo),
+                onClick = {}, onValueChanged = {signInViewModel.updateUserPassword(it) }, textContent = signInViewModel.userPassword
+            )
 
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -87,7 +94,13 @@ fun SignInScreen(modifier : Modifier = Modifier,
             ButtonWide(
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.zaloguj),
-                onClick = onSignInButtonClickedHandler
+                onClick = {
+
+                    if (signInViewModel.isUserInputValid()){
+                        onSignInButtonClickedHandler()
+                    }
+
+                }
             )
             Spacer(
                 modifier = Modifier

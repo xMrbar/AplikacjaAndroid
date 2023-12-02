@@ -75,5 +75,8 @@
     <string name="title_activity_expenses">ExpensesActivity</string>
     <string name="title_activity_app_screen">AppScreen</string>
     <string name="wyloguj">WYLOGUJ</string>
+    <string name="uzupelnij_wszystkie_pola">Wszystkie pola muszą być uzupełnione.</string>
+    <string name="uzytkownik_nie_istnieje">Użytkownik o podanej nazwie nie istnieje.</string>
+    <string name="blede_dane">Wprowadzono błędne dane.</string>
 
 </resources>
