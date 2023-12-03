@@ -102,7 +102,9 @@ fun CreateAccountScreen(modifier : Modifier = Modifier,
             ButtonWide(
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.utworz_konto),
-                onClick = onCreateAccountButtonClickedHandler
+                onClick = {if (createAccountViewModel.isUserInputValid())
+                    onCreateAccountButtonClickedHandler()
+                }
             )
             Spacer(modifier = Modifier
                 .height(65.dp)
