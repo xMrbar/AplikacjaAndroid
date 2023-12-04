@@ -46,8 +46,8 @@ fun UserAccountScreen(
         .padding(8.dp)
         .fillMaxWidth()
 
-    val createAccountUiState by userAccountViewModel.uiState.collectAsState()
-    userAccountViewModel.getUserDataFromDB()
+    val userAccountUiState by userAccountViewModel.uiState.collectAsState()
+    //userAccountViewModel.getUserDataFromDB()
 
     Column(
         modifier = modifier
@@ -66,15 +66,18 @@ fun UserAccountScreen(
             AvatarIcon()
             Spacer(modifier = Modifier.height(40.dp))
             CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.adres_email),
-                onClick = {}, onKeyboardDone = {}, textContent = userAccountViewModel.userEmail, onValueChanged = {}
+                onClick = {}, onKeyboardDone = { },
+                textContent = userAccountViewModel.userEmail, onValueChanged = {}
             )
             Spacer(Modifier.height(10.dp))
             CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.imie),
-                onClick = {}, onKeyboardDone = {}, textContent = userAccountViewModel.userName, onValueChanged = {}
+                onClick = {}, onKeyboardDone = {userAccountViewModel.updateUserNameDB()},
+                textContent = userAccountViewModel.userName, onValueChanged = {userAccountViewModel.updateUserName(it)}
             )
             Spacer(Modifier.height(10.dp))
             CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.nazwisko),
-                onClick = {}, onKeyboardDone = {}, textContent = userAccountViewModel.userLastName, onValueChanged = {}
+                onClick = {}, onKeyboardDone = {userAccountViewModel.updateUserLastameDB()},
+                textContent = userAccountViewModel.userLastName, onValueChanged = {userAccountViewModel.updateUserLastName(it)}
             )
 
 

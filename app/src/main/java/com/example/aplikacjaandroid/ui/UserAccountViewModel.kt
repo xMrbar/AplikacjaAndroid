@@ -1,5 +1,6 @@
 package com.example.aplikacjaandroid.ui
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -80,12 +81,57 @@ class UserAccountViewModel: ViewModel() {
                 Log.d("FirestoreData", "get failed with ", exception)
             }
 
+    }
 
 
+    @SuppressLint("SuspiciousIndentation")
+    fun updateUserNameDB(){
 
+        val user = auth.currentUser!!
+
+        userEmail = user.email.toString()
+        val userId = user.uid
+
+        val userDataDocRef = db.collection("users").document(userId)
+
+            userDataDocRef.update("name", _uiState.value.userName)
+            .addOnSuccessListener {
+                Log.d("FirestoreUpdate", "DocumentSnapshot successfully updated!")
+                updateState()
+            }
+
+            .addOnFailureListener {
+
+                    e -> Log.w("FirebaseUpdate", "Error updating document", e) }
 
 
     }
+
+
+    @SuppressLint("SuspiciousIndentation")
+    fun updateUserLastameDB(){
+
+        val user = auth.currentUser!!
+
+        userEmail = user.email.toString()
+        val userId = user.uid
+
+        val userDataDocRef = db.collection("users").document(userId)
+
+        userDataDocRef.update("lastname", _uiState.value.userLastName)
+            .addOnSuccessListener {
+                Log.d("FirestoreUpdate", "DocumentSnapshot successfully updated!")
+                updateState()
+            }
+
+            .addOnFailureListener {
+
+                    e -> Log.w("FirebaseUpdate", "Error updating document", e) }
+
+
+    }
+
+
 
 
 
