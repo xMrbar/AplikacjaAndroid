@@ -97,8 +97,7 @@ fun SignInScreen(modifier : Modifier = Modifier,
                 onClick = {
 
                     if (signInViewModel.isUserInputValid()){
-                        signInViewModel.signIn()
-                        onSignInButtonClickedHandler()
+                        signInViewModel.signIn( callback = onSignInButtonClickedHandler)
                     }
 
                 }
