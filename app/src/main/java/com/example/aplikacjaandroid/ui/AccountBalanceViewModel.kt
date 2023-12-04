@@ -24,13 +24,6 @@ class AccountBalanceViewModel(private val context: Context): ViewModel() {
 
     val selectedIndex = MutableStateFlow(-1)
 
-    /*fun add()
-    {
-        selectedIndex.value = -1
-        fileManager.appendToFile(newItem.value, context)
-        myItems.value = fileManager.readItemsFromFile(context)
-    }*/
-
     fun delete()
     {
         fileManager.deleteItemFromFile(context, selectedIndex.value)

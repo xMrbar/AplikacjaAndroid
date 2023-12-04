@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
@@ -33,6 +34,9 @@ import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.selectfield.SelectField
 import com.example.aplikacjaandroid.textinput.TextInput
+import com.example.aplikacjaandroid.ui.components.CustomTextInput
+import com.example.aplikacjaandroid.ui.components.InputCount
+import com.example.aplikacjaandroid.ui.components.MySelectBox
 
 @Composable
 @Preview
@@ -45,13 +49,9 @@ fun AddNewExpensePlanView(){
 @Composable
 fun AddNewExpensePlanScreen(modifier : Modifier = Modifier,
                          addNewExpensePlanViewModel: AddNewExpensePlanViewModel
-                                = AddNewExpensePlanViewModel(LocalContext.current),
+                                = viewModel(),
                          onRevenuesAddButtonClickedHandler: () -> Unit
 ){
-    val selectCzestoscPlatnosci by addNewExpensePlanViewModel.selectedOption1.collectAsState()
-    val kategoria by addNewExpensePlanViewModel.selectedOption2.collectAsState()
-    val tytul by addNewExpensePlanViewModel.tytul.collectAsState()
-    val kwota by addNewExpensePlanViewModel.kwota.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -84,13 +84,17 @@ fun AddNewExpensePlanScreen(modifier : Modifier = Modifier,
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally)
         {
-            addNewExpensePlanViewModel.textGet("Tytuł")
+            CustomTextInput(Modifier.padding(4.dp).fillMaxWidth(), "Tytuł", addNewExpensePlanViewModel.tytul, onClick = {},
+                onValueChanged = { addNewExpensePlanViewModel.updateTytul(it) })
             Spacer(modifier = Modifier.height(30.dp))
-            addNewExpensePlanViewModel.dateSelect()
+            MySelectBox(addNewExpensePlanViewModel.optionsDate, addNewExpensePlanViewModel.selectedOption1, onClick = { addNewExpensePlanViewModel.updateData(it) },
+                expanded = addNewExpensePlanViewModel.expanded, expandedChange = { addNewExpensePlanViewModel.updateExpanded(it)})
             Spacer(modifier = Modifier.height(20.dp))
-            addNewExpensePlanViewModel.amountGet(title = "Kwota")
+            InputCount(title="Kwota", tytul=addNewExpensePlanViewModel.kwota,
+                onValueChanged = { addNewExpensePlanViewModel.updateKwota(it) })
             Spacer(modifier = Modifier.height(30.dp))
-            addNewExpensePlanViewModel.categorySelect()
+            MySelectBox(addNewExpensePlanViewModel.optionsType, addNewExpensePlanViewModel.selectedOption2, onClick = { addNewExpensePlanViewModel.updateKategoria(it) },
+                expanded = addNewExpensePlanViewModel.expanded1, expandedChange = { addNewExpensePlanViewModel.updateExpanded1(it)})
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -98,8 +102,7 @@ fun AddNewExpensePlanScreen(modifier : Modifier = Modifier,
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.dodaj),
             onClick = {
-                //Log.d("T", tytul + ";" + selectCzestoscPlatnosci + ";" + kwota + ";" + kategoria)
-                addNewExpensePlanViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
+                addNewExpensePlanViewModel.appendToFile(context)
             }
         )
     }

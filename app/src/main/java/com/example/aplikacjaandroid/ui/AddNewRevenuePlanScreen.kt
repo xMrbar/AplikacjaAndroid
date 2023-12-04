@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
@@ -33,6 +34,9 @@ import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.selectfield.SelectField
 import com.example.aplikacjaandroid.textinput.TextInput
+import com.example.aplikacjaandroid.ui.components.CustomTextInput
+import com.example.aplikacjaandroid.ui.components.InputCount
+import com.example.aplikacjaandroid.ui.components.MySelectBox
 
 @Composable
 @Preview
@@ -45,13 +49,9 @@ fun AddNewRevenuePlanView(){
 @Composable
 fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
                          addNewRevenuePlanViewModel: AddNewRevenuePlanViewModel
-                                = AddNewRevenuePlanViewModel(LocalContext.current),
+                                = viewModel(),
                          onExpenseAddButtonClickedHandler: () -> Unit
 ){
-    val selectCzestoscPlatnosci by addNewRevenuePlanViewModel.selectedOption1.collectAsState()
-    val kategoria by addNewRevenuePlanViewModel.selectedOption2.collectAsState()
-    val tytul by addNewRevenuePlanViewModel.tytul.collectAsState()
-    val kwota by addNewRevenuePlanViewModel.kwota.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -84,13 +84,20 @@ fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally)
         {
-            addNewRevenuePlanViewModel.textGet("Tytuł")
+            CustomTextInput(
+                Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth(), "Tytuł", addNewRevenuePlanViewModel.tytul, onClick = {},
+                onValueChanged = { addNewRevenuePlanViewModel.updateTytul(it) })
             Spacer(modifier = Modifier.height(30.dp))
-            addNewRevenuePlanViewModel.dateSelect()
+            MySelectBox(addNewRevenuePlanViewModel.optionsDate, addNewRevenuePlanViewModel.selectedOption1, onClick = { addNewRevenuePlanViewModel.updateData(it) },
+                expanded = addNewRevenuePlanViewModel.expanded, expandedChange = { addNewRevenuePlanViewModel.updateExpanded(it)})
             Spacer(modifier = Modifier.height(20.dp))
-            addNewRevenuePlanViewModel.amountGet(title = "Kwota")
+            InputCount(title="Kwota", tytul=addNewRevenuePlanViewModel.kwota,
+                onValueChanged = { addNewRevenuePlanViewModel.updateKwota(it) })
             Spacer(modifier = Modifier.height(30.dp))
-            addNewRevenuePlanViewModel.categorySelect()
+            MySelectBox(addNewRevenuePlanViewModel.optionsType, addNewRevenuePlanViewModel.selectedOption2, onClick = { addNewRevenuePlanViewModel.updateKategoria(it) },
+                expanded = addNewRevenuePlanViewModel.expanded1, expandedChange = { addNewRevenuePlanViewModel.updateExpanded1(it)})
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -98,9 +105,7 @@ fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.dodaj),
             onClick = {
-                //Toast.makeText(context, "SPRADŹ WPROWADZONE PARAMETRY", Toast.LENGTH_LONG).show()
-                //Log.d("T1", tytul + ";" + selectCzestoscPlatnosci + ";" + kwota + ";" + kategoria)
-                addNewRevenuePlanViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
+                addNewRevenuePlanViewModel.appendToFile(context)
             }
         )
     }

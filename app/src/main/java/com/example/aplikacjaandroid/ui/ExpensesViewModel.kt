@@ -25,15 +25,6 @@ class ExpensesViewModel(private val context: Context): ViewModel() {
 
     val selectedIndex = MutableStateFlow(-1)
 
-    /*fun add()
-    {
-        selectedIndex.value = -1
-        fileManager.appendToFile(newItem.value, context)
-        myItems.value = fileManager.readItemsFromFile(context)
-        wydatkiWTymMiesiacu.value =
-            (counter.countExpensesPlan() - counter.countExpensesThisMonth()).toString() + "zł"
-    }*/
-
     fun delete()
     {
         fileManager.deleteItemFromFile(context, selectedIndex.value)

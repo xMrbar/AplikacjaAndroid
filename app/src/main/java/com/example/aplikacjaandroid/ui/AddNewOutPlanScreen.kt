@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
@@ -33,6 +35,10 @@ import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.selectfield.SelectField
 import com.example.aplikacjaandroid.textinput.TextInput
+import com.example.aplikacjaandroid.ui.components.CustomTextInput
+import com.example.aplikacjaandroid.ui.components.InputCount
+import com.example.aplikacjaandroid.ui.components.MyCalendar
+import com.example.aplikacjaandroid.ui.components.MySelectBox
 
 @Composable
 @Preview
@@ -43,17 +49,14 @@ fun AddNewOutPlanView(){
         onExpensesAddButtonClickedHandler = { })
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
                          addNewOutPlanViewModel: AddNewOutPlanViewModel
-                                = AddNewOutPlanViewModel(LocalContext.current),
+                                = viewModel(),
                          onRevenuesAddButtonClickedHandler: () -> Unit,
                          onExpensesAddButtonClickedHandler: () -> Unit
 ){
-    val selectCzestoscPlatnosci by addNewOutPlanViewModel.selectedOption1.collectAsState()
-    val kategoria by addNewOutPlanViewModel.selectedOption2.collectAsState()
-    val tytul by addNewOutPlanViewModel.tytul.collectAsState()
-    val kwota by addNewOutPlanViewModel.kwota.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -97,13 +100,21 @@ fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally)
         {
-            addNewOutPlanViewModel.textGet("Tytuł")
+            CustomTextInput(
+                Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth(), "Tytuł", addNewOutPlanViewModel.tytul, onClick = {},
+                onValueChanged = { addNewOutPlanViewModel.updateTytul(it) })
             Spacer(modifier = Modifier.height(30.dp))
-            addNewOutPlanViewModel.dateSelect()
+            MyCalendar(title="Data", text = addNewOutPlanViewModel.selectedOption1,
+                expanded = addNewOutPlanViewModel.expanded, expandedChange = { addNewOutPlanViewModel.updateExpanded(it)},
+                onChangeValue = {addNewOutPlanViewModel.updateData(it)})
             Spacer(modifier = Modifier.height(20.dp))
-            addNewOutPlanViewModel.amountGet(title = "Kwota")
+            InputCount(title="Kwota", tytul=addNewOutPlanViewModel.kwota,
+                onValueChanged = { addNewOutPlanViewModel.updateKwota(it) })
             Spacer(modifier = Modifier.height(30.dp))
-            addNewOutPlanViewModel.categorySelect()
+            MySelectBox(addNewOutPlanViewModel.optionsType, addNewOutPlanViewModel.selectedOption2, onClick = { addNewOutPlanViewModel.updateKategoria(it) },
+                expanded = addNewOutPlanViewModel.expanded1, expandedChange = { addNewOutPlanViewModel.updateExpanded1(it)})
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -111,8 +122,7 @@ fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.dodaj),
             onClick = {
-                //Log.d("T", tytul + ";" + selectCzestoscPlatnosci + ";" + kwota + ";" + kategoria)
-                addNewOutPlanViewModel.appendToFile(tytul, selectCzestoscPlatnosci, kwota, kategoria)
+                addNewOutPlanViewModel.appendToFile(context)
             }
         )
     }
