@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -103,7 +102,8 @@ class FinancialApp: Application(){
             }
 
             composable( route = AppScreen.UserAccount.name){
-                UserAccountScreen(modifier = Modifier.fillMaxSize(),
+                UserAccountScreen(
+                    modifier = Modifier.fillMaxSize(),
                     onChangePasswordButtonClickedHandler = {navController.navigate((AppScreen.ChangePassword.name))}
                 )
             }
