@@ -1,5 +1,6 @@
 package com.example.aplikacjaandroid.ui
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,6 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import android.util.Log
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 
 data class CreateAccountUIState(
     val userEmail: String = "",
@@ -22,6 +26,7 @@ class CreateAccountViewModel: ViewModel() {
 
     private val _uiState = MutableStateFlow(CreateAccountUIState())
     val uiState: StateFlow<CreateAccountUIState> = _uiState.asStateFlow()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     var userName by mutableStateOf("")
         private set
@@ -140,10 +145,17 @@ class CreateAccountViewModel: ViewModel() {
 
 
 
-    private fun createAccount(email: String, password: String, name: String, lastName: String ){
-
-        //TODO
+    fun createAccount(email: String, password: String){
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Konto zostało pomyślnie utworzone
+                    Log.d("FirebaseAuthManager", "Tworzenie konta: sukces")
+                } else {
+                    // Wystąpił błąd podczas tworzenia konta
+                    Log.w("FirebaseAuthManager", "Tworzenie konta: niepowodzenie", task.exception)
+                    updateCommunicat("Tworzenie konta: niepowodzenie")
+                }
+            }
     }
-
-
 }
