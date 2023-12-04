@@ -1,10 +1,14 @@
 package com.example.aplikacjaandroid.ui
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import com.example.aplikacjaandroid.R
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,6 +23,7 @@ data class LogInUIState(
 
 class SignInViewModel: ViewModel() {
 
+    val auth = FirebaseAuth.getInstance()
     private val _uiState = MutableStateFlow(LogInUIState())
     val uiState: StateFlow<LogInUIState> = _uiState.asStateFlow()
 
@@ -63,16 +68,24 @@ class SignInViewModel: ViewModel() {
 
     private fun userExists(): Boolean{
 
-        // check if user exists using FBAuth
-        return false
+       return true
+
     }
 
 
     fun signIn(){
 
-        //authentication logic
-        //TODO
+        val email: String = _uiState.value.userEmail
+        val password :String = _uiState.value.userPassword
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FirebaseAuthManager", "SignUp: success")
 
+                } else {
+                    Log.w("FirebaseAuthManager", "SignUp: failure", task.exception)
+                }
+            }
     }
 
 

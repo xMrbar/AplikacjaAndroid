@@ -184,9 +184,6 @@ class CreateAccountViewModel: ViewModel() {
                 Log.w("Error adding document", e)
             }
 
-
-
-
-
     }
+
 }
