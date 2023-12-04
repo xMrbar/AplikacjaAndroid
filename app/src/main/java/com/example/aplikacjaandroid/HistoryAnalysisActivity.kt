@@ -44,6 +44,14 @@ import com.example.aplikacjaandroid.selectfield.Text
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 class HistoryAnalysisActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +100,6 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
             text = "Miesiąc",
         )
 
-
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -110,6 +117,7 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
         ) {
 
             UnderlinedText(text = "Grudzień 2023", modifier = Modifier.fillMaxWidth())
+
             Spacer(
                 modifier = Modifier
                     .height(0.dp)
@@ -134,9 +142,10 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            com.example.aplikacjaandroid.selectfield.Text(text = "5988.19zł")
-            com.example.aplikacjaandroid.selectfield.Text(text = "WYDATKI")
+            androidx.compose.material3.Text(text = "5988.19zł", color = Color.Black)
+            /*com.example.aplikacjaandroid.selectfield.Text(text = "5988.19zł")*/
+            /*com.example.aplikacjaandroid.selectfield.Text(text = "WYDATKI")*/
+            androidx.compose.material3.Text(text = "WYDATKI", color = Color.Black)
         }
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -148,9 +157,11 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
+            /*
             com.example.aplikacjaandroid.selectfield.Text(text = "7860.00zł")
-            com.example.aplikacjaandroid.selectfield.Text(text = "PRZYCHODY")
+            com.example.aplikacjaandroid.selectfield.Text(text = "PRZYCHODY")*/
+            androidx.compose.material3.Text(text = "7860.00zł", color = Color.Black)
+            androidx.compose.material3.Text(text ="PRZYCHODY", color = Color.Black)
 
         }
 
@@ -174,7 +185,20 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
         }
     }
 }
-
+@Composable
+fun ScrollableColumnExample() {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState())
+    ) {
+        Text(text = "Privacy Policy  ")
+        Text(text = "Privacy Policy  ")
+        Text(text = "Privacy Policy  ")
+        Text(text = "Privacy Policy  ")
+        Text(text = "Privacy Policy  ")
+    }
+}
 /**
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.button5Text),
