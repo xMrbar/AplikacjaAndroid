@@ -11,7 +11,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.firestore
 
 data class CreateAccountUIState(
     val userEmail: String = "",
@@ -27,6 +30,7 @@ class CreateAccountViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(CreateAccountUIState())
     val uiState: StateFlow<CreateAccountUIState> = _uiState.asStateFlow()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val db = Firebase.firestore
 
     var userName by mutableStateOf("")
         private set
@@ -145,17 +149,44 @@ class CreateAccountViewModel: ViewModel() {
 
 
 
-    fun createAccount(email: String, password: String){
+    fun createAccount(){
+
+        val email: String = _uiState.value.userEmail
+        val password :String = _uiState.value.userPassword
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Konto zostało pomyślnie utworzone
                     Log.d("FirebaseAuthManager", "Tworzenie konta: sukces")
+                    val userId :String = auth.currentUser!!.uid
+                    addUserData(userId)
+
+
                 } else {
                     // Wystąpił błąd podczas tworzenia konta
                     Log.w("FirebaseAuthManager", "Tworzenie konta: niepowodzenie", task.exception)
                     updateCommunicat("Tworzenie konta: niepowodzenie")
                 }
             }
+    }
+
+    fun addUserData(userId: String){
+
+        val userData = hashMapOf<String,String>(
+
+            "name" to _uiState.value.userName,
+            "lastname" to _uiState.value.userLastName
+        )
+        db.collection("users").document(userId).set(userData).addOnSuccessListener { documentReference ->
+            Log.d("Firestore","DocumentSnapshot added with ID:")
+        }
+            .addOnFailureListener { e ->
+                Log.w("Error adding document", e)
+            }
+
+
+
+
+
     }
 }
