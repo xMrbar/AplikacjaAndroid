@@ -1,12 +1,15 @@
 package com.example.aplikacjaandroid.ui
+import android.content.Context
 import android.icu.number.NumberFormatter.UnitWidth
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
+import com.example.aplikacjaandroid.DataBaseManager
 import com.example.aplikacjaandroid.R
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -25,7 +28,7 @@ data class LogInUIState(
     )
 
 class SignInViewModel: ViewModel() {
-
+    val dataBaseManager = DataBaseManager()
     val auth = FirebaseAuth.getInstance()
     private val _uiState = MutableStateFlow(LogInUIState())
     val uiState: StateFlow<LogInUIState> = _uiState.asStateFlow()
@@ -76,7 +79,7 @@ class SignInViewModel: ViewModel() {
     }
 
 
-    fun signIn(callback: () -> Unit){
+    fun signIn(callback: () -> Unit, context: Context){
 
         val email: String = _uiState.value.userEmail
         val password :String = _uiState.value.userPassword
@@ -84,6 +87,7 @@ class SignInViewModel: ViewModel() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("FirebaseAuthManager", "SignUp: success")
+                    dataBaseManager.getAllFilesFromDBToLocalFiles(context)
                     callback()
 
                 } else {

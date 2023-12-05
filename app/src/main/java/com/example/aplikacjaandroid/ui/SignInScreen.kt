@@ -46,6 +46,7 @@ fun SignInPreview(){
 fun SignInScreen(modifier : Modifier = Modifier,
                  onSignInButtonClickedHandler: () -> Unit,
                  signInViewModel: SignInViewModel = viewModel(),
+                 context: Context = LocalContext.current
                  ) {
 
     val signInUiState by signInViewModel.uiState.collectAsState()
@@ -97,7 +98,7 @@ fun SignInScreen(modifier : Modifier = Modifier,
                 onClick = {
 
                     if (signInViewModel.isUserInputValid()){
-                        signInViewModel.signIn( callback = onSignInButtonClickedHandler)
+                        signInViewModel.signIn( callback = onSignInButtonClickedHandler, context)
                     }
 
                 }

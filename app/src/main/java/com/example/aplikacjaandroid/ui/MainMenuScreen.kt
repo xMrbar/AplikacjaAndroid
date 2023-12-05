@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.aplikacjaandroid.DataBaseManager
 import com.example.aplikacjaandroid.R
 import java.io.File
 
@@ -44,7 +45,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
                    onStatisticsButtonClickedHandler: ()-> Unit,
                    onHistoryAnalysisButtonClickedHandler: () -> Unit,
                    onUserAccountButtonClickedHandler: () -> Unit,
-                   onLogOutButtonClickedHandler: () -> Unit
+                   onLogOutButtonClickedHandler: () -> Unit,
+                   dataBaseManager: DataBaseManager = DataBaseManager()
                    ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.menu),
@@ -103,7 +105,10 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
-            onClick = onLogOutButtonClickedHandler
+            onClick = {
+                onLogOutButtonClickedHandler()
+                dataBaseManager.logOut()
+            }
         ) {
             Text(stringResource(R.string.wyloguj))
         }

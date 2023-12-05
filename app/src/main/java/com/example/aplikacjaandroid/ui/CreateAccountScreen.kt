@@ -42,7 +42,8 @@ fun CreateAccountPreview(){
 @Composable
 fun CreateAccountScreen(modifier : Modifier = Modifier,
                         onCreateAccountButtonClickedHandler: () -> Unit,
-                        createAccountViewModel: CreateAccountViewModel = viewModel()
+                        createAccountViewModel: CreateAccountViewModel = viewModel(),
+                        context: Context = LocalContext.current
                         ){
 
     val createAccountUiState by createAccountViewModel.uiState.collectAsState()
@@ -104,7 +105,7 @@ fun CreateAccountScreen(modifier : Modifier = Modifier,
                 text = stringResource(id = R.string.utworz_konto),
                 onClick = {
                     if (createAccountViewModel.isUserInputValid()) {
-                        createAccountViewModel.createAccount()
+                        createAccountViewModel.createAccount(context)
                         onCreateAccountButtonClickedHandler()
                     }
                 }

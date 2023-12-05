@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import android.util.Log
 import android.widget.Toast
+import com.example.aplikacjaandroid.DataBaseManager
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -31,6 +32,7 @@ class CreateAccountViewModel: ViewModel() {
     val uiState: StateFlow<CreateAccountUIState> = _uiState.asStateFlow()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
+    private val dataBaseManager = DataBaseManager()
 
     var userName by mutableStateOf("")
         private set
@@ -149,7 +151,7 @@ class CreateAccountViewModel: ViewModel() {
 
 
 
-    fun createAccount(){
+    fun createAccount(context: Context){
 
         val email: String = _uiState.value.userEmail
         val password :String = _uiState.value.userPassword
@@ -160,7 +162,7 @@ class CreateAccountViewModel: ViewModel() {
                     Log.d("FirebaseAuthManager", "Tworzenie konta: sukces")
                     val userId :String = auth.currentUser!!.uid
                     addUserData(userId)
-
+                    dataBaseManager.getAllFilesFromDBToLocalFiles(context)
 
                 } else {
                     // Wystąpił błąd podczas tworzenia konta

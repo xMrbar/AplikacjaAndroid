@@ -16,17 +16,32 @@ class FileManager {
         this.plik = plik
     }
 
-    fun appendToFile(s: String, context: Context) {
+    private fun maxIndex(context: Context):String {
+        val tmpList = readItemsFromFile(context)
+        var index = -1
+        if(tmpList.isEmpty()) {
+            index = 1
+        }
+        else {
+            index = tmpList[tmpList.size - 1].id + 1
+        }
+        return index.toString()
+    }
+
+    fun appendToFile(s: String, context: Context): String {
         val externalDir = context.getExternalFilesDir(null)
         val file = File(externalDir, plik)
+        val index = maxIndex(context)
 
         try {
             val fileWriter = FileWriter(file, true)
-            fileWriter.append("$s\n")
+            fileWriter.append("$index;$s\n")
             fileWriter.close()
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        return "$index;$s"
     }
 
     fun deleteItemFromFile(context: Context, position: Int)
@@ -46,14 +61,14 @@ class FileManager {
         val inputStream = FileInputStream(file)
         val reader = BufferedReader(InputStreamReader(inputStream))
         var line: String? = reader.readLine()
-        var index: Int = 0
-        var items = mutableListOf<ItemData>()
+        val items = mutableListOf<ItemData>()
         while (line != null) {
             val parts = line.split(";")
-            val title = parts[0]
-            val date = parts[1]
-            val money = parts[2]
-            val type = parts[3]
+            val id = parts[0]
+            val title = parts[1]
+            val date = parts[2]
+            val money = parts[3]
+            val type = parts[4]
             val typeInt = if (type.contains("CAR", ignoreCase = true)) {
                 0
             } else if(type.contains("ELECTRICITY", ignoreCase = true)) {
@@ -69,9 +84,8 @@ class FileManager {
             } else {
                 6
             }
-            items.add(ItemData(typeInt, title, BigDecimal(money), date))
+            items.add(ItemData(id.toInt(), typeInt, title, BigDecimal(money), date))
             line = reader.readLine()
-            index += 1
         }
         inputStream.close()
         return items
@@ -101,11 +115,28 @@ class FileManager {
                     "AUTO"
                 }
                 outputStream.write((
-                        item.text + ";"
+                        item.id.toString() + ";"
+                        + item.text + ";"
                         + item.date + ";"
                         + item.amount.toString() + ";"
                         + type + "\n"
                         ).toByteArray())
+            }
+            outputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun writeStringItemsToFile(context: Context, items: List<String>)
+    {
+        val externalDir = context.getExternalFilesDir(null)
+        val file = File(externalDir, plik)
+
+        try {
+            val outputStream = FileOutputStream(file)
+            for(item in items) {
+                outputStream.write("$item\n".toByteArray())
             }
             outputStream.close()
         } catch (e: IOException) {

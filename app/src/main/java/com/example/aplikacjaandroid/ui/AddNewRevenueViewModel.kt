@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.aplikacjaandroid.DataBaseManager
 import com.example.aplikacjaandroid.FileManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.math.BigDecimal
@@ -27,6 +28,7 @@ class AddNewRevenueViewModel(): ViewModel() {
     var expanded1 by mutableStateOf(false)
     val optionsType = listOf("INCOME")
     private val fileManager = FileManager("revenues.txt")
+    private val dataBaseManager = DataBaseManager()
 
     fun updateTytul(t: String) {
         if (t.length <= 21) {
@@ -78,6 +80,7 @@ class AddNewRevenueViewModel(): ViewModel() {
 
     private fun appender(context: Context)
     {
-        fileManager.appendToFile("$tytul;$selectedOption1;$kwota;$selectedOption2", context)
+        val appended = fileManager.appendToFile("$tytul;$selectedOption1;$kwota;$selectedOption2", context)
+        dataBaseManager.addItemToDataBase("revenues", appended)
     }
 }

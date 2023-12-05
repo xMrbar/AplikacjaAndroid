@@ -5,13 +5,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.aplikacjaandroid.DataBaseManager
 import com.example.aplikacjaandroid.FileManager
 import com.example.aplikacjaandroid.ui.components.MySelectBox
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.math.BigDecimal
 
 
-class AddNewExpensePlanViewModel(): ViewModel() {
+class AddNewExpensePlanViewModel: ViewModel() {
     var selectedOption1 by mutableStateOf("Częstość płatności")
         private set
     var selectedOption2 by mutableStateOf("Kategoria")
@@ -25,6 +26,7 @@ class AddNewExpensePlanViewModel(): ViewModel() {
     val optionsDate = listOf("CO MIESIĄC", "CO 3 MIESIĄCE", "CO 6 MIESIĘCY", "CO 12 MIESIĘCY")
     val optionsType = listOf("CAR", "ELECTRICITY", "TRAVEL", "HOME", "CLOTHES", "TV")
     private val fileManager = FileManager("expensesPlan.txt")
+    private val dataBaseManager = DataBaseManager()
 
     fun updateTytul(t: String) {
         if (t.length <= 21) {
@@ -66,6 +68,7 @@ class AddNewExpensePlanViewModel(): ViewModel() {
 
     private fun appender(context: Context)
     {
-        fileManager.appendToFile(tytul + ";" + selectedOption1 + ";" + kwota + ";" + selectedOption2, context)
+        val appended = fileManager.appendToFile("$tytul;$selectedOption1;$kwota;$selectedOption2", context)
+        dataBaseManager.addItemToDataBase("expensesPlan", appended)
     }
 }
