@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.example.aplikacjaandroid.Counter
+import com.example.aplikacjaandroid.DataBaseManager
 import com.example.aplikacjaandroid.FileManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,13 +23,16 @@ class ExpensesPlanViewModel(private val context: Context): ViewModel() {
     val myItems = MutableStateFlow(fileManager.readItemsFromFile(context))
 
     val selectedIndex = MutableStateFlow(-1)
+    private val dataBaseManager = DataBaseManager()
 
     fun delete()
     {
+        val wpis = myItems.value[selectedIndex.value].copy()
         fileManager.deleteItemFromFile(context, selectedIndex.value)
         selectedIndex.value = -1
         myItems.value = fileManager.readItemsFromFile(context)
         planowaneWydatkiWMiesiacuKwota.value = counter.countExpensesPlan().toString() + "zł"
+        dataBaseManager.removeItemFromDataBase("expensesPlan", wpis)
     }
 
     fun onClick(index: Int)

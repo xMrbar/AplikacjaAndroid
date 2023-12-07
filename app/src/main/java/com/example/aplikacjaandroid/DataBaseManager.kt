@@ -58,14 +58,23 @@ class DataBaseManager {
         )
         db.collection("users").document(user.uid).collection(collection)
             .document(id).set(data).addOnSuccessListener { _ ->
-            Log.d("Firestore - add item","Added document $wpis")
+                Log.d("Firestore - add item","Added document $wpis")
             }
             .addOnFailureListener { e ->
                 Log.w("Error adding item", e)
             }
     }
 
-    fun removeItemFromDataBase() {
+    fun removeItemFromDataBase(collection: String, item: ItemData) {
+        val user = auth.currentUser!!
+        val id = item.id.toString()
 
+        db.collection("users").document(user.uid)
+            .collection(collection).document(id).delete().addOnSuccessListener { _ ->
+                Log.d("Deleted document from DB", "Deleted from $user.uid and $collection document $id")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Error deleting item", e)
+            }
     }
 }
