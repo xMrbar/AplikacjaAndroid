@@ -94,7 +94,7 @@ class FinancialApp: Application(){
                     onStatisticsButtonClickedHandler = {navController.navigate((AppScreen.Statistics.name))},
                     onHistoryAnalysisButtonClickedHandler = {navController.navigate((AppScreen.HistoryAnalysis.name))},
                     onUserAccountButtonClickedHandler = {navController.navigate((AppScreen.UserAccount.name))},
-                    onLogOutButtonClickedHandler = { navigateToWelcome(navController) }
+                    onLogOutButtonClickedHandler = { signOut(navController) }
                 )
             }
 
@@ -105,7 +105,8 @@ class FinancialApp: Application(){
             composable( route = AppScreen.UserAccount.name){
                 UserAccountScreen(
                     modifier = Modifier.fillMaxSize(),
-                    onChangePasswordButtonClickedHandler = {navController.navigate((AppScreen.ChangePassword.name))}
+                    onChangePasswordButtonClickedHandler = {navController.navigate((AppScreen.ChangePassword.name))},
+                    onDeleteAccountButtonClickedHandler =  {navigateToWelcome(navController)}
                 )
             }
 
@@ -203,6 +204,10 @@ class FinancialApp: Application(){
     }
 
     private fun navigateToWelcome(navController: NavController){
+        navController.popBackStack(AppScreen.Welcome.name, inclusive = false)
+    }
+
+    private fun signOut(navController: NavController){
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
         auth.signOut()
         navController.popBackStack(AppScreen.Welcome.name, inclusive = false)

@@ -15,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -38,7 +39,8 @@ import com.example.aplikacjaandroid.ui.components.CustomOutlinedText
 fun UserAccountPreview(){
     UserAccountScreen(
         modifier = Modifier.fillMaxSize(),
-        onChangePasswordButtonClickedHandler = {}
+        onChangePasswordButtonClickedHandler = {},
+        onDeleteAccountButtonClickedHandler = {}
         )
 }
 
@@ -46,6 +48,7 @@ fun UserAccountPreview(){
 fun UserAccountScreen(
     modifier: Modifier = Modifier,
     onChangePasswordButtonClickedHandler: () -> Unit,
+    onDeleteAccountButtonClickedHandler: () -> Unit,
     userAccountViewModel: UserAccountViewModel = viewModel()
                       ){
 
@@ -54,7 +57,7 @@ fun UserAccountScreen(
         .fillMaxWidth()
 
     val userAccountUiState by userAccountViewModel.uiState.collectAsState()
-    //userAccountViewModel.getUserDataFromDB()
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -109,7 +112,7 @@ fun UserAccountScreen(
             ButtonWide(
                 modifier = inputModifier,
                 text = stringResource(id = R.string.usun_konto),
-                onClick = {}
+                onClick = { userAccountViewModel.deleteUserHandler(context, onDeleteAccountButtonClickedHandler)}
             )
 
         }

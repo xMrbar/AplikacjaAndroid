@@ -1,14 +1,18 @@
 package com.example.aplikacjaandroid.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -143,7 +147,31 @@ class UserAccountViewModel: ViewModel() {
                     e -> Log.w("FirebaseUpdate", "Error updating document", e)
                     updateCommunicat("Unable to change last name.")
             }
-        
+
+    }
+
+
+    private fun deleteUser( user: FirebaseUser){
+
+    }
+
+
+    fun deleteUserHandler(context: Context, callback: () -> Unit){
+
+        //confirmation with password TODO
+        if (true){
+
+            val user = auth.currentUser!!
+            user.delete()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d("FirabaseAuth", "User account deleted: ${user.email.toString()}.")
+                        Toast.makeText(context, "Usunięto użytkownika: ${user.email.toString()}", Toast.LENGTH_SHORT).show()
+                        callback()
+                    }
+                }
+
+        }
 
     }
 
