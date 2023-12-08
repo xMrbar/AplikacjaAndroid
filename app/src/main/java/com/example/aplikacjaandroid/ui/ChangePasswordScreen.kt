@@ -8,29 +8,41 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.avataricon.AvatarIcon
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.textinput.TextInput
+import com.example.aplikacjaandroid.ui.components.CustomEditTextInput
 
 
 @Composable
 @Preview
 fun ChangePasswordPreview(){
-    ChangePasswordScreen(modifier = Modifier.fillMaxSize())
+    ChangePasswordScreen(modifier = Modifier.fillMaxSize(),
+        )
 }
 
-@Composable
-fun ChangePasswordScreen(modifier : Modifier = Modifier){
 
-    val inputModifier: Modifier = Modifier.padding(8.dp)
+@Composable
+fun ChangePasswordScreen(modifier : Modifier = Modifier,
+                         changePasswordViewModel: ChangePasswordViewModel = viewModel()
+                         ){
+
+    val inputModifier: Modifier = Modifier.padding(8.dp).fillMaxWidth()
+
+    val changePasswordUIState = changePasswordViewModel.uiState.collectAsState()
 
     Column(
         modifier = modifier
@@ -39,27 +51,42 @@ fun ChangePasswordScreen(modifier : Modifier = Modifier){
 
     ) {
 
-        Column(modifier = Modifier.padding(20.dp).fillMaxWidth()
+        Column(modifier = Modifier
+            .padding(20.dp)
+            .fillMaxWidth()
             ,verticalArrangement = Arrangement.Center
             ,horizontalAlignment = Alignment.CenterHorizontally) {
 
             LabelLarge(text = stringResource(id = R.string.zmien_haslo))
             AvatarIcon()
             Spacer(modifier = Modifier.height(40.dp))
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.obecne_haslo),
-                onClick = {}
+            Text(
+                text = changePasswordUIState.value.communicat,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .padding(8.dp),
+                color = colorResource(R.color.outline)
             )
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.nowe_haslo),
-                onClick = {}
+            Spacer(modifier = Modifier.height(40.dp))
+
+            CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.haslo),
+                onClick = {}, onKeyboardDone = {},
+                textContent = changePasswordViewModel.userPassword, onValueChanged = {changePasswordViewModel.updateUserPassword(it)}
             )
-            TextInput(modifier = inputModifier, title = stringResource(id = R.string.powtorz_nowe_haslo),
-                onClick = {}
+            CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.nowe_haslo),
+                onClick = {}, onKeyboardDone = {},
+                textContent = changePasswordViewModel.newPassword, onValueChanged = {changePasswordViewModel.updateNewPassword(it)}
+            )
+            CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.powtorz_haslo),
+                onClick = {}, onKeyboardDone = {},
+                textContent = changePasswordViewModel.repeatedNewPassword, onValueChanged = {changePasswordViewModel.updateRepeatedNewPassword(it)}
             )
             Spacer(modifier = Modifier.height(30.dp))
             ButtonWide(
                 modifier = inputModifier,
                 text = stringResource(id = R.string.zatwierdz),
-                onClick = {}
+                onClick = {changePasswordViewModel.changePasswordHandler()}
             )
         }
 

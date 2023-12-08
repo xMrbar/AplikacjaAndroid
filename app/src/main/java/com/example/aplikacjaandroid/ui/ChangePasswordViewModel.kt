@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +23,7 @@ data class ChangePasswordUIState(
 )
 
 
-class ChangePasswordViewModel {
+class ChangePasswordViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(ChangePasswordUIState())
     val uiState: StateFlow<ChangePasswordUIState> = _uiState.asStateFlow()
@@ -48,8 +50,12 @@ class ChangePasswordViewModel {
         repeatedNewPassword = password
     }
 
-    fun updateState(){
+    private fun updateState(){
         _uiState.update{ _uiState.value.copy(userPassword = userPassword, newPassword = newPassword, repeatedNewPassword = repeatedNewPassword ) }
+    }
+
+    private fun clearAllFields(){
+        _uiState.update{ _uiState.value.copy(userPassword = "", newPassword = "", repeatedNewPassword = "" ) }
     }
 
     private fun updateCommunicat(communicat: String){
@@ -59,7 +65,7 @@ class ChangePasswordViewModel {
 
 
     // for now it probably doesn't check is new password is the same as current possword
-    fun reauthenticate(callback: () -> Unit){
+    private fun reauthenticate(callback: (FirebaseUser) -> Unit){
 
         val user = auth.currentUser!!
         val userEmail = user.email.toString()
@@ -71,18 +77,72 @@ class ChangePasswordViewModel {
                 if (task.isSuccessful) {
                     // Konto zostało pomyślnie utworzone
                     Log.d("FirebaseAuthManager", "Reauthentication success : Identity confirmed")
-                    callback()
-                }
+                    callback(user)
+                } else {
 
-
-                else {
-
-                Log.d("FirebaseAuthManager", "Reauthentication failure: unable to confirm identity")
-                updateCommunicat("Wrong password")
+                    Log.d(
+                        "FirebaseAuthManager",
+                        "Reauthentication failure: unable to confirm identity"
+                    )
+                    updateCommunicat("Błędne hasło")
                 }
 
             }
+    }
+
+    private fun changeUserPassword(user: FirebaseUser){
+
+        user!!.updatePassword(newPassword)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FirebaseAuthManager", "User password updated.")
+                    updateCommunicat("Hasło zostało zmienione")
+                    clearAllFields()
+                }
+                else{
+                    Log.d("FirebaseAuthManager", "Password change failure for user: ${user.email.toString()}")
+                    updateCommunicat("Wystąpił bład. Hasło nie zostało zmienione")
+                }
+            }
+    }
+
+
+    fun isNewPasswordValid(): Boolean{
+        return newPassword.length >= 6
+    }
+
+
+    fun changePasswordHandler(){
+
+        // empty fields
+        if( userPassword.isNullOrEmpty() || newPassword.isNullOrEmpty() || repeatedNewPassword.isNullOrEmpty()){
+            updateCommunicat("Puste pola")
+            clearAllFields()
+            return
+        }
+
+        // new password and repeated password does not match
+        if( newPassword != repeatedNewPassword){
+            updateCommunicat("Hasła nie są takie same")
+            clearAllFields()
+            return
+        }
+
+
+        if(isNewPasswordValid()){
+            updateState()
+            reauthenticate{ user -> changeUserPassword(user)}
+        }
+        else{
+            updateCommunicat("Hasło musi mieć co najmniej 6 znaków.")
+            clearAllFields()
+        }
 
     }
+
+
+
+
+
 
 }
