@@ -79,10 +79,6 @@ fun UserAccountScreen(
                     .padding(8.dp),
                 color = colorResource(R.color.outline)
             )
-//            CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.adres_email),
-//                onClick = {}, onKeyboardDone = { },
-//                textContent = userAccountViewModel.userEmail, onValueChanged = {}
-//            )
             Spacer(Modifier.height(10.dp))
             CustomOutlinedText(text = userAccountUiState.userEmail)
             Spacer(Modifier.height(10.dp))
@@ -102,6 +98,12 @@ fun UserAccountScreen(
                 modifier = inputModifier,
                 text = stringResource(id = R.string.zmien_haslo),
                 onClick = onChangePasswordButtonClickedHandler
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            ButtonWide(
+                modifier = inputModifier,
+                text = stringResource(id = R.string.usun_konto),
+                onClick = {}
             )
 
         }
