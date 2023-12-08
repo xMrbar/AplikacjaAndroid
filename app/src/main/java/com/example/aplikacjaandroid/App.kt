@@ -30,6 +30,7 @@ import com.example.aplikacjaandroid.ui.SignInScreen
 import com.example.aplikacjaandroid.ui.StatisticsScreen
 import com.example.aplikacjaandroid.ui.UserAccountScreen
 import com.example.aplikacjaandroid.ui.WelcomeScreen
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.HiltAndroidApp
 
 enum class AppScreen() {
@@ -202,6 +203,8 @@ class FinancialApp: Application(){
     }
 
     private fun navigateToWelcome(navController: NavController){
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        auth.signOut()
         navController.popBackStack(AppScreen.Welcome.name, inclusive = false)
     }
 

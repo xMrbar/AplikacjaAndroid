@@ -143,7 +143,7 @@ class UserAccountViewModel: ViewModel() {
                     e -> Log.w("FirebaseUpdate", "Error updating document", e)
                     updateCommunicat("Unable to change last name.")
             }
-
+        
 
     }
 

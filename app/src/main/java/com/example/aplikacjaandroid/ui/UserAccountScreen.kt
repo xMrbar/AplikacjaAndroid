@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -61,6 +62,11 @@ fun UserAccountScreen(
             .fillMaxHeight()
 
     ) {
+
+        // get data form server on initial launch
+        LaunchedEffect(userAccountViewModel) {
+            userAccountViewModel.getUserDataFromDB()
+        }
 
         Column(modifier = Modifier
             .padding(20.dp)

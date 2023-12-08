@@ -55,7 +55,10 @@ class ChangePasswordViewModel : ViewModel() {
     }
 
     private fun clearAllFields(){
-        _uiState.update{ _uiState.value.copy(userPassword = "", newPassword = "", repeatedNewPassword = "" ) }
+        userPassword = ""
+        newPassword = ""
+        repeatedNewPassword = ""
+        updateState()
     }
 
     private fun updateCommunicat(communicat: String){
