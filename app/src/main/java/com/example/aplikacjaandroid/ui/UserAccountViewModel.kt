@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,7 @@ data class UserAccountUIState(
     val userEmail: String = "",
     val userName: String = "",
     val userLastName: String = "",
+    val communicat: String = "",
 )
 
 class UserAccountViewModel: ViewModel() {
@@ -48,7 +50,10 @@ class UserAccountViewModel: ViewModel() {
     private fun updateState(){
 
         _uiState.update { _uiState.value.copy(userName = userName, userLastName = userLastName, userEmail = userEmail, )}
+    }
 
+    private fun updateCommunicat(communicat: String){
+        _uiState.update { _uiState.value.copy(communicat = communicat) }
     }
 
 
@@ -87,6 +92,8 @@ class UserAccountViewModel: ViewModel() {
     @SuppressLint("SuspiciousIndentation")
     fun updateUserNameDB(){
 
+        updateState()
+
         val user = auth.currentUser!!
 
         userEmail = user.email.toString()
@@ -97,12 +104,16 @@ class UserAccountViewModel: ViewModel() {
             userDataDocRef.update("name", _uiState.value.userName)
             .addOnSuccessListener {
                 Log.d("FirestoreUpdate", "DocumentSnapshot successfully updated!")
+
                 updateState()
+                updateCommunicat("Name changed succesfully.")
             }
 
             .addOnFailureListener {
+                    e -> Log.w("FirebaseUpdate", "Error updating document", e)
+                    updateCommunicat("Unable to change name.")
+            }
 
-                    e -> Log.w("FirebaseUpdate", "Error updating document", e) }
 
 
     }
@@ -110,6 +121,8 @@ class UserAccountViewModel: ViewModel() {
 
     @SuppressLint("SuspiciousIndentation")
     fun updateUserLastameDB(){
+
+        updateState()
 
         val user = auth.currentUser!!
 
@@ -122,14 +135,20 @@ class UserAccountViewModel: ViewModel() {
             .addOnSuccessListener {
                 Log.d("FirestoreUpdate", "DocumentSnapshot successfully updated!")
                 updateState()
+                updateCommunicat("Last name changed succesfully.")
             }
 
             .addOnFailureListener {
 
-                    e -> Log.w("FirebaseUpdate", "Error updating document", e) }
+                    e -> Log.w("FirebaseUpdate", "Error updating document", e)
+                    updateCommunicat("Unable to change last name.")
+            }
 
 
     }
+
+
+
 
 
 

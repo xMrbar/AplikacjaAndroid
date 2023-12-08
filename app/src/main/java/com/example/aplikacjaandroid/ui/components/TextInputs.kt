@@ -1,9 +1,13 @@
 package com.example.aplikacjaandroid.ui.components
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
@@ -14,8 +18,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import com.example.aplikacjaandroid.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.math.BigDecimal
 
@@ -94,4 +102,21 @@ fun InputCount(
             keyboardType = KeyboardType.Number
         )
     )
+}
+
+
+@Composable
+fun CustomOutlinedText(modifier: Modifier = Modifier, text: String){
+
+    Text(text = text, modifier = Modifier.border(
+        BorderStroke(
+            1.dp,
+            Color(ContextCompat.getColor(LocalContext.current, R.color.outline))
+        ),
+        shape = RoundedCornerShape(4.dp)
+    ).padding(horizontal = 20.dp, vertical = 15.dp).width(303.dp),
+        color = Color(ContextCompat.getColor(LocalContext.current, R.color.outline))
+    )
+
+
 }
