@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.aplikacjaandroid"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -52,6 +52,7 @@ android {
 
 dependencies {
 
+    implementation("co.yml:ycharts:2.1.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")

@@ -29,6 +29,7 @@ import com.example.aplikacjaandroid.ui.SignInScreen
 import com.example.aplikacjaandroid.ui.StatisticsScreen
 import com.example.aplikacjaandroid.ui.UserAccountScreen
 import com.example.aplikacjaandroid.ui.WelcomeScreen
+import com.example.aplikacjaandroid.ui.HistoryAnalysis
 
 enum class AppScreen() {
     Welcome,

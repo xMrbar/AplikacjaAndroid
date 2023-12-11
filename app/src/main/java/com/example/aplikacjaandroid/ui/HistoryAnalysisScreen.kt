@@ -1,6 +1,33 @@
-package com.example.aplikacjaandroid
+package com.example.aplikacjaandroid.ui
 
-import android.app.LauncherActivity
+import android.graphics.Typeface
+import androidx.activity.compose.setContent
+import co.yml.charts.axis.DataCategoryOptions
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import co.yml.charts.axis.AxisData
+import co.yml.charts.common.components.Legends
+import co.yml.charts.common.extensions.formatToSinglePrecision
+import co.yml.charts.common.model.LegendsConfig
+import co.yml.charts.common.model.Point
+import co.yml.charts.common.utils.DataUtils
+import co.yml.charts.ui.linechart.LineChart
+import co.yml.charts.ui.linechart.model.GridLines
+import co.yml.charts.ui.linechart.model.IntersectionPoint
+import co.yml.charts.ui.linechart.model.Line
+import co.yml.charts.ui.linechart.model.LineChartData
+import co.yml.charts.ui.linechart.model.LinePlotData
+import co.yml.charts.ui.linechart.model.LineStyle
+import co.yml.charts.ui.linechart.model.LineType
+import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
+import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
+import co.yml.charts.ui.linechart.model.ShadowUnderLine
+
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
@@ -28,7 +55,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,20 +64,72 @@ import androidx.core.content.ContextCompat
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.labellarge.LabelLarge
-import com.example.aplikacjaandroid.listitem.ListItem
 import com.example.aplikacjaandroid.selectfield.SelectField
 import com.example.aplikacjaandroid.selectfield.Text
-import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.unit.Dp
+import co.yml.charts.common.model.AccessibilityConfig
+import co.yml.charts.ui.barchart.BarChart
+import co.yml.charts.ui.barchart.models.BarChartType
+import co.yml.charts.ui.barchart.models.BarData
+import co.yml.charts.ui.barchart.models.BarStyle
+import co.yml.charts.ui.barchart.models.drawBarGraph
+import com.example.aplikacjaandroid.R
+import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import co.yml.charts.common.components.Legends
+import co.yml.charts.common.extensions.getMaxElementInYAxis
+
+import co.yml.charts.ui.barchart.BarChart
+import co.yml.charts.ui.barchart.GroupBarChart
+import co.yml.charts.ui.barchart.StackedBarChart
+import co.yml.charts.ui.barchart.models.*
+import kotlin.random.Random
+
+@Composable
+private fun BarchartWithSolidBars() {
+    val maxRange = 50
+    val barData = DataUtils.getBarChartData(50, maxRange, BarChartType.VERTICAL, DataCategoryOptions())
+    val yStepSize = 10
+
+    val xAxisData = AxisData.Builder()
+        .axisStepSize(30.dp)
+        .steps(barData.size - 1)
+        .bottomPadding(40.dp)
+        .axisLabelAngle(20f)
+        .startDrawPadding(48.dp)
+        .labelData { index -> barData[index].label }
+        .build()
+    val yAxisData = AxisData.Builder()
+        .steps(yStepSize)
+        .labelAndAxisLinePadding(20.dp)
+        .axisOffset(20.dp)
+        .labelData { index -> (index * (maxRange / yStepSize)).toString() }
+        .build()
+    val barChartData = BarChartData(
+        chartData = barData,
+        xAxisData = xAxisData,
+        yAxisData = yAxisData,
+        barStyle = BarStyle(
+            paddingBetweenBars = 20.dp,
+            barWidth = 25.dp
+        ),
+        showYAxis = true,
+        showXAxis = true,
+        horizontalExtraSpace = 10.dp,
+    )
+    BarChart(modifier = Modifier.height(350.dp), barChartData = barChartData)
+}
+
 
 class HistoryAnalysisActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +146,9 @@ class HistoryAnalysisActivity : ComponentActivity() {
             }
         }
     }
+
+
+
 }
 
 @Composable
@@ -117,18 +198,20 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
         ) {
 
             UnderlinedText(text = "Grudzień 2023", modifier = Modifier.fillMaxWidth())
-
+            BarchartWithSolidBars()
             Spacer(
                 modifier = Modifier
                     .height(0.dp)
                     .background(Color.Gray)
             )
+
+            /*
             Image(
                 painter = painterResource(R.drawable.month_plot),
                 contentDescription = null,
                 modifier = Modifier
                     .size(300.dp)
-            )
+            )*/
         }
 
 
@@ -200,7 +283,49 @@ fun ScrollableColumnExample() {
     }
 }
 /**
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
+ * BarChart(modifier = Modifier.height(350.dp), barChartData = barChartData)
+ *             LineChart(
+ *                 modifier = Modifier
+ *                     .fillMaxWidth()
+ *                     .height(300.dp),
+ *                 lineChartData = data
+ *             )
+ * data class BarChartData(
+ *     val chartData: List<BarData>,
+ *     val xAxisData: AxisData = AxisData.Builder().build(),
+ *     val yAxisData: AxisData = AxisData.Builder().build(),
+ *     val backgroundColor: Color = Color.White,
+ *     val horizontalExtraSpace: Dp = 0.dp,
+ *     val barStyle: BarStyle = BarStyle(),
+ *     val paddingEnd: Dp = 10.dp,
+ *     val paddingTop: Dp = 0.dp,
+ *     val tapPadding: Dp = 10.dp,
+ *     val showYAxis: Boolean = true,
+ *     val showXAxis: Boolean = true,
+ *     val accessibilityConfig: AccessibilityConfig = AccessibilityConfig(),
+ *     val barChartType: BarChartType = BarChartType.VERTICAL,
+ *     val drawBar: (DrawScope, BarData, Offset, Float, BarChartType, BarStyle) -> Unit = { drawScope, barChartData, drawOffset, height, barChartType, barStyle ->
+ *         //default implementation
+ *         drawBarGraph(drawScope, barChartData, drawOffset, height, barChartType, barStyle)
+ *     }
+ * )
+ * data class LineChartData(
+ *     val linePlotData: LinePlotData,
+ *     val xAxisData: AxisData = AxisData.Builder().build(),
+ *     val yAxisData: AxisData = AxisData.Builder().build(),
+ *     val isZoomAllowed: Boolean = true,
+ *     val paddingTop: Dp = 30.dp,
+ *     val bottomPadding: Dp = 10.dp,
+ *     val paddingRight: Dp = 10.dp,
+ *     val containerPaddingEnd: Dp = 15.dp,
+ *     val backgroundColor: Color = Color.White,
+ *     val gridLines: GridLines? = null,
+ *     val accessibilityConfig: AccessibilityConfig = AccessibilityConfig()
+ * )
+ *
+ * //usage
+ *
+Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.button5Text),
             color = MaterialTheme.colorScheme.primary,
             fontSize = 30.sp,

@@ -24,7 +24,7 @@
         </intent-filter>
         </activity>
         <activity
-            android:name=".HistoryAnalysisActivity"
+            android:name=".ui.HistoryAnalysisActivity"
             android:exported="false"
             android:label="@string/title_activity_history_analysis"
             android:theme="@style/Theme.AplikacjaAndroid" />
