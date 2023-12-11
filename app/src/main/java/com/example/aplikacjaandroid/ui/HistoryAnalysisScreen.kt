@@ -93,6 +93,7 @@ import co.yml.charts.ui.barchart.BarChart
 import co.yml.charts.ui.barchart.GroupBarChart
 import co.yml.charts.ui.barchart.StackedBarChart
 import co.yml.charts.ui.barchart.models.*
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.random.Random
 
 @Composable
@@ -175,12 +176,9 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
     ) {
         LabelLarge(text = stringResource(id = R.string.button5Text))
 
+        mySelectBox(options = listOf("2021", "2022", "2023"), MutableStateFlow("Rok"))
 
-        SelectField(
-            modifier = Modifier.fillMaxWidth(),
-            text = "Miesiąc",
-        )
-
+        mySelectBox(options = listOf("Styczeń", "Luty", "Marzec","Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień"), MutableStateFlow("Miesiąc"))
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,

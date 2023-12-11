@@ -32,8 +32,14 @@ import com.example.aplikacjaandroid.listitem.ListItem
 import com.example.aplikacjaandroid.selectfield.SelectField
 import com.example.aplikacjaandroid.selectfield.Text
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
-
-
+import android.content.Context
+import android.graphics.Typeface
+import android.text.TextUtils
+import android.widget.Toast
+import co.yml.charts.common.components.Legends
+import co.yml.charts.common.utils.DataUtils
+import co.yml.charts.ui.piechart.charts.PieChart
+import co.yml.charts.ui.piechart.models.PieChartConfig
 
 @Composable
 @Preview
@@ -82,8 +88,9 @@ fun StatisticsScreen(modifier : Modifier = Modifier){
 
             UnderlinedText(text = "Grudzień 2023", modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier
-                .height(230.dp)
+                .height(0.dp)
                 .background(Color.Gray))
+            PiechartWithSliceLables(LocalContext.current)
         }
         Column(verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -132,5 +139,33 @@ fun StatisticsScreen(modifier : Modifier = Modifier){
 
 
 
+    }
+}
+@Composable
+private fun PiechartWithSliceLables(context: Context) {
+    val pieChartData = DataUtils.getPieChartData2()
+
+    val pieChartConfig =
+        PieChartConfig(
+            activeSliceAlpha = .9f,
+            isEllipsizeEnabled = true,
+            sliceLabelEllipsizeAt = TextUtils.TruncateAt.MIDDLE,
+            sliceLabelTypeface = Typeface.defaultFromStyle(Typeface.ITALIC),
+            isAnimationEnable = true,
+            chartPadding = 50,
+            showSliceLabels = true,
+            labelVisible = true
+        )
+    Column(modifier = Modifier.height(250.dp)) {
+        Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(pieChartData, 3))
+        PieChart(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp),
+            pieChartData,
+            pieChartConfig
+        ) { slice ->
+            Toast.makeText(context, slice.label, Toast.LENGTH_SHORT).show()
+        }
     }
 }
