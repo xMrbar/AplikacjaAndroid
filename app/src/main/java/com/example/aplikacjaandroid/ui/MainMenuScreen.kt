@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aplikacjaandroid.DataBaseManager
 import com.example.aplikacjaandroid.R
+import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import java.io.File
 
 
@@ -59,7 +61,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
-            onClick = onAccountBalanceButtonClickedHandler
+            onClick = onAccountBalanceButtonClickedHandler,
+            shape = RoundedCornerShape(4.dp)
         ) {
             Text(stringResource(R.string.button1Text))
         }
@@ -68,6 +71,7 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
+            shape = RoundedCornerShape(4.dp),
             onClick = onBudgetPlanButtonClickedHandler
         ) {
             Text(stringResource(R.string.button2Text))
@@ -77,8 +81,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
+            shape = RoundedCornerShape(4.dp),
             onClick = onStatisticsButtonClickedHandler
-
         ) {
             Text(stringResource(R.string.button3Text))
         }
@@ -87,6 +91,7 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
+            shape = RoundedCornerShape(4.dp),
             onClick = onHistoryAnalysisButtonClickedHandler
         ) {
             Text(stringResource(R.string.button5Text))
@@ -96,6 +101,7 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
+            shape = RoundedCornerShape(4.dp),
             onClick = onUserAccountButtonClickedHandler
         ) {
             Text(stringResource(R.string.button4Text))
@@ -105,10 +111,8 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
             modifier = Modifier
                 .width(350.dp)
                 .height(50.dp),
-            onClick = {
-                onLogOutButtonClickedHandler()
-                dataBaseManager.logOut()
-            }
+            shape = RoundedCornerShape(4.dp),
+            onClick = onLogOutButtonClickedHandler
         ) {
             Text(stringResource(R.string.wyloguj))
         }

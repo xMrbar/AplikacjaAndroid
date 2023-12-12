@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +42,8 @@ import androidx.compose.ui.unit.sp
 import com.example.aplikacjaandroid.Counter
 import com.example.aplikacjaandroid.FileManager
 import com.example.aplikacjaandroid.R
+import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
+import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 
 @Composable
@@ -73,53 +76,33 @@ fun ExpensesScreen(modifier : Modifier,
         )
         Spacer(modifier = Modifier.height(10.dp))
         Row(){
-            Button(
+            ButtonNarrow(
                 modifier = Modifier
                     .width(130.dp)
-                    .height(50.dp)
-                    .border(
-                        2.dp,
-                        MaterialTheme.colorScheme.tertiary,
-                        shape = MaterialTheme.shapes.extraLarge
-                    ),
+                    .height(50.dp),
                 onClick = onRevenuesButtonClickedHandler,
-                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
-            ) {
-                Text(
-                    text=stringResource(R.string.przychody),
-                    color=MaterialTheme.colorScheme.tertiary)
-            }
+                property1 = Property1.Variant2,
+                text = stringResource(R.string.przychody)
+            )
             Spacer(modifier = Modifier.width(5.dp))
-            Button(
+            ButtonNarrow(
                 modifier = Modifier
                     .width(140.dp)
-                    .height(50.dp)
-                    .border(
-                        2.dp,
-                        MaterialTheme.colorScheme.tertiary,
-                        shape = MaterialTheme.shapes.extraLarge
-                    ),
+                    .height(50.dp),
                 onClick = onAccountBalanceButtonClickedHandler,
-                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.background)
-            ) {
-                Text(
-                    text=stringResource(R.string.stanKonta),
-                    color=MaterialTheme.colorScheme.tertiary)
-            }
+                property1 = Property1.Variant2,
+                text=stringResource(R.string.stanKonta)
+            )
             Spacer(modifier = Modifier.width(5.dp))
-            Button(
+            ButtonNarrow(
                 modifier = Modifier
                     .width(130.dp)
                     .height(50.dp),
                 onClick = {
 
                 },
-                colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.tertiary)
-            ) {
-                Text(
-                    stringResource(R.string.wydatki),
-                    color=MaterialTheme.colorScheme.background)
-            }
+                text = stringResource(R.string.wydatki)
+            )
         }
         Spacer(modifier = Modifier.width(10.dp))
         Box(
@@ -182,6 +165,7 @@ fun ExpensesScreen(modifier : Modifier,
                 expensesViewModel.resetIndex()
                 onAddNewExpenseButtonClickedHandler()
             },
+            shape = RoundedCornerShape(4.dp),
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
             Text(
@@ -196,6 +180,7 @@ fun ExpensesScreen(modifier : Modifier,
             onClick = {
                 expensesViewModel.delete()
             },
+            shape = RoundedCornerShape(4.dp),
             colors = ButtonDefaults.textButtonColors(MaterialTheme.colorScheme.secondary)
         ) {
             Text(
