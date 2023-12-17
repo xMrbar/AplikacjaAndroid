@@ -153,8 +153,6 @@ class UserAccountViewModel: ViewModel() {
 
     fun deleteUserHandler(context: Context, callback: () -> Unit){
 
-        //confirmation with password TODO
-        if (true){
 
             val user = auth.currentUser!!
 
@@ -171,7 +169,6 @@ class UserAccountViewModel: ViewModel() {
                     }
                 }
 
-        }
 
     }
 

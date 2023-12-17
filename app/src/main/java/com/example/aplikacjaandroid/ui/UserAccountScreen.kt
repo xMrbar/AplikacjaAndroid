@@ -8,11 +8,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,6 +36,7 @@ import com.example.aplikacjaandroid.labelsmall.LabelSmall
 import com.example.aplikacjaandroid.textinputwithicon.TextInputWithIcon
 import com.example.aplikacjaandroid.ui.components.CustomEditTextInput
 import com.example.aplikacjaandroid.ui.components.CustomOutlinedText
+import androidx.compose.material3.Text as Text1
 
 
 @Composable
@@ -59,6 +64,8 @@ fun UserAccountScreen(
     val userAccountUiState by userAccountViewModel.uiState.collectAsState()
     val context = LocalContext.current
 
+    var showDialog by remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -80,7 +87,7 @@ fun UserAccountScreen(
             LabelLarge(text = stringResource(id = R.string.twoje_konto))
             AvatarIcon()
             Spacer(modifier = Modifier.height(40.dp))
-            Text(
+            Text1(
                 text = userAccountUiState.communicat,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -112,10 +119,57 @@ fun UserAccountScreen(
             ButtonWide(
                 modifier = inputModifier,
                 text = stringResource(id = R.string.usun_konto),
-                onClick = { userAccountViewModel.deleteUserHandler(context, onDeleteAccountButtonClickedHandler)}
+                onClick = {
+
+                    showDialog = true
+                    }
+
             )
 
         }
 
     }
+
+    if(showDialog){
+
+        confirmDeleteDialog( onConfirmation = {
+            userAccountViewModel.deleteUserHandler(context, onDeleteAccountButtonClickedHandler)
+            showDialog = false
+        },
+            onDismiss = {showDialog = false})
+    }
+
+}
+
+
+@Composable
+fun confirmDeleteDialog(onConfirmation: () -> Unit, onDismiss: () -> Unit){
+
+    AlertDialog(
+        title = {
+            Text1(text = "Usuń konto")
+        },
+        text = {
+            Text1(text = "Czy na pewno chcesz to zrobić?")
+        },
+        onDismissRequest = {
+        },
+        confirmButton = {
+            TextButton(
+                onClick = onConfirmation
+
+            ) {
+                Text1("Usuń konto")
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = onDismiss
+            ) {
+                Text1("Anuluj")
+            }
+        }
+    )
+
+    
 }
