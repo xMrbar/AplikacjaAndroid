@@ -151,27 +151,43 @@ class UserAccountViewModel: ViewModel() {
     }
 
 
-    private fun deleteUser( user: FirebaseUser){
-
-    }
-
-
     fun deleteUserHandler(context: Context, callback: () -> Unit){
 
         //confirmation with password TODO
         if (true){
 
             val user = auth.currentUser!!
+
+            //it works for now but ugly as heck
+            //when something goes wrong between setting status and deleting account user is left without data
+            setUserCollectionStatusToDeleted(user.uid)
             user.delete()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("FirabaseAuth", "User account deleted: ${user.email.toString()}.")
+                        val userID: String = user.uid
                         Toast.makeText(context, "Usunięto użytkownika: ${user.email.toString()}", Toast.LENGTH_SHORT).show()
                         callback()
                     }
                 }
 
         }
+
+    }
+
+    private fun setUserCollectionStatusToDeleted(userID: String){
+
+        val userDataDocRef = db.collection("users").document(userID)
+
+        userDataDocRef.update("status", "Deleted")
+            .addOnSuccessListener {
+                Log.d("FirestoreUpdate", "User ${userID}: Collection sttus set to DELETED ")
+            }
+
+            .addOnFailureListener {
+                    e -> Log.w("FirebaseUpdate", "Error changong user ${userID} collection status to DLETED", e)
+            }
+
 
     }
 

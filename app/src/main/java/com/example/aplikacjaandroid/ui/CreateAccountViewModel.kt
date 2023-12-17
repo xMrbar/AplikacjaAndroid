@@ -177,7 +177,8 @@ class CreateAccountViewModel: ViewModel() {
         val userData = hashMapOf<String,String>(
 
             "name" to _uiState.value.userName,
-            "lastname" to _uiState.value.userLastName
+            "lastname" to _uiState.value.userLastName,
+            "status" to "Active"
         )
         db.collection("users").document(userId).set(userData).addOnSuccessListener { documentReference ->
             Log.d("Firestore","DocumentSnapshot added with ID:")
