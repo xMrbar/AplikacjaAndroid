@@ -16,6 +16,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.firestore
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 data class CreateAccountUIState(
     val userEmail: String = "",
@@ -174,11 +176,15 @@ class CreateAccountViewModel: ViewModel() {
 
     fun addUserData(userId: String){
 
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val creationDate = LocalDate.now().format(dateFormat)
+
         val userData = hashMapOf<String,String>(
 
             "name" to _uiState.value.userName,
             "lastname" to _uiState.value.userLastName,
-            "status" to "Active"
+            "status" to "Active",
+            "accountCreationDate" to creationDate
         )
         db.collection("users").document(userId).set(userData).addOnSuccessListener { documentReference ->
             Log.d("Firestore","DocumentSnapshot added with ID:")
