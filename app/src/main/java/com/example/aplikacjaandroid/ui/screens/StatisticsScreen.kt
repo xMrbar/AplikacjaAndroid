@@ -1,6 +1,7 @@
 package com.example.aplikacjaandroid.ui.screens
 
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -43,6 +44,7 @@ import com.example.aplikacjaandroid.listitem.ListItem
 import com.example.aplikacjaandroid.services.TimeIntervalsLength
 import com.example.aplikacjaandroid.selectfield.SelectField
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import com.example.aplikacjaandroid.viewmodels.StatisticsViewModel
 
 
@@ -65,6 +67,11 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
     var expandedTimeIntervalsLengthDropdown by remember { mutableStateOf(false) }
     var expandedTimeIntervalsDropdown by remember { mutableStateOf(false) }
     val textColor = Color(ContextCompat.getColor(LocalContext.current, R.color.backgroud))
+    val context: Context = LocalContext.current
+
+    LaunchedEffect(statisticsViewModel) {
+        statisticsViewModel.getInitialData(context)
+    }
 
     Column(
         modifier = modifier
@@ -76,10 +83,12 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
         LabelLarge(text = stringResource(id = R.string.statystyki))
 
         Box(modifier = Modifier.fillMaxWidth()) {
-            SelectField(
-                text = statisticsUIState.timeIntervalLength.name,
-                onClick = { expandedTimeIntervalsLengthDropdown = true}
-            )
+            statisticsUIState.currentTimeIntervalsLength?.let {
+                SelectField(
+                    text = it.name,
+                    onClick = { expandedTimeIntervalsLengthDropdown = true}
+                )
+            }
             DropdownMenu(
                 expanded = expandedTimeIntervalsLengthDropdown,
                 onDismissRequest = { expandedTimeIntervalsLengthDropdown = false },
@@ -113,14 +122,14 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
 
             Box(modifier = Modifier.fillMaxWidth()) {
                 SelectField(
-                    text = statisticsUIState.timeIntervalLabel,
+                    text = statisticsUIState.currentTimeInterval!!.name,
                     onClick = { expandedTimeIntervalsDropdown = true}
                 )
                 DropdownMenu(
                     expanded = expandedTimeIntervalsDropdown && statisticsUIState.isTimeIntervalDropdownExpandable,
                     onDismissRequest = { expandedTimeIntervalsDropdown = false },
                 ) {
-                    statisticsUIState.timeIntervalsList.forEach { selected ->
+                    statisticsUIState.timeIntervalsList?.forEach { selected ->
                         DropdownMenuItem(
                             text = { Text(text = selected) },
                             onClick = {
@@ -153,12 +162,20 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                 modifier = Modifier
                     .fillMaxSize() // Occupy the entire size of the Box
             ) {
-                items(statisticsUIState.list.size) { i ->
-                    ListItem(
-                        itemValue = statisticsUIState.list[i].value,
-                        itemName = statisticsUIState.list[i].label,
-                        color = Color(ContextCompat.getColor(LocalContext.current, R.color.outline))
-                    )
+                if(statisticsUIState.statisticsItemList != null) {
+
+                    items(statisticsUIState.statisticsItemList!!.size) { i ->
+                        ListItem(
+                            itemValue = statisticsUIState.statisticsItemList!![i].value.toString(),
+                            itemName = statisticsUIState.statisticsItemList!![i].label,
+                            color = Color(
+                                ContextCompat.getColor(
+                                    LocalContext.current,
+                                    R.color.outline
+                                )
+                            )
+                        )
+                    }
                 }
             }
         }
@@ -173,7 +190,7 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
 
 
             Text( text = "Suma:", color = textColor)
-            Text(text = "999.99zł", color = textColor)
+            Text(text = statisticsUIState.total.toString(), color = textColor)
         }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){

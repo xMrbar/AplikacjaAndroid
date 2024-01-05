@@ -3,45 +3,29 @@ package com.example.aplikacjaandroid.services
 import android.content.Context
 import com.example.aplikacjaandroid.data.FileManager
 import com.example.aplikacjaandroid.data.ItemData
+import com.example.aplikacjaandroid.data.StatisticsItem
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-object StatisticsModelServices {
+object StatisticsServices {
 
-    fun getItemsFromPeriod(startDate: LocalDate, endDate: LocalDate, context: Context): List<ItemData>{
+    val dateFormat = DateTimeFormatter.ofPattern("[d][dd].[M][MM].yyyy")
 
-        val fileManager: FileManager = FileManager("expenses.txt")
+    fun getEarliestDate(items: List<ItemData>): LocalDate{
 
-        val items: List<ItemData> = fileManager.readItemsFromFile(context)
-
-        val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-
-        val resultList: List<ItemData> = items.filter{
-            val itemDate = LocalDate.parse(it.date, dateFormat)
-            itemDate >= startDate && itemDate <= endDate}
-
-        return resultList
+        val dateList: List<LocalDate> = items.map{ LocalDate.parse(it.date, dateFormat)}
+        return dateList.sorted()[0]
+        
     }
 
-    fun groupItemsIntoStatisticItems(items: List<ItemData>): List<StatisticsItem>{
+    fun calculateTotal(list: List<StatisticsItem>): BigDecimal{
 
-        //categories model dummy
-        val categories = listOf("CAR", "ELECTRICITY", "TRAVEL", "HOME", "CLOTHES")
-
-        val resultList = mutableListOf<StatisticsItem>()
-
-        categories.forEach(){ category ->
-
-            val tempList = items.filter{ it.text == category}
-            val total: BigDecimal = tempList.map { it.amount }.reduce { acc, amount -> acc + amount }
-
-            resultList.add( StatisticsItem(category, total.toString()))
-        }
-
-        return resultList.toList()
-
+        return list.map { it.value }.reduce { acc, amount -> acc + amount }
     }
+
+
+
     fun getYearsSince(startDate: LocalDate): List<TimeInterval> {
 
         val resultList = mutableListOf<TimeInterval>()
@@ -75,13 +59,6 @@ object StatisticsModelServices {
 
 
 }
-
-data class StatisticsItem(
-    val label: String,
-    val value: String,
-    //val color: Color
-
-)
 
 enum class TimeIntervalsLength {
     Today,
