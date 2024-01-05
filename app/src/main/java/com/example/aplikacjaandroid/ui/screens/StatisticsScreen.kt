@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
@@ -45,6 +46,9 @@ import com.example.aplikacjaandroid.services.TimeIntervalsLength
 import com.example.aplikacjaandroid.selectfield.SelectField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
+import co.yml.charts.ui.piechart.charts.PieChart
+import com.example.aplikacjaandroid.services.ChartServices
+import com.example.aplikacjaandroid.services.StatisticsServices
 import com.example.aplikacjaandroid.viewmodels.StatisticsViewModel
 
 
@@ -140,9 +144,19 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                     }
                 }
             }
-            Spacer(modifier = Modifier
-                .height(230.dp)
-                .background(Color.Gray))
+
+            //chart
+
+            statisticsUIState.statisticsItemList?.let { ChartServices.getPieChartData(it, statisticsUIState.total) }
+                ?.let {
+                    PieChart(
+                        modifier = Modifier
+                            .width(230.dp)
+                            .height(230.dp),
+                        it,
+                        ChartServices.getPieChartConfig()
+                    )
+                }
         }
         Box(
             modifier = Modifier
