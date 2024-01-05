@@ -59,16 +59,18 @@ object StatisticsServices {
 
         while (currentMonth.isBefore(nowDate) || currentMonth.isEqual(nowDate)) {
 
-        }
+
             val intervalStart = currentMonth.withDayOfMonth(1)
             val intervalEnd = currentMonth.withDayOfMonth(currentMonth.lengthOfMonth())
 
-            val formattedName = currentMonth.format(DateTimeFormatter.ofPattern("yyyy MMMM", locale))
+            val formattedName =
+                currentMonth.format(DateTimeFormatter.ofPattern("yyyy MMMM", locale))
             val monthInterval = TimeInterval(formattedName, intervalStart, intervalEnd)
 
             resultList.add(monthInterval)
 
             currentMonth = currentMonth.plus(1, ChronoUnit.MONTHS)
+        }
 
 
         return resultList.toList()
