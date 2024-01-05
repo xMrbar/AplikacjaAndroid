@@ -160,7 +160,7 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .fillMaxSize() // Occupy the entire size of the Box
+                    .fillMaxSize()
             ) {
                 if(statisticsUIState.statisticsItemList != null) {
 
@@ -194,15 +194,31 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
         }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){
-            ButtonNarrow(
-                text = stringResource(id = R.string.wydatek),
-                onClick = {},
-                property1 = Property1.Variant2
-            )
-            ButtonNarrow(
-                text = stringResource(id = R.string.przychod),
-                onClick = {},
-            )
+            if(statisticsUIState.isExpansesMode){
+                ButtonNarrow(
+                    text = stringResource(id = R.string.wydatek),
+                    onClick = {},
+                    property1 = Property1.Variant2
+                )
+                ButtonNarrow(
+                    text = stringResource(id = R.string.przychod),
+                    onClick = {statisticsViewModel.changeMode()},
+                )
+            }
+            else{
+                ButtonNarrow(
+                    text = stringResource(id = R.string.wydatek),
+                    onClick = {statisticsViewModel.changeMode()},
+
+                )
+                ButtonNarrow(
+                    text = stringResource(id = R.string.przychod),
+                    onClick = {},
+                    property1 = Property1.Variant2
+                )
+
+            }
+
         }
 
 

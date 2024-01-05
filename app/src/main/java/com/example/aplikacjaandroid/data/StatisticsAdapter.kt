@@ -79,7 +79,7 @@ class StatisticsAdapter( private val context: Context) {
 
     fun getRevenuesStatisticsFromPeriod(startDate: LocalDate, endDate: LocalDate): List<StatisticsItem>{
 
-        return groupItemsIntoStatisticItems(getExpensesFromPeriod(startDate, endDate))
+        return groupItemsIntoStatisticItems(getRevenuesFromPeriod(startDate, endDate))
 
     }
 

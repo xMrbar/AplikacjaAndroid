@@ -69,7 +69,6 @@ class StatisticsViewModel : ViewModel() {
 
         Log.d("TEST", _uiState.toString())
 
-
     }
 
     fun updateStatisticsAdapter(context: Context){
@@ -87,11 +86,56 @@ class StatisticsViewModel : ViewModel() {
 //        _uiState.update{ _uiState.value.copy(timeIntervalLabel = interval)}
 //    }
 
-    private fun updateState(){
-
-        //TODO
+    fun changeMode(){
+        _uiState.update { _uiState.value.copy(isExpansesMode = !uiState.value.isExpansesMode) }
+        updateStatistics()
     }
 
+    private fun updateStatistics(){
+        updateStatisticsList()
+        updateTotal()
+    }
+
+    private fun updateStatisticsList(){
+
+        val currentInterval = uiState.value.currentTimeInterval
+        if (currentInterval != null) {
+            if (uiState.value.isExpansesMode) {
+
+                _uiState.update {
+                    _uiState.value.copy(
+                        statisticsItemList =
+                        uiState.value.statisticsAdapter?.getExpensesStatisticsFromPeriod(
+                            currentInterval.startDate,
+                            currentInterval.endDate
+                        )
+                    )
+                }
+
+            } else {
+                _uiState.update {
+                    _uiState.value.copy(
+                        statisticsItemList =
+                        uiState.value.statisticsAdapter?.getRevenuesStatisticsFromPeriod(
+                            currentInterval.startDate,
+                            currentInterval.endDate
+                        )
+                    )
+                }
+
+            }
+        }
+        Log.d("CHANGE", uiState.value.statisticsItemList.toString())
+
+    }
+
+    private fun updateTotal(){
+
+        _uiState.update{ _uiState.value.copy(
+            total = StatisticsServices.calculateTotal(uiState.value.statisticsItemList!!)
+        )}
+
+    }
 
 
 
