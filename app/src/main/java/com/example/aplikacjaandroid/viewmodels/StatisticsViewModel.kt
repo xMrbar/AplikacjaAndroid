@@ -36,13 +36,13 @@ data class StatisticsUIState(
 
     val currentTimeInterval: TimeInterval? = TimeInterval(TimeIntervalsLength.Today.toString(), LocalDate.now(), LocalDate.now()),
 
-    val timeIntervalsList: List<String>? = null,
+    val timeIntervalsList: List<TimeInterval>? = null,
 
     val statisticsItemList: List<StatisticsItem>? = null,
 
     val total: BigDecimal = BigDecimal("0"),
 
-)
+    )
 
 class StatisticsViewModel : ViewModel() {
 
@@ -68,6 +68,8 @@ class StatisticsViewModel : ViewModel() {
         )}
 
         Log.d("TEST", _uiState.toString())
+        Log.d("EXPENSES", uiState.value.earliestExpenseDate.toString())
+        Log.d("REVENUES", uiState.value.earliestRevenueDate.toString())
 
     }
 
@@ -76,18 +78,68 @@ class StatisticsViewModel : ViewModel() {
         _uiState.value.statisticsAdapter?.init()
     }
 
-    fun updateTimeIntervalLength( intervalLength: TimeIntervalsLength){
-        //provisional time interval should be changed as well
-        //for ui testing purposes
-        _uiState.update{ _uiState.value.copy(currentTimeIntervalsLength = intervalLength)}
+    fun updateTimeIntervalLength(selectedIntervalLength: TimeIntervalsLength){
+
+        if(selectedIntervalLength == TimeIntervalsLength.Today || selectedIntervalLength == TimeIntervalsLength.CurrentWeek)
+            _uiState.update{ _uiState.value.copy(
+                currentTimeIntervalsLength = selectedIntervalLength,
+                isTimeIntervalDropdownExpandable = false
+            )}
+        else
+            _uiState.update{ _uiState.value.copy(
+                currentTimeIntervalsLength = selectedIntervalLength,
+                isTimeIntervalDropdownExpandable = true
+            )}
+
+        updateTimeIntervalsList()
+        updateStatistics()
     }
 
-//    fun updateTimeInterval( interval: String){
-//        _uiState.update{ _uiState.value.copy(timeIntervalLabel = interval)}
-//    }
+    fun updateTimeIntervalsList(){
+
+        val newList: List<TimeInterval> = when(uiState.value.currentTimeIntervalsLength){
+
+            TimeIntervalsLength.Today -> {
+                val now = LocalDate.now()
+                listOf<TimeInterval>(TimeInterval(now.toString(),now,now))
+            }
+
+            TimeIntervalsLength.CurrentWeek -> listOf(StatisticsServices.getWeekRange(LocalDate.now()))
+            TimeIntervalsLength.Month -> {
+                if(uiState.value.isExpansesMode)
+                    StatisticsServices.getMonthsSince(uiState.value.earliestExpenseDate!!)
+                else
+                    StatisticsServices.getMonthsSince(uiState.value.earliestRevenueDate!!)
+            }
+            TimeIntervalsLength.Year -> {
+                if(uiState.value.isExpansesMode)
+                    StatisticsServices.getYearsSince(uiState.value.earliestExpenseDate!!)
+                else
+                    StatisticsServices.getYearsSince(uiState.value.earliestRevenueDate!!)
+            }
+            else -> listOf()
+
+        }
+        _uiState.update { _uiState.value.copy(
+            timeIntervalsList = newList,
+            currentTimeInterval = newList[0]
+            )
+        }
+
+    }
+
+    fun updateTimeInterval(selectedInterval: TimeInterval){
+        _uiState.update{ _uiState.value.copy(
+            currentTimeInterval = selectedInterval,
+        )}
+        updateStatistics()
+    }
+
+
 
     fun changeMode(){
         _uiState.update { _uiState.value.copy(isExpansesMode = !uiState.value.isExpansesMode) }
+        updateTimeIntervalsList()
         updateStatistics()
     }
 
@@ -125,7 +177,7 @@ class StatisticsViewModel : ViewModel() {
 
             }
         }
-        Log.d("CHANGE", uiState.value.statisticsItemList.toString())
+
 
     }
 
@@ -136,6 +188,15 @@ class StatisticsViewModel : ViewModel() {
         )}
 
     }
+
+    private fun setInterval(selectedInterval: TimeInterval){
+
+        _uiState.update{ _uiState.value.copy(
+            currentTimeInterval = selectedInterval
+        )}
+        updateStatistics()
+    }
+
 
 
 
