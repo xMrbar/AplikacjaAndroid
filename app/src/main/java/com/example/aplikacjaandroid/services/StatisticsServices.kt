@@ -1,6 +1,7 @@
 package com.example.aplikacjaandroid.services
 
 import android.content.Context
+import com.example.aplikacjaandroid.data.Category
 import com.example.aplikacjaandroid.data.FileManager
 import com.example.aplikacjaandroid.data.ItemData
 import com.example.aplikacjaandroid.data.StatisticsItem
@@ -83,6 +84,16 @@ object StatisticsServices {
         val label = "$startOfWeek - $endOfWeek"
 
         return TimeInterval(label, startOfWeek, endOfWeek)
+
+    }
+
+    fun getEnumFromId(id:Int): Category {
+
+        val tempList = Category.values().filter{it.id == id}
+        if(tempList.isNullOrEmpty())
+            return Category.OTHER
+        else
+            return tempList[0]
 
     }
 

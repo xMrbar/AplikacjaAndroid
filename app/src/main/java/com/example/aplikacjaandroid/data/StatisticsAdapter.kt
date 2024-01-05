@@ -2,15 +2,15 @@ package com.example.aplikacjaandroid.data
 
 import android.content.Context
 import android.util.Log
+import com.example.aplikacjaandroid.services.StatisticsServices
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
 data class StatisticsItem(
-    val label: String,
+    val category: Category,
     val value: BigDecimal,
-    //val color: Color
 
 )
 class StatisticsAdapter( private val context: Context) {
@@ -55,18 +55,18 @@ class StatisticsAdapter( private val context: Context) {
 
         // TODO(add colors for statistics Item)
 
-        val categories = listOf(0,1,2,3,4,5,6)
+
 
         val resultList = mutableListOf<StatisticsItem>()
 
-        categories.forEach(){ category ->
+        Category.values().forEach(){ category ->
 
-            val tempList = items.filter{ it.imageResource == category}
+            val tempList = items.filter{ StatisticsServices.getEnumFromId(it.imageResource) == category}
             if(!tempList.isNullOrEmpty()) {
                 val total: BigDecimal =
                     tempList.map { it.amount }.reduce { acc, amount -> acc + amount }
 
-                resultList.add(StatisticsItem(category.toString(), total))
+                resultList.add(StatisticsItem(category, total))
             }
         }
         return resultList.toList()

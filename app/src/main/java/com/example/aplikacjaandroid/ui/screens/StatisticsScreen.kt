@@ -168,13 +168,8 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                     items(statisticsUIState.statisticsItemList!!.size) { i ->
                         ListItem(
                             itemValue = statisticsUIState.statisticsItemList!![i].value.toString(),
-                            itemName = statisticsUIState.statisticsItemList!![i].label,
-                            color = Color(
-                                ContextCompat.getColor(
-                                    LocalContext.current,
-                                    R.color.outline
-                                )
-                            )
+                            itemName = statisticsUIState.statisticsItemList!![i].category.label,
+                            color = statisticsUIState.statisticsItemList!![i].category.color,
                         )
                     }
                 }
