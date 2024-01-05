@@ -47,9 +47,11 @@ import com.example.aplikacjaandroid.selectfield.SelectField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import co.yml.charts.ui.piechart.charts.PieChart
+import com.example.aplikacjaandroid.labelsmall.LabelSmall
 import com.example.aplikacjaandroid.services.ChartServices
 import com.example.aplikacjaandroid.services.StatisticsServices
 import com.example.aplikacjaandroid.viewmodels.StatisticsViewModel
+import kotlin.math.absoluteValue
 
 
 @Composable
@@ -147,16 +149,29 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
 
             //chart
 
-            statisticsUIState.statisticsItemList?.let { ChartServices.getPieChartData(it, statisticsUIState.total) }
-                ?.let {
-                    PieChart(
-                        modifier = Modifier
-                            .width(230.dp)
-                            .height(230.dp),
+            if(!statisticsUIState.statisticsItemList.isNullOrEmpty()) {
+
+                statisticsUIState.statisticsItemList?.let {
+                    ChartServices.getPieChartData(
                         it,
-                        ChartServices.getPieChartConfig()
+                        statisticsUIState.total
                     )
                 }
+                    ?.let {
+                        PieChart(
+                            modifier = Modifier
+                                .width(230.dp)
+                                .height(230.dp),
+                            it,
+                            ChartServices.getPieChartConfig()
+                        )
+                    }
+            }
+
+            //if there is now data to make a chart of
+            else{
+                LabelSmall(text = stringResource(id = R.string.brak_wpisow), modifier = Modifier.height(230.dp))
+            }
         }
         Box(
             modifier = Modifier

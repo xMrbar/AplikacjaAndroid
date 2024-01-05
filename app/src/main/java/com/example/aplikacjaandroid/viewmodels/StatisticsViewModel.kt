@@ -183,8 +183,11 @@ class StatisticsViewModel : ViewModel() {
 
     private fun updateTotal(){
 
+        val newTotal = if (!uiState.value.statisticsItemList.isNullOrEmpty())  StatisticsServices.calculateTotal(uiState.value.statisticsItemList!!)
+        else BigDecimal("0")
+
         _uiState.update{ _uiState.value.copy(
-            total = StatisticsServices.calculateTotal(uiState.value.statisticsItemList!!)
+            total = newTotal
         )}
 
     }

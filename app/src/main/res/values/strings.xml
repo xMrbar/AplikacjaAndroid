@@ -79,5 +79,6 @@
     <string name="uzytkownik_nie_istnieje">Użytkownik o podanej nazwie nie istnieje.</string>
     <string name="blede_dane">Wprowadzono błędne dane.</string>
     <string name="usun_konto">USUŃ KONTO</string>
+    <string name="brak_wpisow">Brak wpisów</string>
 
 </resources>
