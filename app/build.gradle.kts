@@ -88,6 +88,7 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.48")
     implementation ("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("com.google.firebase:firebase-firestore:24.9.1")
+    implementation("co.yml:ycharts:2.1.0")
     kapt ("com.google.dagger:hilt-android-compiler:2.44")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
     testImplementation("junit:junit:4.13.2")
@@ -111,5 +112,4 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    implementation("co.yml:ycharts:2.1.0")
 }

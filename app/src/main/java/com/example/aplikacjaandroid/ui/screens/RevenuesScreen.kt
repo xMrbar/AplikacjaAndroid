@@ -29,9 +29,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import co.yml.charts.ui.piechart.PieChartConstants.DEFAULT_PADDING
+import co.yml.charts.ui.piechart.PieChartConstants.DEFAULT_SLICE_LABEL_TEXT_SIZE
+import co.yml.charts.ui.piechart.PieChartConstants.DEFAULT_START_ANGLE
+import co.yml.charts.ui.piechart.PieChartConstants.DEFAULT_STROKE_WIDTH
+import co.yml.charts.ui.piechart.charts.DonutPieChart
+import co.yml.charts.ui.piechart.models.PieChartData
 import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
+import com.example.aplikacjaandroid.ui.components.PieChartView
 import com.example.aplikacjaandroid.viewmodels.RevenuesViewModel
 
 @Composable
@@ -95,40 +102,42 @@ fun RevenuesScreen(modifier : Modifier,
         Spacer(modifier = Modifier.width(10.dp))
         Box(
             modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-                .size(210.dp),
+                .size(260.dp),
             contentAlignment = Alignment.Center
         ) {
+            Spacer(modifier = Modifier.width(10.dp))
+            PieChartView(dochodyWTymMiesiacu, planowaneDochodyWMiesiacuKwota)
             Column(
                 modifier = modifier,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = stringResource(id = R.string.dochodyWplynelo),
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp
                 )
                 Text(
                     text = dochodyWTymMiesiacu,
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = stringResource(id = R.string.dochodyZPlanowanych),
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp
                 )
                 Text(
                     text = planowaneDochodyWMiesiacuKwota,
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
+            Spacer(modifier = Modifier.width(10.dp))
         }
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.width(10.dp))
         LazyColumn(
             modifier = Modifier
                 .weight(1f)

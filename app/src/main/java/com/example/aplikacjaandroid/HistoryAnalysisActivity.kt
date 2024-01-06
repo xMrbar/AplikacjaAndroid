@@ -115,12 +115,12 @@ fun HistoryAnalysis(modifier : Modifier = Modifier, context: Context) {
                     .height(0.dp)
                     .background(Color.Gray)
             )
-            Image(
+            /*Image(
                 painter = painterResource(R.drawable.month_plot),
                 contentDescription = null,
                 modifier = Modifier
                     .size(300.dp)
-            )
+            )*/
         }
 
 

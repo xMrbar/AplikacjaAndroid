@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
+import com.example.aplikacjaandroid.ui.components.PieChartView
 import com.example.aplikacjaandroid.viewmodels.ExpensesViewModel
 
 @Composable
@@ -93,34 +94,35 @@ fun ExpensesScreen(modifier : Modifier,
         Spacer(modifier = Modifier.width(10.dp))
         Box(
             modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-                .size(210.dp),
+                .size(260.dp),
             contentAlignment = Alignment.Center
         ) {
+            Spacer(modifier = Modifier.width(10.dp))
+            PieChartView(wydatkiWTymMiesiacu, planowaneWydatkiWMiesiacuKwota)
             Column(
                 modifier = modifier,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = stringResource(id = R.string.remainingMoneyForMonth),
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp
                 )
                 Text(
                     text = wydatkiWTymMiesiacu,
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = stringResource(id = R.string.remainingMoneyForMonthAll),
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp
                 )
                 Text(
                     text = planowaneWydatkiWMiesiacuKwota,
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
