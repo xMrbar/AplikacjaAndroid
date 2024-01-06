@@ -36,7 +36,8 @@ fun AddNewOutPlanView(){
     AddNewOutPlanScreen(modifier = Modifier
         .fillMaxSize(),
         onRevenuesAddButtonClickedHandler = { },
-        onExpensesAddButtonClickedHandler = { })
+        onExpensesAddButtonClickedHandler = { },
+        onClickGoBack = { })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,7 +46,8 @@ fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
                          addNewOutPlanViewModel: AddNewOutPlanViewModel
                                 = viewModel(),
                          onRevenuesAddButtonClickedHandler: () -> Unit,
-                         onExpensesAddButtonClickedHandler: () -> Unit
+                         onExpensesAddButtonClickedHandler: () -> Unit,
+                         onClickGoBack: () -> Unit
 ){
     val context = LocalContext.current
 
@@ -112,7 +114,7 @@ fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.dodaj),
             onClick = {
-                addNewOutPlanViewModel.appendToFile(context)
+                addNewOutPlanViewModel.appendToFile(context, onClickGoBack)
             }
         )
     }

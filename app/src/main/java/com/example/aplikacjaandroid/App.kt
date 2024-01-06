@@ -163,34 +163,39 @@ class FinancialApp: Application(){
             composable( route = AppScreen.AddNewExpensePlan.name){
                 AddNewExpensePlanScreen(modifier = Modifier
                     .fillMaxSize(),
-                    onRevenuesAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewRevenuePlan) })
+                    onRevenuesAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewRevenuePlan) },
+                    onClickGoBack = { navigateDirectTo(navController, AppScreen.ExpensesPlan)})
             }
 
             composable( route = AppScreen.AddNewRevenuePlan.name){
                 AddNewRevenuePlanScreen(modifier = Modifier
                     .fillMaxSize(),
-                    onExpenseAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewExpensePlan) })
+                    onExpenseAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewExpensePlan) },
+                    onClickGoBack = { navigateDirectTo(navController, AppScreen.RevenuesPlan)})
             }
 
             composable( route = AppScreen.AddNewExpense.name){
                 AddNewExpenseScreen(modifier = Modifier
                     .fillMaxSize(),
                     onRevenuesAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewRevenue) },
-                    onOutPlanAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewOutPlan) })
+                    onOutPlanAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewOutPlan) },
+                    onClickGoBack = { navigateDirectTo(navController, AppScreen.Expenses)})
             }
 
             composable( route = AppScreen.AddNewRevenue.name){
                 AddNewRevenueScreen(modifier = Modifier
                     .fillMaxSize(),
                     onExpensesAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewExpense)  },
-                    onOutPlanAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewOutPlan) })
+                    onOutPlanAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewOutPlan) },
+                    onClickGoBack = { navigateDirectTo(navController, AppScreen.Revenues)})
             }
 
             composable( route = AppScreen.AddNewOutPlan.name){
                 AddNewOutPlanScreen(modifier = Modifier
                     .fillMaxSize(),
                     onRevenuesAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewRevenue) },
-                    onExpensesAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewExpense) })
+                    onExpensesAddButtonClickedHandler = { navigateDirectTo(navController, AppScreen.AddNewExpense) },
+                    onClickGoBack = { navigateDirectTo(navController, AppScreen.AccountBalance)})
             }
 
             //---------------------------------------------------------------------------

@@ -32,14 +32,16 @@ import com.example.aplikacjaandroid.viewmodels.AddNewRevenuePlanViewModel
 fun AddNewRevenuePlanView(){
     AddNewRevenuePlanScreen(modifier = Modifier
         .fillMaxSize(),
-        onExpenseAddButtonClickedHandler = { })
+        onExpenseAddButtonClickedHandler = { },
+        onClickGoBack = { })
 }
 
 @Composable
 fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
                          addNewRevenuePlanViewModel: AddNewRevenuePlanViewModel
                                 = viewModel(),
-                         onExpenseAddButtonClickedHandler: () -> Unit
+                         onExpenseAddButtonClickedHandler: () -> Unit,
+                            onClickGoBack: () -> Unit
 ){
     val context = LocalContext.current
 
@@ -94,7 +96,7 @@ fun AddNewRevenuePlanScreen(modifier : Modifier = Modifier,
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.dodaj),
             onClick = {
-                addNewRevenuePlanViewModel.appendToFile(context)
+                addNewRevenuePlanViewModel.appendToFile(context, onClickGoBack)
             }
         )
     }

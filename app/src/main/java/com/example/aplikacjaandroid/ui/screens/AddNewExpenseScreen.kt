@@ -36,7 +36,8 @@ fun AddNewExpenseView(){
     AddNewExpenseScreen(modifier = Modifier
         .fillMaxSize(),
         onRevenuesAddButtonClickedHandler = { },
-        onOutPlanAddButtonClickedHandler = { })
+        onOutPlanAddButtonClickedHandler = { },
+        onClickGoBack = { })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,7 +46,8 @@ fun AddNewExpenseScreen(modifier : Modifier = Modifier,
                          addNewExpenseViewModel: AddNewExpenseViewModel
                                 = viewModel(),
                          onRevenuesAddButtonClickedHandler: () -> Unit,
-                         onOutPlanAddButtonClickedHandler: () -> Unit
+                         onOutPlanAddButtonClickedHandler: () -> Unit,
+                         onClickGoBack: () -> Unit
 ){
     val context = LocalContext.current
 
@@ -111,7 +113,7 @@ fun AddNewExpenseScreen(modifier : Modifier = Modifier,
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.dodaj),
             onClick = {
-                addNewExpenseViewModel.appendToFile(context)
+                addNewExpenseViewModel.appendToFile(context, onClickGoBack)
             }
         )
     }

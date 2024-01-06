@@ -36,7 +36,8 @@ fun AddNewRevenueView(){
     AddNewRevenueScreen(modifier = Modifier
         .fillMaxSize(),
         onExpensesAddButtonClickedHandler = { },
-        onOutPlanAddButtonClickedHandler = { })
+        onOutPlanAddButtonClickedHandler = { },
+        onClickGoBack = { })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,7 +46,8 @@ fun AddNewRevenueScreen(modifier : Modifier = Modifier,
                          addNewRevenueViewModel: AddNewRevenueViewModel
                                 = viewModel(),
                         onExpensesAddButtonClickedHandler: () -> Unit,
-                        onOutPlanAddButtonClickedHandler: () -> Unit
+                        onOutPlanAddButtonClickedHandler: () -> Unit,
+                        onClickGoBack: () -> Unit
 ){
     val context = LocalContext.current
 
@@ -114,7 +116,7 @@ fun AddNewRevenueScreen(modifier : Modifier = Modifier,
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.dodaj),
             onClick = {
-                addNewRevenueViewModel.appendToFile(context)
+                addNewRevenueViewModel.appendToFile(context, onClickGoBack)
             }
         )
     }

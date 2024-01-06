@@ -52,15 +52,15 @@ class AddNewExpensePlanViewModel: ViewModel() {
         expanded1 = b
     }
 
-    fun appendToFile(context: Context):Boolean
+    fun appendToFile(context: Context, onClickGoBack: () -> Unit)
     {
         if (tytul.isEmpty() || selectedOption1.equals("Częstość płatności") ||
             selectedOption2.equals("Kategoria") || kwota.toDouble() <= 0)
         {
-            return false
+            return
         }
         appender(context)
-        return true
+        onClickGoBack()
     }
 
     private fun appender(context: Context)
