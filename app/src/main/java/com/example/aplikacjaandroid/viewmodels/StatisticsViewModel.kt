@@ -57,13 +57,15 @@ class StatisticsViewModel : ViewModel() {
         val earliestExpanse = adapter?.let { StatisticsServices.getEarliestDate(it.getAllExpenses()) }
         val earliestRevenue = adapter?.let { StatisticsServices.getEarliestDate(it.getAllRevenues()) }
         val todayExpensesList = adapter?.let{it.getExpensesStatisticsFromPeriod(LocalDate.now(), LocalDate.now())}
+        val newTotal = if (!uiState.value.statisticsItemList.isNullOrEmpty())  StatisticsServices.calculateTotal(uiState.value.statisticsItemList!!)
+        else BigDecimal("0")
 
         _uiState.update{ _uiState.value.copy(
             earliestExpenseDate = earliestExpanse,
             earliestRevenueDate = earliestRevenue,
             currentTimeIntervalsLength = TimeIntervalsLength.Today,
             statisticsItemList = todayExpensesList,
-            total = StatisticsServices.calculateTotal(todayExpensesList!!)
+            total = newTotal
 
         )}
 

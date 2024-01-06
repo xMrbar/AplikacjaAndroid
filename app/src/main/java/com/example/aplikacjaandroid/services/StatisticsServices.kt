@@ -58,7 +58,7 @@ object StatisticsServices {
         var nowDate = LocalDate.now()
         val locale: Locale = Locale("pl_PL")
 
-        while (currentMonth.isBefore(nowDate) || currentMonth.isEqual(nowDate)) {
+        while (currentMonth.isBefore(nowDate) || currentMonth.month == nowDate.month) {
 
 
             val intervalStart = currentMonth.withDayOfMonth(1)

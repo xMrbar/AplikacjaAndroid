@@ -18,7 +18,7 @@ object ChartServices {
 
         list.forEach(){
 
-            val sliceValue = (it.value/total).toFloat()*100
+            val sliceValue = (it.value.toFloat()/total.toFloat())*100
             val slice = PieChartData.Slice(it.category.label,sliceValue, it.category.color)
             slicesList.add(slice)
 
