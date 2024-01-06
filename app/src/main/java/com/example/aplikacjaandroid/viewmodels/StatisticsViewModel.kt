@@ -2,6 +2,7 @@ package com.example.aplikacjaandroid.viewmodels
 
 import android.content.Context
 import android.util.Log
+import androidx.collection.emptyLongSet
 import androidx.lifecycle.ViewModel
 import com.example.aplikacjaandroid.data.StatisticsAdapter
 import com.example.aplikacjaandroid.data.StatisticsItem
@@ -54,9 +55,17 @@ class StatisticsViewModel : ViewModel() {
         updateStatisticsAdapter(context)
 
         val adapter = _uiState.value.statisticsAdapter
-        val earliestExpanse = adapter?.let { StatisticsServices.getEarliestDate(it.getAllExpenses()) }
-        val earliestRevenue = adapter?.let { StatisticsServices.getEarliestDate(it.getAllRevenues()) }
-        val todayExpensesList = adapter?.let{it.getExpensesStatisticsFromPeriod(LocalDate.now(), LocalDate.now())}
+        val earliestExpanse: LocalDate? =
+            if (!adapter?.getAllExpenses().isNullOrEmpty())
+                adapter?.let { StatisticsServices.getEarliestDate(it.getAllExpenses()) }
+            else LocalDate.now()
+        val earliestRevenue: LocalDate? =
+            if (!adapter?.getAllRevenues().isNullOrEmpty())
+                adapter?.let { StatisticsServices.getEarliestDate(it.getAllRevenues()) }
+            else LocalDate.now()
+        val todayExpensesList = if (!adapter?.getAllExpenses().isNullOrEmpty())
+            adapter?.let{it.getExpensesStatisticsFromPeriod(LocalDate.now(), LocalDate.now())}
+        else listOf()
         val newTotal = if (!uiState.value.statisticsItemList.isNullOrEmpty())  StatisticsServices.calculateTotal(uiState.value.statisticsItemList!!)
         else BigDecimal("0")
 
