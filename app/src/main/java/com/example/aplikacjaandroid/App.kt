@@ -28,6 +28,7 @@ import com.example.aplikacjaandroid.ui.screens.RevenuesPlanScreen
 import com.example.aplikacjaandroid.ui.screens.RevenuesScreen
 import com.example.aplikacjaandroid.ui.screens.SignInScreen
 import com.example.aplikacjaandroid.ui.screens.StatisticsScreen
+import com.example.aplikacjaandroid.ui.screens.HistoryAnalysisScreen
 import com.example.aplikacjaandroid.ui.screens.UserAccountScreen
 import com.example.aplikacjaandroid.ui.screens.WelcomeScreen
 import com.google.firebase.auth.FirebaseAuth
@@ -207,9 +208,9 @@ class FinancialApp: Application(){
             // Not decoupled yet, still activities
 
             composable( route = AppScreen.HistoryAnalysis.name){
-                val context = LocalContext.current
-                HistoryAnalysis(modifier = Modifier.fillMaxSize(), context)
+                HistoryAnalysisScreen(modifier = Modifier.fillMaxSize())
             }
+
         }
     }
 

@@ -79,13 +79,15 @@ fun AddNewExpensePlanScreen(modifier : Modifier = Modifier,
                 onValueChanged = { addNewExpensePlanViewModel.updateTytul(it) })
             Spacer(modifier = Modifier.height(30.dp))
             MySelectBox(addNewExpensePlanViewModel.optionsDate, addNewExpensePlanViewModel.selectedOption1, onClick = { addNewExpensePlanViewModel.updateData(it) },
-                expanded = addNewExpensePlanViewModel.expanded, expandedChange = { addNewExpensePlanViewModel.updateExpanded(it)})
+                expanded = addNewExpensePlanViewModel.expanded
+            ) { addNewExpensePlanViewModel.updateExpanded(it) }
             Spacer(modifier = Modifier.height(20.dp))
             InputCount(title="Kwota", tytul=addNewExpensePlanViewModel.kwota,
                 onValueChanged = { addNewExpensePlanViewModel.updateKwota(it) })
             Spacer(modifier = Modifier.height(30.dp))
             MySelectBox(addNewExpensePlanViewModel.optionsType, addNewExpensePlanViewModel.selectedOption2, onClick = { addNewExpensePlanViewModel.updateKategoria(it) },
-                expanded = addNewExpensePlanViewModel.expanded1, expandedChange = { addNewExpensePlanViewModel.updateExpanded1(it)})
+                expanded = addNewExpensePlanViewModel.expanded1
+            ) { addNewExpensePlanViewModel.updateExpanded1(it) }
         }
 
         Spacer(modifier = Modifier.weight(1f))

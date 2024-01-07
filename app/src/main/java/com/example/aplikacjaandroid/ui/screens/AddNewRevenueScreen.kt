@@ -108,7 +108,8 @@ fun AddNewRevenueScreen(modifier : Modifier = Modifier,
                 onValueChanged = { addNewRevenueViewModel.updateKwota(it) })
             Spacer(modifier = Modifier.height(30.dp))
             MySelectBox(addNewRevenueViewModel.optionsType, addNewRevenueViewModel.selectedOption2, onClick = { addNewRevenueViewModel.updateKategoria(it) },
-                expanded = addNewRevenueViewModel.expanded1, expandedChange = { addNewRevenueViewModel.updateExpanded1(it)})
+                expanded = addNewRevenueViewModel.expanded1
+            ) { addNewRevenueViewModel.updateExpanded1(it) }
         }
 
         Spacer(modifier = Modifier.weight(1f))

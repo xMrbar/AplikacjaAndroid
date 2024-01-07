@@ -106,7 +106,8 @@ fun AddNewOutPlanScreen(modifier : Modifier = Modifier,
                 onValueChanged = { addNewOutPlanViewModel.updateKwota(it) })
             Spacer(modifier = Modifier.height(30.dp))
             MySelectBox(addNewOutPlanViewModel.optionsType, addNewOutPlanViewModel.selectedOption2, onClick = { addNewOutPlanViewModel.updateKategoria(it) },
-                expanded = addNewOutPlanViewModel.expanded1, expandedChange = { addNewOutPlanViewModel.updateExpanded1(it)})
+                expanded = addNewOutPlanViewModel.expanded1
+            ) { addNewOutPlanViewModel.updateExpanded1(it) }
         }
 
         Spacer(modifier = Modifier.weight(1f))
