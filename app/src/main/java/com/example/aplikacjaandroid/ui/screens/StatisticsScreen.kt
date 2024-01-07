@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,9 +48,7 @@ import androidx.compose.runtime.LaunchedEffect
 import co.yml.charts.ui.piechart.charts.PieChart
 import com.example.aplikacjaandroid.labelsmall.LabelSmall
 import com.example.aplikacjaandroid.services.ChartServices
-import com.example.aplikacjaandroid.services.StatisticsServices
 import com.example.aplikacjaandroid.viewmodels.StatisticsViewModel
-import kotlin.math.absoluteValue
 
 
 @Composable
@@ -91,9 +88,8 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
         Box(modifier = Modifier.fillMaxWidth()) {
             statisticsUIState.currentTimeIntervalsLength?.let {
                 SelectField(
-                    text = it.label,
-                    onClick = { expandedTimeIntervalsLengthDropdown = true}
-                )
+                    text = it.label
+                ) { expandedTimeIntervalsLengthDropdown = true }
             }
             DropdownMenu(
                 expanded = expandedTimeIntervalsLengthDropdown,
@@ -128,9 +124,8 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
 
             Box(modifier = Modifier.fillMaxWidth()) {
                 SelectField(
-                    text = statisticsUIState.currentTimeInterval!!.name,
-                    onClick = { expandedTimeIntervalsDropdown = true}
-                )
+                    text = statisticsUIState.currentTimeInterval!!.name
+                ) { expandedTimeIntervalsDropdown = true }
                 DropdownMenu(
                     expanded = expandedTimeIntervalsDropdown && statisticsUIState.isTimeIntervalDropdownExpandable,
                     onDismissRequest = { expandedTimeIntervalsDropdown = false },

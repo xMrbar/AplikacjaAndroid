@@ -1,13 +1,11 @@
 package com.example.aplikacjaandroid
 
-import android.app.LauncherActivity
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -28,9 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,12 +33,9 @@ import androidx.core.content.ContextCompat
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.labellarge.LabelLarge
-import com.example.aplikacjaandroid.listitem.ListItem
 import com.example.aplikacjaandroid.selectfield.SelectField
-import com.example.aplikacjaandroid.selectfield.Text
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
-import androidx.compose.foundation.Image
 
 class HistoryAnalysisActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

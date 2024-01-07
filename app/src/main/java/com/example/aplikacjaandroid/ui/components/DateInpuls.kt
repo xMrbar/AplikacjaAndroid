@@ -16,36 +16,30 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.selectfield.SelectField
 import com.example.aplikacjaandroid.textinput.TextInput
-import kotlinx.coroutines.flow.MutableStateFlow
-import java.util.Calendar
-import java.util.Date
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun MySelectBox(options: List<String>,
-                text: String,
-                modifier: Modifier = Modifier
+fun MySelectBox(
+    options: List<String>,
+    text: String,
+    modifier: Modifier = Modifier
                     .padding(4.dp)
                     .fillMaxWidth(),
-                onClick: (String)->Unit,
-                expanded: Boolean,
-                expandedChange: (Boolean) -> Unit)
+    onClick: (String)->Unit,
+    expanded: Boolean,
+    expandedChange: (Boolean) -> Unit)
 {
     Column {
-        SelectField(modifier = modifier,
-            text = text,
-            onClick = { expandedChange(true) }
-        )
+        SelectField(
+            modifier = modifier,
+            text = text
+        ) { expandedChange(true) }
 
         DropdownMenu(
             expanded = expanded,

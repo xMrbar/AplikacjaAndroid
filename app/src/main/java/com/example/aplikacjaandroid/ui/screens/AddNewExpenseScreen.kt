@@ -105,7 +105,8 @@ fun AddNewExpenseScreen(modifier : Modifier = Modifier,
                 onValueChanged = { addNewExpenseViewModel.updateKwota(it) })
             Spacer(modifier = Modifier.height(30.dp))
             MySelectBox(addNewExpenseViewModel.optionsType, addNewExpenseViewModel.selectedOption2, onClick = { addNewExpenseViewModel.updateKategoria(it) },
-                expanded = addNewExpenseViewModel.expanded1, expandedChange = { addNewExpenseViewModel.updateExpanded1(it)})
+                expanded = addNewExpenseViewModel.expanded1
+            ) { addNewExpenseViewModel.updateExpanded1(it) }
         }
 
         Spacer(modifier = Modifier.weight(1f))
