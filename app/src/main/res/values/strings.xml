@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AplikacjaAndroid</string>
+    <string name="app_name">PiggyPlanner</string>
     <string name="menu">MENU</string>
     <string name="button1Text">CODZIENNE PŁATNOŚCI</string>
     <string name="button2Text">PLANOWANIE BUDŻETU</string>
