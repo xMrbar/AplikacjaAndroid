@@ -72,14 +72,17 @@ fun ChangePasswordScreen(modifier : Modifier = Modifier,
             Spacer(modifier = Modifier.height(40.dp))
 
             CustomPasswordInput(modifier = inputModifier, title = stringResource(id = R.string.haslo),
-                textContent = changePasswordViewModel.userPassword, onValueChanged = {changePasswordViewModel.updateUserPassword(it)}
+                textContent = changePasswordViewModel.userPassword,
+                onValueChanged = {changePasswordViewModel.updateUserPassword(it)}
             )
             CustomPasswordInput(modifier = inputModifier, title = stringResource(id = R.string.nowe_haslo),
-                textContent = changePasswordViewModel.newPassword, onValueChanged = {changePasswordViewModel.updateNewPassword(it)}
+                textContent = changePasswordViewModel.newPassword,
+                onValueChanged = {changePasswordViewModel.updateNewPassword(it)}
             )
             CustomPasswordInput(modifier = inputModifier, title = stringResource(id = R.string.powtorz_haslo),
 
-                textContent = changePasswordViewModel.repeatedNewPassword, onValueChanged = {changePasswordViewModel.updateRepeatedNewPassword(it)}
+                textContent = changePasswordViewModel.repeatedNewPassword,
+                onValueChanged = {changePasswordViewModel.updateRepeatedNewPassword(it)}
             )
             Spacer(modifier = Modifier.height(30.dp))
             ButtonWide(

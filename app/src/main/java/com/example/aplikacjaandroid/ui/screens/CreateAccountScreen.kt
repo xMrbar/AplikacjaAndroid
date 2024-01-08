@@ -70,15 +70,18 @@ fun CreateAccountScreen(modifier : Modifier = Modifier,
                 color = colorResource(R.color.outline)
             )
             CustomTextInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.imie),
-                onClick = {}, onValueChanged = {createAccountViewModel.updateUserName(it)}, textContent = createAccountViewModel.userName
+                onClick = {},
+                onValueChanged = {createAccountViewModel.updateUserName(it)}, textContent = createAccountViewModel.userName
             )
             Spacer(Modifier.height(10.dp))
             CustomTextInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.nazwisko),
-                onClick = {}, onValueChanged = {createAccountViewModel.updateUserLastName(it)}, textContent = createAccountViewModel.userLastName
+                onClick = {},
+                onValueChanged = {createAccountViewModel.updateUserLastName(it)}, textContent = createAccountViewModel.userLastName
             )
             Spacer(Modifier.height(10.dp))
             CustomTextInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.adres_email),
-                onClick = {}, onValueChanged = {createAccountViewModel.updateUserEmail(it)}, textContent = createAccountViewModel.userEmail
+                onClick = {},
+                onValueChanged = {createAccountViewModel.updateUserEmail(it)}, textContent = createAccountViewModel.userEmail
             )
             Spacer(Modifier.height(10.dp))
             CustomPasswordInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.haslo),
@@ -88,11 +91,7 @@ fun CreateAccountScreen(modifier : Modifier = Modifier,
             CustomPasswordInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.powtorz_haslo),
                  onValueChanged = {createAccountViewModel.updateRepeatedPassword(it)}, textContent = createAccountViewModel.repeatedPassword
             )
-
-
         }
-
-
         Spacer(modifier = Modifier.weight(1f))
 
         // button at the bottom

@@ -85,5 +85,7 @@
     <string name= "waluta">zł</string>
     <string name= "dzisiaj">Dzisiaj</string>
     <string name= "bledne_haslo">Błędne hasło</string>
+    <string name= "czy_na_pewno">Czy na pewno chcesz to zrobić?</string>
+    <string name= "anuluj">ANULUJ</string>
 
 </resources>

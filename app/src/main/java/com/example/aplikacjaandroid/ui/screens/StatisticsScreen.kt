@@ -58,7 +58,6 @@ fun StatisticsPreview(){
         .fillMaxSize())
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StatisticsScreen(modifier : Modifier = Modifier,
                      statisticsViewModel: StatisticsViewModel = viewModel()
@@ -259,11 +258,6 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
             }
 
         }
-
-
-
-
-
 
     }
 }
