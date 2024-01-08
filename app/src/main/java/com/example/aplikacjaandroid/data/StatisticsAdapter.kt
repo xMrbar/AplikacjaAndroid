@@ -90,4 +90,6 @@ class StatisticsAdapter( private val context: Context) {
     fun getAllRevenues(): List<ItemData>{
         return revenuesList
     }
+
+
 }

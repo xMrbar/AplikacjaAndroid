@@ -1,9 +1,11 @@
 package com.example.aplikacjaandroid.ui.screens
 import android.content.Context
+import com.example.aplikacjaandroid.selectfield.SelectField
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,8 +15,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -31,56 +37,14 @@ import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.selectfield.SelectField
+import com.example.aplikacjaandroid.services.TimeIntervalsLength
 import com.example.aplikacjaandroid.viewmodels.HistoryAnalysisViewModel
-import co.yml.charts.axis.DataCategoryOptions
-import androidx.compose.foundation.layout.*
-import co.yml.charts.axis.AxisData
-import co.yml.charts.common.utils.DataUtils
-
-import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
-import co.yml.charts.ui.barchart.BarChart
-import co.yml.charts.ui.barchart.models.BarChartType
-import co.yml.charts.ui.barchart.models.BarStyle
-
-import co.yml.charts.ui.barchart.models.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import com.example.aplikacjaandroid.ui.components.mySelectBox
-
-
-@Composable
-private fun BarchartWithSolidBars() {
-    val maxRange = 50
-    val barData = DataUtils.getBarChartData(50, maxRange, BarChartType.VERTICAL, DataCategoryOptions())
-    val yStepSize = 10
-
-    val xAxisData = AxisData.Builder()
-        .axisStepSize(30.dp)
-        .steps(barData.size - 1)
-        .bottomPadding(40.dp)
-        .axisLabelAngle(20f)
-        .startDrawPadding(48.dp)
-        .labelData { index -> barData[index].label }
-        .build()
-    val yAxisData = AxisData.Builder()
-        .steps(yStepSize)
-        .labelAndAxisLinePadding(20.dp)
-        .axisOffset(20.dp)
-        .labelData { index -> (index * (maxRange / yStepSize)).toString() }
-        .build()
-    val barChartData = BarChartData(
-        chartData = barData,
-        xAxisData = xAxisData,
-        yAxisData = yAxisData,
-        barStyle = BarStyle(
-            paddingBetweenBars = 20.dp,
-            barWidth = 25.dp
-        ),
-        showYAxis = true,
-        showXAxis = true,
-        horizontalExtraSpace = 10.dp,
-    )
-    BarChart(modifier = Modifier.height(350.dp), barChartData = barChartData)
-}
+import com.example.aplikacjaandroid.ui.components.BarchartWithSolidBars
+import com.example.aplikacjaandroid.ui.components.MySelectBox
+import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
 @Composable
 @Preview
 fun HistoryAnalysisPreview(){
@@ -99,10 +63,9 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
     val textColor = Color(ContextCompat.getColor(LocalContext.current, R.color.backgroud))
     val context: Context = LocalContext.current
 
-    /*
     LaunchedEffect(historyAnalysisViewModel) {
-        historyAnalysisViewModel.getInitialData(context)
-    }*/
+        historyAnalysisViewModel.initializeAnalysis(context)
+    }
 
     Column(
         modifier = modifier
@@ -111,20 +74,25 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
             .padding(16.dp), verticalArrangement = Arrangement.SpaceAround
 
     ) {
-        LabelLarge(text = stringResource(id = R.string.button5Text))
+        MySelectBox(options = listOf("2021", "2022", "2023"), "Rok", Modifier.fillMaxWidth(), onClick = { historyAnalysisViewModel.updateYear(it)}, expanded = historyAnalysisViewModel.expanded
+        ) { historyAnalysisViewModel.updateExpanded(it) }
 
-        mySelectBox(options = listOf("2021", "2022", "2023"), MutableStateFlow("Rok"))
 
         if(historyAnalysisUIState.isMonthMode) {
             mySelectBox(
                 options = listOf(
+                    "Styczeń",
+                    "Luty",
+                    "Marzec",
+                    "Kwiecień",
+                    "Maj",
                     "Czerwiec",
                     "Lipiec",
                     "Sierpień",
                     "Wrzesień",
                     "Październik",
                     "Listopad",
-                    "Gruzień"
+                    "Grudzień"
                 ), MutableStateFlow("Miesiąc")
             )
         }
@@ -144,7 +112,7 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
 
         ) {
 
-            UnderlinedText(text = "Grudzień 2023", modifier = Modifier.fillMaxWidth())
+            UnderlinedText(text = historyAnalysisUIState.chosenYear.toString() + " " + historyAnalysisUIState.chosenMonth.toString(), modifier = Modifier.fillMaxWidth())
             BarchartWithSolidBars()
             Spacer(
                 modifier = Modifier
@@ -165,10 +133,8 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            androidx.compose.material3.Text(text = "5988.19zł", color = Color.Black)
-            /*com.example.aplikacjaandroid.selectfield.Text(text = "5988.19zł")*/
-            /*com.example.aplikacjaandroid.selectfield.Text(text = "WYDATKI")*/
-            androidx.compose.material3.Text(text = "WYDATKI", color = Color.Black)
+            Text( text = "WYDATKI", color = textColor)
+            Text(text = historyAnalysisUIState.expenses.toString(), color = textColor)
         }
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -180,11 +146,10 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            /*
-            com.example.aplikacjaandroid.selectfield.Text(text = "7860.00zł")
-            com.example.aplikacjaandroid.selectfield.Text(text = "PRZYCHODY")*/
-            androidx.compose.material3.Text(text = "7860.00zł", color = Color.Black)
-            androidx.compose.material3.Text(text ="PRZYCHODY", color = Color.Black)
+            //androidx.compose.material3.Text(text = "7860.00zł", color = Color.Black)
+           // androidx.compose.material3.Text(text ="PRZYCHODY", color = Color.Black)
+            Text( text = "PRZYCHODY", color = textColor)
+            Text(text = historyAnalysisUIState.revenues.toString(), color = textColor)
 
         }
 
@@ -215,11 +180,6 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
             }
 
         }
-
-
-
-
-
 
     }
 }
