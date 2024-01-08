@@ -21,12 +21,14 @@ class RevenuesViewModel(private val context: Context): ViewModel() {
 
     fun delete()
     {
-        val wpis = myItems.value[selectedIndex.value].copy()
-        fileManager.deleteItemFromFile(context, selectedIndex.value)
-        selectedIndex.value = -1
-        myItems.value = fileManager.readItemsFromFile(context)
-        dochodyWTymMiesiacu.value = counter.countRevenuesThisMonth().toString() + "zł"
-        dataBaseManager.removeItemFromDataBase("revenues", wpis)
+        if (selectedIndex.value >= 0) {
+            val wpis = myItems.value[selectedIndex.value].copy()
+            fileManager.deleteItemFromFile(context, selectedIndex.value)
+            selectedIndex.value = -1
+            myItems.value = fileManager.readItemsFromFile(context)
+            dochodyWTymMiesiacu.value = counter.countRevenuesThisMonth().toString() + "zł"
+            dataBaseManager.removeItemFromDataBase("revenues", wpis)
+        }
     }
 
     fun onClick(index: Int)

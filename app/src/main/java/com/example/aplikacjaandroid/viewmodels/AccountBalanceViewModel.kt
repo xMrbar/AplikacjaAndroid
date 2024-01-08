@@ -20,11 +20,13 @@ class AccountBalanceViewModel(private val context: Context): ViewModel() {
 
     fun delete()
     {
-        val wpis = myItems.value[selectedIndex.value].copy()
-        fileManager.deleteItemFromFile(context, selectedIndex.value)
-        selectedIndex.value = -1
-        myItems.value = fileManager.readItemsFromFile(context)
-        dataBaseManager.removeItemFromDataBase("accountBalance", wpis)
+        if (selectedIndex.value >= 0) {
+            val wpis = myItems.value[selectedIndex.value].copy()
+            fileManager.deleteItemFromFile(context, selectedIndex.value)
+            selectedIndex.value = -1
+            myItems.value = fileManager.readItemsFromFile(context)
+            dataBaseManager.removeItemFromDataBase("accountBalance", wpis)
+        }
     }
 
     fun onClick(index: Int)

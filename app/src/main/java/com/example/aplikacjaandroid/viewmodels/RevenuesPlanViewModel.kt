@@ -19,12 +19,14 @@ class RevenuesPlanViewModel(private val context: Context): ViewModel() {
 
     fun delete()
     {
-        val wpis = myItems.value[selectedIndex.value].copy()
-        fileManager.deleteItemFromFile(context, selectedIndex.value)
-        selectedIndex.value = -1
-        myItems.value = fileManager.readItemsFromFile(context)
-        planowaneDochodyWMiesiacuKwota.value = counter.countRevenuesPlan().toString() + "zł"
-        dataBaseManager.removeItemFromDataBase("revenuesPlan", wpis)
+        if (selectedIndex.value >= 0) {
+            val wpis = myItems.value[selectedIndex.value].copy()
+            fileManager.deleteItemFromFile(context, selectedIndex.value)
+            selectedIndex.value = -1
+            myItems.value = fileManager.readItemsFromFile(context)
+            planowaneDochodyWMiesiacuKwota.value = counter.countRevenuesPlan().toString() + "zł"
+            dataBaseManager.removeItemFromDataBase("revenuesPlan", wpis)
+        }
     }
 
     fun onClick(index: Int)
