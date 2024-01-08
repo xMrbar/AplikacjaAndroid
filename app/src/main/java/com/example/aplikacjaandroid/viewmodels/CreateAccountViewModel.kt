@@ -26,9 +26,13 @@ data class CreateAccountUIState(
     val userPassword: String = "",
     val userName: String = "",
     val userLastName: String = "",
+    // communicat that will be shown to user when something is wrong
     val communicat: String = ""
 )
 
+/*
+ * ViewModel for CreateAccountScreen
+ */
 
 class CreateAccountViewModel: ViewModel() {
 
@@ -37,6 +41,10 @@ class CreateAccountViewModel: ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
     private val dataBaseManager = DataBaseManager()
+
+    //TODO (hardcoded value)
+    private val TAG = "CreateAccountViewModel"
+    private val AUTH_TAG = "FirebaseAuth"
 
     var userName by mutableStateOf("")
         private set
@@ -72,34 +80,36 @@ class CreateAccountViewModel: ViewModel() {
     }
 
 
+    // check if user input is correct
+    // updates ui state if it is
     fun validateUserInput(): Boolean{
 
-
-        //empty fields
         if(userEmail.isNullOrEmpty() || userPassword.isNullOrEmpty() || repeatedPassword.isNullOrEmpty()
             || userName.isNullOrEmpty() || userLastName.isNullOrEmpty()){
 
+            //empty fields
             clearAllFields()
             updateCommunicat("Puste pola")
             return false
         }
 
-        // passowrds does not match
         if( repeatedPassword != userPassword){
+
+            // passowrds does not match
             clearPasswordFields()
             updateCommunicat("Hasła nie są takie same")
             return false
         }
 
         if( userPassword.length < 6){
+
+            //passwor is to short
             clearPasswordFields()
             updateCommunicat("Hasła musi mieć co najemiej 6 znakow")
             return false
         }
 
-
-
-        // OK
+        // input is OK
         updateCommunicat("")
         updateState()
         return true;
@@ -149,9 +159,8 @@ class CreateAccountViewModel: ViewModel() {
             userLastName = userLastName,
             userEmail = userEmail,
             userPassword = userPassword, )}
+
     }
-
-
 
     private fun updateCommunicat(communicat: String){
 
@@ -159,25 +168,30 @@ class CreateAccountViewModel: ViewModel() {
     }
 
 
-
+    // creates new user account using FirebaseAuth
     fun createAccount(context: Context, onSuccessCallback: () -> Unit){
 
         val email: String = _uiState.value.userEmail
         val password :String = _uiState.value.userPassword
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Konto zostało pomyślnie utworzone
-                    Log.d("FirebaseAuthManager", "Tworzenie konta: sukces")
+
+                    Log.d(AUTH_TAG, "Account created for user: $email")
+
+                    // getting userId for creating user's collection
                     val userId: String = auth.currentUser!!.uid
+                    // adding user data to database
                     addUserData(userId)
+                    // creating collections for expenses and revenues
                     dataBaseManager.getAllFilesFromDBToLocalFiles(context)
                     onSuccessCallback()
 
                 } else {
                     when (task.exception) {
                         is FirebaseAuthUserCollisionException -> {
-                            Log.d("FirebaseAuthManager", "Konto już istnieje")
+                            Log.d(AUTH_TAG, "Create account: Failure. User $email already exists!")
                             updateUiUserAlreadyExists()
                         }
                     }
@@ -185,6 +199,7 @@ class CreateAccountViewModel: ViewModel() {
             }
     }
 
+    // adding user collection and document with user's personal data
      private fun addUserData(userId: String){
 
         val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -198,10 +213,10 @@ class CreateAccountViewModel: ViewModel() {
             "accountCreationDate" to creationDate
         )
         db.collection("users").document(userId).set(userData).addOnSuccessListener { documentReference ->
-            Log.d("Firestore","DocumentSnapshot added with ID:")
+            Log.d(TAG,"Document added for id: $userId")
         }
             .addOnFailureListener { e ->
-                Log.w("Error adding document", e)
+                Log.d(TAG,"Unable to add document for id: $userId ")
             }
 
     }

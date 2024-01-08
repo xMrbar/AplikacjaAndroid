@@ -70,7 +70,6 @@ fun UserAccountScreen(
 
     ) {
 
-        // get data form server on initial launch
         LaunchedEffect(userAccountViewModel) {
             userAccountViewModel.getUserDataFromDB()
         }
@@ -144,10 +143,10 @@ fun confirmDeleteDialog(onConfirmation: () -> Unit, onDismiss: () -> Unit){
 
     AlertDialog(
         title = {
-            Text1(text = "Usuń konto")
+            Text1(text = stringResource(id = R.string.usun_konto))
         },
         text = {
-            Text1(text = "Czy na pewno chcesz to zrobić?")
+            Text1(text = stringResource(id = R.string.czy_na_pewno))
         },
         onDismissRequest = {
         },
@@ -156,14 +155,14 @@ fun confirmDeleteDialog(onConfirmation: () -> Unit, onDismiss: () -> Unit){
                 onClick = onConfirmation
 
             ) {
-                Text1("Usuń konto")
+                Text1(stringResource(id = R.string.usun_konto))
             }
         },
         dismissButton = {
             TextButton(
                 onClick = onDismiss
             ) {
-                Text1("Anuluj")
+                Text1(stringResource(id = R.string.anuluj))
             }
         }
     )

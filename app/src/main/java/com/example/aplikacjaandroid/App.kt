@@ -1,6 +1,7 @@
 package com.example.aplikacjaandroid
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
@@ -34,6 +35,9 @@ import com.example.aplikacjaandroid.ui.screens.WelcomeScreen
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.HiltAndroidApp
 
+/*
+ * Enum class with values for every navigation destination
+ */
 enum class AppScreen() {
     Welcome,
     SignIn,
@@ -55,11 +59,13 @@ enum class AppScreen() {
     AddNewRevenuePlan
 }
 
+/*
+ * Class is responsible for navigation between screens
+ */
 @HiltAndroidApp
 class FinancialApp: Application(){
 
-
-
+    // initiates NavHostController
     @Composable
     fun initNav(navController: NavHostController = rememberNavController()){
 
@@ -68,6 +74,9 @@ class FinancialApp: Application(){
             startDestination = AppScreen.Welcome.name,
             modifier = Modifier
         ) {
+            // available destinations, some with parameters such as callback functions
+            // callback functions naming scheme: "{ActionThatTriggersCallback}Handler"
+
             composable( route = AppScreen.Welcome.name){
                 WelcomeScreen(modifier = Modifier.fillMaxSize(),
                     onSignInButtonClickedHandler = {navController.navigate(AppScreen.SignIn.name)},
@@ -214,16 +223,27 @@ class FinancialApp: Application(){
         }
     }
 
+    // pops up BackStack until it reaches Welcome destination
     private fun navigateToWelcome(navController: NavController){
         navController.popBackStack(AppScreen.Welcome.name, inclusive = false)
     }
 
+    // signs current user out and pops up BackStack until it reaches Welcome destination
     private fun signOut(navController: NavController){
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
         auth.signOut()
-        navController.popBackStack(AppScreen.Welcome.name, inclusive = false)
+        if (user != null) {
+            Log.d("FirebaseAuth", "User ${user.email} signed out")
+            navController.popBackStack(AppScreen.Welcome.name, inclusive = false)
+        }
+        else{
+            Log.d("FirebaseAuth", "Unable to sign out current user")
+        }
+
     }
 
+    // pops the stack and navigates to destination of given name
     private fun navigateDirectTo(navController: NavController, appScreen: AppScreen){
         navController.popBackStack()
         navController.navigate(appScreen.name)

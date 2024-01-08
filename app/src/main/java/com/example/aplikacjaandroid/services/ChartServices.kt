@@ -7,9 +7,14 @@ import co.yml.charts.ui.piechart.models.PieChartData
 import com.example.aplikacjaandroid.model.StatisticsItem
 import java.math.BigDecimal
 
+
+/*
+ * This object provides functions for drawing pie charts
+ */
+
 object ChartServices {
 
-
+    // return PieChartData based on a list of StatisticsItems
     fun getPieChartData(list: List<StatisticsItem>, total: BigDecimal): PieChartData {
 
         val slicesList: MutableList<PieChartData.Slice> = mutableListOf()
@@ -28,8 +33,12 @@ object ChartServices {
         )
     }
 
+
+    // returns configuration object PieChartConfig with some hardcoded values
     fun getPieChartConfig(): PieChartConfig{
 
+
+        // colors have to be passed like that because otherwise they appear incorrectly for some reason
         return PieChartConfig(
             isAnimationEnable = false,
             showSliceLabels = true,
