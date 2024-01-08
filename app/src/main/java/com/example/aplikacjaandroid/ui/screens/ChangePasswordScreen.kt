@@ -24,6 +24,7 @@ import com.example.aplikacjaandroid.avataricon.AvatarIcon
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.ui.components.CustomEditTextInput
+import com.example.aplikacjaandroid.ui.components.CustomPasswordInput
 import com.example.aplikacjaandroid.viewmodels.ChangePasswordViewModel
 
 
@@ -70,16 +71,14 @@ fun ChangePasswordScreen(modifier : Modifier = Modifier,
             )
             Spacer(modifier = Modifier.height(40.dp))
 
-            CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.haslo),
-                onClick = {}, onKeyboardDone = {},
+            CustomPasswordInput(modifier = inputModifier, title = stringResource(id = R.string.haslo),
                 textContent = changePasswordViewModel.userPassword, onValueChanged = {changePasswordViewModel.updateUserPassword(it)}
             )
-            CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.nowe_haslo),
-                onClick = {}, onKeyboardDone = {},
+            CustomPasswordInput(modifier = inputModifier, title = stringResource(id = R.string.nowe_haslo),
                 textContent = changePasswordViewModel.newPassword, onValueChanged = {changePasswordViewModel.updateNewPassword(it)}
             )
-            CustomEditTextInput(modifier = inputModifier, title = stringResource(id = R.string.powtorz_haslo),
-                onClick = {}, onKeyboardDone = {},
+            CustomPasswordInput(modifier = inputModifier, title = stringResource(id = R.string.powtorz_haslo),
+
                 textContent = changePasswordViewModel.repeatedNewPassword, onValueChanged = {changePasswordViewModel.updateRepeatedNewPassword(it)}
             )
             Spacer(modifier = Modifier.height(30.dp))

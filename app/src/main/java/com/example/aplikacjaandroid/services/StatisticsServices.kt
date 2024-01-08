@@ -1,8 +1,6 @@
 package com.example.aplikacjaandroid.services
 
-import android.content.Context
 import com.example.aplikacjaandroid.data.Category
-import com.example.aplikacjaandroid.data.FileManager
 import com.example.aplikacjaandroid.data.ItemData
 import com.example.aplikacjaandroid.data.StatisticsItem
 import java.math.BigDecimal

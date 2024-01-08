@@ -26,6 +26,7 @@ import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.avataricon.AvatarIcon
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.ui.components.CustomPasswordInput
 import com.example.aplikacjaandroid.ui.components.CustomTextInput
 import com.example.aplikacjaandroid.viewmodels.SignInViewModel
 
@@ -75,8 +76,8 @@ fun SignInScreen(modifier : Modifier = Modifier,
                 onClick = {}, onValueChanged = {signInViewModel.updateUserEmail(it) }, textContent = signInViewModel.userEmail
             )
             Spacer(Modifier.height(10.dp))
-            CustomTextInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.haslo),
-                onClick = {}, onValueChanged = {signInViewModel.updateUserPassword(it) }, textContent = signInViewModel.userPassword
+            CustomPasswordInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.haslo),
+                onValueChanged = {signInViewModel.updateUserPassword(it) }, textContent = signInViewModel.userPassword
             )
 
         }
