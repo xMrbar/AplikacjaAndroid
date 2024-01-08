@@ -102,9 +102,11 @@ fun CreateAccountScreen(modifier : Modifier = Modifier,
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.utworz_konto),
                 onClick = {
-                    if (createAccountViewModel.isUserInputValid()) {
-                        createAccountViewModel.createAccount(context)
-                        onCreateAccountButtonClickedHandler()
+                    if (createAccountViewModel.validateUserInput()) {
+                        createAccountViewModel.createAccount(
+                            context = context,
+                            onSuccessCallback = onCreateAccountButtonClickedHandler
+                            )
                     }
                 }
             )
