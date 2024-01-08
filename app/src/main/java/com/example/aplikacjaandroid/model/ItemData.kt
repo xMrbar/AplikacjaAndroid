@@ -1,4 +1,4 @@
-package com.example.aplikacjaandroid.data
+package com.example.aplikacjaandroid.model
 
 import java.math.BigDecimal
 

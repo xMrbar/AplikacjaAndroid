@@ -1,16 +1,14 @@
 package com.example.aplikacjaandroid.services
 
-import android.icu.text.DateFormatSymbols
-import com.example.aplikacjaandroid.data.Category
-import com.example.aplikacjaandroid.data.ItemData
-import com.example.aplikacjaandroid.data.StatisticsItem
+import com.example.aplikacjaandroid.model.Category
+import com.example.aplikacjaandroid.model.ItemData
+import com.example.aplikacjaandroid.model.StatisticsItem
 import java.math.BigDecimal
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.TemporalAdjusters
-import java.util.Locale
 
 object StatisticsServices {
 

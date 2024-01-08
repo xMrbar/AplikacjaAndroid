@@ -2,6 +2,7 @@ package com.example.aplikacjaandroid.data
 
 import android.content.Context
 import android.util.Log
+import com.example.aplikacjaandroid.model.ItemData
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore

@@ -1,4 +1,4 @@
-package com.example.aplikacjaandroid.data
+package com.example.aplikacjaandroid.model
 
 import android.annotation.SuppressLint
 import androidx.compose.ui.graphics.Color

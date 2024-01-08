@@ -2,7 +2,7 @@ package com.example.aplikacjaandroid
 
 import android.content.Context
 import com.example.aplikacjaandroid.data.FileManager
-import com.example.aplikacjaandroid.data.ItemData
+import com.example.aplikacjaandroid.model.ItemData
 import java.math.BigDecimal
 import java.util.Calendar
 

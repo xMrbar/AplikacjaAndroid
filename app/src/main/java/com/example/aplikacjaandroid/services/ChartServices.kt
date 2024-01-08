@@ -4,10 +4,8 @@ import androidx.compose.ui.graphics.Color
 import co.yml.charts.common.model.PlotType
 import co.yml.charts.ui.piechart.models.PieChartConfig
 import co.yml.charts.ui.piechart.models.PieChartData
-import com.example.aplikacjaandroid.R
-import com.example.aplikacjaandroid.data.StatisticsItem
+import com.example.aplikacjaandroid.model.StatisticsItem
 import java.math.BigDecimal
-import kotlin.math.absoluteValue
 
 object ChartServices {
 

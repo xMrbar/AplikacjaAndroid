@@ -1,7 +1,9 @@
-package com.example.aplikacjaandroid.data
+package com.example.aplikacjaandroid.model
 
 import android.content.Context
 import android.util.Log
+import com.example.aplikacjaandroid.data.ExpensesRepository
+import com.example.aplikacjaandroid.data.RevenuesRepository
 import com.example.aplikacjaandroid.services.StatisticsServices
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -12,7 +14,7 @@ data class StatisticsItem(
     val category: Category,
     val value: BigDecimal,
 
-)
+    )
 class StatisticsAdapter( private val context: Context) {
 
     private val expensesRepo = ExpensesRepository(context)

@@ -1,11 +1,9 @@
 package com.example.aplikacjaandroid.viewmodels
 
 import android.content.Context
-import android.util.Log
-import androidx.collection.emptyLongSet
 import androidx.lifecycle.ViewModel
-import com.example.aplikacjaandroid.data.StatisticsAdapter
-import com.example.aplikacjaandroid.data.StatisticsItem
+import com.example.aplikacjaandroid.model.StatisticsAdapter
+import com.example.aplikacjaandroid.model.StatisticsItem
 import com.example.aplikacjaandroid.services.StatisticsServices
 import com.example.aplikacjaandroid.services.TimeInterval
 import com.example.aplikacjaandroid.services.TimeIntervalsLength

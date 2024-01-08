@@ -1,6 +1,7 @@
 package com.example.aplikacjaandroid.data
 
 import android.content.Context
+import com.example.aplikacjaandroid.model.ItemData
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream

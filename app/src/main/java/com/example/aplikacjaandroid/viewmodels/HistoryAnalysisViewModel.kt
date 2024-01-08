@@ -1,10 +1,9 @@
 package com.example.aplikacjaandroid.viewmodels
 
 import android.content.Context
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.aplikacjaandroid.data.HistoryAdapter
-import com.example.aplikacjaandroid.data.ItemData
+import com.example.aplikacjaandroid.model.HistoryAdapter
+import com.example.aplikacjaandroid.model.ItemData
 import com.example.aplikacjaandroid.ui.components.polishMonthToNumber
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

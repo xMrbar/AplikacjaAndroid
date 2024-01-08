@@ -1,8 +1,9 @@
-package com.example.aplikacjaandroid.data
+package com.example.aplikacjaandroid.model
 
 import android.content.Context
 import android.util.Log
-import java.math.BigDecimal
+import com.example.aplikacjaandroid.data.ExpensesRepository
+import com.example.aplikacjaandroid.data.RevenuesRepository
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 class HistoryAdapter( private val context: Context) {
