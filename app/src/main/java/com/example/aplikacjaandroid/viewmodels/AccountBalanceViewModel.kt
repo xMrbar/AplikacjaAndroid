@@ -22,6 +22,7 @@ class AccountBalanceViewModel(private val context: Context): ViewModel() {
     {
         if (selectedIndex.value >= 0) {
             val wpis = myItems.value[selectedIndex.value].copy()
+
             fileManager.deleteItemFromFile(context, selectedIndex.value)
             selectedIndex.value = -1
             myItems.value = fileManager.readItemsFromFile(context)
