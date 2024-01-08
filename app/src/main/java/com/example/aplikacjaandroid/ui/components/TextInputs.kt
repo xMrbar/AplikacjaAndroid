@@ -18,9 +18,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.example.aplikacjaandroid.R
@@ -43,6 +46,23 @@ fun CustomTextInput(modifier: Modifier = Modifier,
         onValueChange = onValueChanged,
         label = { Text(text = title) },
         isError = false,
+    )
+}
+
+@Composable
+fun CustomPasswordInput(modifier: Modifier = Modifier,
+                    title: String,
+                    textContent: String,
+                    onValueChanged: (String) -> Unit,
+){
+    OutlinedTextField(
+        value = textContent,
+        singleLine = true,
+        modifier = modifier,
+        onValueChange = onValueChanged,
+        label = { Text(text = title) },
+        isError = false,
+        visualTransformation = PasswordVisualTransformation()
     )
 }
 

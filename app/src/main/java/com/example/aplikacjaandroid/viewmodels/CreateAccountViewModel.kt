@@ -13,6 +13,10 @@ import android.util.Log
 import com.example.aplikacjaandroid.data.DataBaseManager
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.firestore
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -68,7 +72,7 @@ class CreateAccountViewModel: ViewModel() {
     }
 
 
-    fun isUserInputValid(): Boolean{
+    fun validateUserInput(): Boolean{
 
 
         //empty fields
@@ -80,13 +84,6 @@ class CreateAccountViewModel: ViewModel() {
             return false
         }
 
-        //user already  exists
-        if(userAlreadyExists()){
-            clearLoginFields()
-            updateCommunicat("Taki użytkownik już istnieje")
-            return false
-        }
-
         // passowrds does not match
         if( repeatedPassword != userPassword){
             clearPasswordFields()
@@ -94,17 +91,26 @@ class CreateAccountViewModel: ViewModel() {
             return false
         }
 
-        // OK
+        if( userPassword.length < 6){
+            clearPasswordFields()
+            updateCommunicat("Hasła musi mieć co najemiej 6 znakow")
+            return false
+        }
 
+
+
+        // OK
         updateCommunicat("")
         updateState()
         return true;
     }
 
-
-    private fun userAlreadyExists(): Boolean{
-        return false
+    private fun updateUiUserAlreadyExists(){
+        clearLoginFields()
+        updateCommunicat("Taki użytkownik już istnieje")
     }
+
+
 
     private fun clearLoginFields(){
 
@@ -138,8 +144,11 @@ class CreateAccountViewModel: ViewModel() {
 
     private fun updateState(){
 
-        _uiState.update { _uiState.value.copy(userName = userName, userLastName = userLastName, userEmail = userEmail, userPassword = userPassword, )}
-
+        _uiState.update { _uiState.value.copy(
+            userName = userName,
+            userLastName = userLastName,
+            userEmail = userEmail,
+            userPassword = userPassword, )}
     }
 
 
@@ -151,7 +160,7 @@ class CreateAccountViewModel: ViewModel() {
 
 
 
-    fun createAccount(context: Context){
+    fun createAccount(context: Context, onSuccessCallback: () -> Unit){
 
         val email: String = _uiState.value.userEmail
         val password :String = _uiState.value.userPassword
@@ -160,19 +169,23 @@ class CreateAccountViewModel: ViewModel() {
                 if (task.isSuccessful) {
                     // Konto zostało pomyślnie utworzone
                     Log.d("FirebaseAuthManager", "Tworzenie konta: sukces")
-                    val userId :String = auth.currentUser!!.uid
+                    val userId: String = auth.currentUser!!.uid
                     addUserData(userId)
                     dataBaseManager.getAllFilesFromDBToLocalFiles(context)
+                    onSuccessCallback()
 
                 } else {
-                    // Wystąpił błąd podczas tworzenia konta
-                    Log.w("FirebaseAuthManager", "Tworzenie konta: niepowodzenie", task.exception)
-                    updateCommunicat("Tworzenie konta: niepowodzenie")
+                    when (task.exception) {
+                        is FirebaseAuthUserCollisionException -> {
+                            Log.d("FirebaseAuthManager", "Konto już istnieje")
+                            updateUiUserAlreadyExists()
+                        }
+                    }
                 }
             }
     }
 
-    fun addUserData(userId: String){
+     private fun addUserData(userId: String){
 
         val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val creationDate = LocalDate.now().format(dateFormat)

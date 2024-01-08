@@ -27,6 +27,7 @@ import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.ui.components.CustomTextInput
 import com.example.aplikacjaandroid.viewmodels.CreateAccountViewModel
+import com.example.aplikacjaandroid.ui.components.CustomPasswordInput
 
 
 @Composable
@@ -80,12 +81,12 @@ fun CreateAccountScreen(modifier : Modifier = Modifier,
                 onClick = {}, onValueChanged = {createAccountViewModel.updateUserEmail(it)}, textContent = createAccountViewModel.userEmail
             )
             Spacer(Modifier.height(10.dp))
-            CustomTextInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.haslo),
-                onClick = {}, onValueChanged = {createAccountViewModel.updateUserPassword(it) }, textContent = createAccountViewModel.userPassword
+            CustomPasswordInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.haslo),
+                 onValueChanged = {createAccountViewModel.updateUserPassword(it) }, textContent = createAccountViewModel.userPassword
             )
             Spacer(Modifier.height(10.dp))
-            CustomTextInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.powtorz_haslo),
-                onClick = {}, onValueChanged = {createAccountViewModel.updateRepeatedPassword(it)}, textContent = createAccountViewModel.repeatedPassword
+            CustomPasswordInput(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.powtorz_haslo),
+                 onValueChanged = {createAccountViewModel.updateRepeatedPassword(it)}, textContent = createAccountViewModel.repeatedPassword
             )
 
 
@@ -102,9 +103,11 @@ fun CreateAccountScreen(modifier : Modifier = Modifier,
                 modifier = Modifier.padding(8.dp),
                 text = stringResource(id = R.string.utworz_konto),
                 onClick = {
-                    if (createAccountViewModel.isUserInputValid()) {
-                        createAccountViewModel.createAccount(context)
-                        onCreateAccountButtonClickedHandler()
+                    if (createAccountViewModel.validateUserInput()) {
+                        createAccountViewModel.createAccount(
+                            context = context,
+                            onSuccessCallback = onCreateAccountButtonClickedHandler
+                            )
                     }
                 }
             )

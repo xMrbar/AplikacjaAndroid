@@ -1,6 +1,8 @@
 package com.example.aplikacjaandroid.ui.screens
 
 import android.content.Context
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +13,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -49,6 +53,24 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
                    onLogOutButtonClickedHandler: () -> Unit,
                    dataBaseManager: DataBaseManager = DataBaseManager()
                    ) {
+
+    val backCallback = rememberUpdatedState(onLogOutButtonClickedHandler)
+    val backDispatcher = LocalOnBackPressedDispatcherOwner.current
+    DisposableEffect(backDispatcher) {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                backCallback.value()
+            }
+        }
+        if (backDispatcher != null) {
+            backDispatcher.onBackPressedDispatcher.addCallback(callback)
+        }
+        onDispose {
+            callback.remove()
+        }
+    }
+
+
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = stringResource(R.string.menu),
             color = MaterialTheme.colorScheme.primary,
@@ -115,6 +137,9 @@ fun MainMenuScreen(modifier : Modifier = Modifier,
         ) {
             Text(stringResource(R.string.wyloguj))
         }
+
+
+
     }
 }
 
