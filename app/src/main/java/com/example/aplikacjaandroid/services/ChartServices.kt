@@ -12,23 +12,22 @@ import kotlin.math.absoluteValue
 object ChartServices {
 
 
-    fun getPieChartData(list: List<StatisticsItem>, total: BigDecimal): PieChartData{
+    fun getPieChartData(list: List<StatisticsItem>, total: BigDecimal): PieChartData {
 
         val slicesList: MutableList<PieChartData.Slice> = mutableListOf()
 
-        list.forEach(){
+        list.forEach() { item ->
 
-            val sliceValue = (it.value.toFloat()/total.toFloat())*100
-            val slice = PieChartData.Slice(it.category.label,sliceValue, it.category.color)
+            val sliceValue = (item.value.toFloat() / total.toFloat()) * 100
+            val slice = PieChartData.Slice(item.category.label, sliceValue, item.category.color)
             slicesList.add(slice)
 
         }
 
-        val pieChartData = PieChartData(
+        return PieChartData(
             slices = slicesList,
             plotType = PlotType.Pie
         )
-        return pieChartData
     }
 
     fun getPieChartConfig(): PieChartConfig{
@@ -36,9 +35,9 @@ object ChartServices {
         return PieChartConfig(
             isAnimationEnable = false,
             showSliceLabels = true,
-            backgroundColor = Color(R.color.black.absoluteValue),
+            backgroundColor = Color(0, 0, 0, 255),
             isClickOnSliceEnabled = false,
-            sliceLabelTextColor = Color(R.color.backgroud.absoluteValue)
+            sliceLabelTextColor = Color(0, 0, 0, 255)
         )
     }
 

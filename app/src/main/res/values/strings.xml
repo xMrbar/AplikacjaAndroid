@@ -36,12 +36,13 @@
     <string name="accountBalancePlanEnd_kwota">0.00zł</string>
     <string name="rozpocznij">Rozpocznij!</string>
     <string name="zaloguj_lub_utworz_konto">Utwórz nowe konto lub zaloguj się za pomocą istniejącego konta.</string>
+    <string name="logowanie">Logowanie</string>
     <string name="zaloguj">ZALOGUJ</string>
     <string name="utworz_konto">UTWÓRZ KONTO</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="zarejestruj_sie">ZAREJESTRUJ SIĘ</string>
-    <string name="rejestracja">REJESTRACJA</string>
+    <string name="rejestracja">Rejestracja</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
     <string name="title_activity_account_balance">AccountBalanceActivity</string>
     <string name="title_activity_revenues">RevenuesActivity</string>
@@ -51,7 +52,8 @@
     <string name="nazwisko">Nazwisko</string>
     <string name="powtorz_haslo">Powtórz hasło</string>
     <string name="twoje_konto">Twoje konto</string>
-    <string name="zmien_haslo">ZMIEŃ HASŁO</string>
+    <string name="zmien_haslo">Zmień hasło</string>
+    <string name="zmien_haslo_BTN">ZMIEŃ HASŁO</string>
     <string name="title_activity_user_account">UserAccountActivity</string>
     <string name="title_activity_change_password">ChangePasswordActivity</string>
     <string name="obecne_haslo">Obecne hasło</string>
@@ -69,7 +71,7 @@
     <string name="przychod">Przychód</string>
     <string name="wydatek">Wydatek</string>
     <string name="title_activity_statistics">StatisticsActivity</string>
-    <string name="statystyki">STATYSTYKI</string>
+    <string name="statystyki">Statystyki</string>
     <string name="miesiac">MIESIĄC</string>
     <string name="rok">ROK</string>
     <string name="title_activity_expenses">ExpensesActivity</string>
@@ -80,5 +82,6 @@
     <string name="blede_dane">Wprowadzono błędne dane.</string>
     <string name="usun_konto">USUŃ KONTO</string>
     <string name="brak_wpisow">Brak wpisów</string>
+    <string name= "waluta">zł</string>
 
 </resources>

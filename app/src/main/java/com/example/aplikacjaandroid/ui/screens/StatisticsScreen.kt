@@ -46,6 +46,7 @@ import com.example.aplikacjaandroid.selectfield.SelectField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import co.yml.charts.ui.piechart.charts.PieChart
+import com.example.aplikacjaandroid.labelmedium.LabelMedium
 import com.example.aplikacjaandroid.labelsmall.LabelSmall
 import com.example.aplikacjaandroid.services.ChartServices
 import com.example.aplikacjaandroid.viewmodels.StatisticsViewModel
@@ -84,6 +85,22 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
 
     ) {
         LabelLarge(text = stringResource(id = R.string.statystyki))
+
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                Color(ContextCompat.getColor(LocalContext.current, R.color.primary)),
+                shape = RoundedCornerShape(4.dp)
+            )
+            .padding(5.dp),
+            horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically){
+
+            if(statisticsUIState.isExpansesMode)
+                Text( text = stringResource(id = R.string.wydatki), color = textColor)
+            else
+                Text( text = stringResource(id = R.string.przychody), color = textColor)
+        }
+
 
         Box(modifier = Modifier.fillMaxWidth()) {
             statisticsUIState.currentTimeIntervalsLength?.let {
@@ -179,7 +196,7 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                 )
                 .clip(RoundedCornerShape(4.dp))
                 .padding(4.dp)
-                .height(200.dp)
+                .height(150.dp)
         ) {
             LazyColumn(
                 verticalArrangement = Arrangement.SpaceEvenly,
@@ -190,8 +207,9 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                 if(statisticsUIState.statisticsItemList != null) {
 
                     items(statisticsUIState.statisticsItemList!!.size) { i ->
+                        val formattedValue = String.format("%.2f ${stringResource(id = R.string.waluta)}", statisticsUIState.statisticsItemList!![i].value)
                         ListItem(
-                            itemValue = statisticsUIState.statisticsItemList!![i].value.toString(),
+                            itemValue = formattedValue,
                             itemName = statisticsUIState.statisticsItemList!![i].category.label,
                             color = statisticsUIState.statisticsItemList!![i].category.color,
                         )
@@ -210,29 +228,31 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
 
 
             Text( text = "Suma:", color = textColor)
-            Text(text = statisticsUIState.total.toString(), color = textColor)
+            val formattedTotal = String.format("%.2f ${stringResource(id = R.string.waluta)}", statisticsUIState.total)
+            Text(text = formattedTotal,
+                color = textColor)
         }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){
             if(statisticsUIState.isExpansesMode){
                 ButtonNarrow(
-                    text = stringResource(id = R.string.wydatek),
+                    text = stringResource(id = R.string.wydatki),
                     onClick = {},
                     property1 = Property1.Variant2
                 )
                 ButtonNarrow(
-                    text = stringResource(id = R.string.przychod),
+                    text = stringResource(id = R.string.przychody),
                     onClick = {statisticsViewModel.changeMode()},
                 )
             }
             else{
                 ButtonNarrow(
-                    text = stringResource(id = R.string.wydatek),
+                    text = stringResource(id = R.string.wydatki),
                     onClick = {statisticsViewModel.changeMode()},
 
                 )
                 ButtonNarrow(
-                    text = stringResource(id = R.string.przychod),
+                    text = stringResource(id = R.string.przychody),
                     onClick = {},
                     property1 = Property1.Variant2
                 )

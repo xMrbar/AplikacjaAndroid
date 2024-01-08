@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 data class StatisticsUIState(
@@ -66,7 +67,7 @@ class StatisticsViewModel : ViewModel() {
         val todayExpensesList = if (!adapter?.getAllExpenses().isNullOrEmpty())
             adapter?.let{it.getExpensesStatisticsFromPeriod(LocalDate.now(), LocalDate.now())}
         else listOf()
-        val newTotal = if (!uiState.value.statisticsItemList.isNullOrEmpty())  StatisticsServices.calculateTotal(uiState.value.statisticsItemList!!)
+        val newTotal = if (!todayExpensesList.isNullOrEmpty())  StatisticsServices.calculateTotal(todayExpensesList!!)
         else BigDecimal("0")
 
         _uiState.update{ _uiState.value.copy(
@@ -78,9 +79,8 @@ class StatisticsViewModel : ViewModel() {
 
         )}
 
-        Log.d("TEST", _uiState.toString())
-        Log.d("EXPENSES", uiState.value.earliestExpenseDate.toString())
-        Log.d("REVENUES", uiState.value.earliestRevenueDate.toString())
+        updateTimeIntervalsList()
+        updateStatistics()
 
     }
 
@@ -111,8 +111,9 @@ class StatisticsViewModel : ViewModel() {
         val newList: List<TimeInterval> = when(uiState.value.currentTimeIntervalsLength){
 
             TimeIntervalsLength.Today -> {
+                val dateFormat = DateTimeFormatter.ofPattern("[dd].[MM].yyyy")
                 val now = LocalDate.now()
-                listOf<TimeInterval>(TimeInterval(now.toString(),now,now))
+                listOf<TimeInterval>(TimeInterval(now.format(dateFormat),now,now))
             }
 
             TimeIntervalsLength.CurrentWeek -> listOf(StatisticsServices.getWeekRange(LocalDate.now()))

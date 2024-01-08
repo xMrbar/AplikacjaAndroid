@@ -109,7 +109,7 @@ fun UserAccountScreen(
             Spacer(modifier = Modifier.height(30.dp))
             ButtonWide(
                 modifier = inputModifier,
-                text = stringResource(id = R.string.zmien_haslo),
+                text = stringResource(id = R.string.zmien_haslo_BTN),
                 onClick = onChangePasswordButtonClickedHandler
             )
             Spacer(modifier = Modifier.height(15.dp))

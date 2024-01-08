@@ -64,7 +64,7 @@ fun SignInScreen(modifier : Modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            LabelLarge(text = stringResource(id = R.string.zaloguj))
+            LabelLarge(text = stringResource(id = R.string.logowanie))
             AvatarIcon()
             Text(
                 text = signInUiState.communicat,

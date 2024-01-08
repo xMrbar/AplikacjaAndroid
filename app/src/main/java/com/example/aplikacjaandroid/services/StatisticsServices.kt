@@ -1,5 +1,6 @@
 package com.example.aplikacjaandroid.services
 
+import android.icu.text.DateFormatSymbols
 import com.example.aplikacjaandroid.data.Category
 import com.example.aplikacjaandroid.data.ItemData
 import com.example.aplikacjaandroid.data.StatisticsItem
@@ -48,13 +49,30 @@ object StatisticsServices {
         return resultList.toList()
     }
 
+    private fun getFormattedMonthName( month: Int): String {
+        return when(month){
+            1 -> "Styczeń"
+            2 -> "Luty"
+            3 -> "Marzec"
+            4 -> "Kwiecień"
+            5 -> "Maj"
+            6 -> "Czerwiec"
+            7 -> "Lipiec"
+            8 -> "Sierpień"
+            9 -> "Wrzesień"
+            10 -> "Październik"
+            11 -> "Listopad"
+            12 -> "Grudzeiń"
+            else -> ""
+        }
+    }
+
     fun getMonthsSince(startDate: LocalDate): List<TimeInterval>{
 
         val resultList = mutableListOf<TimeInterval>()
 
         var currentMonth = startDate
         var nowDate = LocalDate.now()
-        val locale: Locale = Locale("pl_PL")
 
         while (currentMonth.isBefore(nowDate) || currentMonth.month == nowDate.month) {
 
@@ -63,7 +81,8 @@ object StatisticsServices {
             val intervalEnd = currentMonth.withDayOfMonth(currentMonth.lengthOfMonth())
 
             val formattedName =
-                currentMonth.format(DateTimeFormatter.ofPattern("yyyy MMMM", locale))
+                getFormattedMonthName(currentMonth.monthValue) + " " +
+                currentMonth.format(DateTimeFormatter.ofPattern("yyyy"))
             val monthInterval = TimeInterval(formattedName, intervalStart, intervalEnd)
 
             resultList.add(monthInterval)
@@ -77,9 +96,11 @@ object StatisticsServices {
 
     fun getWeekRange(date: LocalDate): TimeInterval{
 
+        val dateFormat = DateTimeFormatter.ofPattern("[dd].[MM].yyyy")
+
         val startOfWeek = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
         val endOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
-        val label = "$startOfWeek - $endOfWeek"
+        val label = "${startOfWeek.format(dateFormat)} - ${endOfWeek.format(dateFormat)}"
 
         return TimeInterval(label, startOfWeek, endOfWeek)
 
