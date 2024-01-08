@@ -41,12 +41,11 @@ import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.listitem.ListItem
-import com.example.aplikacjaandroid.services.TimeIntervalsLength
+import com.example.aplikacjaandroid.services.TimeIntervalType
 import com.example.aplikacjaandroid.selectfield.SelectField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import co.yml.charts.ui.piechart.charts.PieChart
-import com.example.aplikacjaandroid.labelmedium.LabelMedium
 import com.example.aplikacjaandroid.labelsmall.LabelSmall
 import com.example.aplikacjaandroid.services.ChartServices
 import com.example.aplikacjaandroid.viewmodels.StatisticsViewModel
@@ -112,7 +111,7 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                 expanded = expandedTimeIntervalsLengthDropdown,
                 onDismissRequest = { expandedTimeIntervalsLengthDropdown = false },
             ) {
-                TimeIntervalsLength.values().forEach { selected ->
+                TimeIntervalType.values().forEach { selected ->
                     DropdownMenuItem(
                         text = { Text(text = selected.label) },
                         onClick = {
@@ -141,7 +140,7 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
 
             Box(modifier = Modifier.fillMaxWidth()) {
                 SelectField(
-                    text = statisticsUIState.currentTimeInterval!!.name
+                    text = statisticsUIState.currentTimeInterval!!.label
                 ) { expandedTimeIntervalsDropdown = true }
                 DropdownMenu(
                     expanded = expandedTimeIntervalsDropdown && statisticsUIState.isTimeIntervalDropdownExpandable,
@@ -149,7 +148,7 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                 ) {
                     statisticsUIState.timeIntervalsList?.forEach { selected ->
                         DropdownMenuItem(
-                            text = { Text(text = selected.name) },
+                            text = { Text(text = selected.label) },
                             onClick = {
                                 statisticsViewModel.updateTimeInterval(selected)
                                 expandedTimeIntervalsDropdown= false

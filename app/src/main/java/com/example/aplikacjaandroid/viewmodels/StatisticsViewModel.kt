@@ -6,7 +6,7 @@ import com.example.aplikacjaandroid.model.StatisticsAdapter
 import com.example.aplikacjaandroid.model.StatisticsItem
 import com.example.aplikacjaandroid.services.StatisticsServices
 import com.example.aplikacjaandroid.services.TimeInterval
-import com.example.aplikacjaandroid.services.TimeIntervalsLength
+import com.example.aplikacjaandroid.services.TimeIntervalType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,9 +32,9 @@ data class StatisticsUIState(
     val isTimeIntervalDropdownExpandable: Boolean = false,
 
     // current configuration
-    val currentTimeIntervalsLength: TimeIntervalsLength? = null,
+    val currentTimeIntervalsLength: TimeIntervalType? = null,
 
-    val currentTimeInterval: TimeInterval? = TimeInterval(TimeIntervalsLength.Today.toString(), LocalDate.now(), LocalDate.now()),
+    val currentTimeInterval: TimeInterval? = TimeInterval(TimeIntervalType.Today.toString(), LocalDate.now(), LocalDate.now()),
 
     val timeIntervalsList: List<TimeInterval>? = null,
 
@@ -71,7 +71,7 @@ class StatisticsViewModel : ViewModel() {
         _uiState.update{ _uiState.value.copy(
             earliestExpenseDate = earliestExpanse,
             earliestRevenueDate = earliestRevenue,
-            currentTimeIntervalsLength = TimeIntervalsLength.Today,
+            currentTimeIntervalsLength = TimeIntervalType.Today,
             statisticsItemList = todayExpensesList,
             total = newTotal
 
@@ -87,9 +87,9 @@ class StatisticsViewModel : ViewModel() {
         _uiState.value.statisticsAdapter?.init()
     }
 
-    fun updateTimeIntervalLength(selectedIntervalLength: TimeIntervalsLength){
+    fun updateTimeIntervalLength(selectedIntervalLength: TimeIntervalType){
 
-        if(selectedIntervalLength == TimeIntervalsLength.Today || selectedIntervalLength == TimeIntervalsLength.CurrentWeek)
+        if(selectedIntervalLength == TimeIntervalType.Today || selectedIntervalLength == TimeIntervalType.CurrentWeek)
             _uiState.update{ _uiState.value.copy(
                 currentTimeIntervalsLength = selectedIntervalLength,
                 isTimeIntervalDropdownExpandable = false
@@ -108,20 +108,20 @@ class StatisticsViewModel : ViewModel() {
 
         val newList: List<TimeInterval> = when(uiState.value.currentTimeIntervalsLength){
 
-            TimeIntervalsLength.Today -> {
+            TimeIntervalType.Today -> {
                 val dateFormat = DateTimeFormatter.ofPattern("[dd].[MM].yyyy")
                 val now = LocalDate.now()
                 listOf<TimeInterval>(TimeInterval(now.format(dateFormat),now,now))
             }
 
-            TimeIntervalsLength.CurrentWeek -> listOf(StatisticsServices.getWeekRange(LocalDate.now()))
-            TimeIntervalsLength.Month -> {
+            TimeIntervalType.CurrentWeek -> listOf(StatisticsServices.getWeekRange(LocalDate.now()))
+            TimeIntervalType.Month -> {
                 if(uiState.value.isExpansesMode)
                     StatisticsServices.getMonthsSince(uiState.value.earliestExpenseDate!!)
                 else
                     StatisticsServices.getMonthsSince(uiState.value.earliestRevenueDate!!)
             }
-            TimeIntervalsLength.Year -> {
+            TimeIntervalType.Year -> {
                 if(uiState.value.isExpansesMode)
                     StatisticsServices.getYearsSince(uiState.value.earliestExpenseDate!!)
                 else

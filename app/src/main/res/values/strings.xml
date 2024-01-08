@@ -83,5 +83,6 @@
     <string name="usun_konto">USUŃ KONTO</string>
     <string name="brak_wpisow">Brak wpisów</string>
     <string name= "waluta">zł</string>
+    <string name= "dzisiaj">Dzisiaj</string>
 
 </resources>
