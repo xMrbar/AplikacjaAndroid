@@ -20,11 +20,19 @@ data class LogInUIState(
     val communicat: String = ""
     )
 
+/*
+ * ViewModel for SignInScreen
+ */
+
 class SignInViewModel: ViewModel() {
     val dataBaseManager = DataBaseManager()
     val auth = FirebaseAuth.getInstance()
     private val _uiState = MutableStateFlow(LogInUIState())
     val uiState: StateFlow<LogInUIState> = _uiState.asStateFlow()
+
+    //TODO (hardcoded value)
+    private val AUTH_TAG = "FirebaseAuth"
+
 
     var userEmail by mutableStateOf("")
         private set
@@ -51,48 +59,50 @@ class SignInViewModel: ViewModel() {
         _uiState.update { _uiState.value.copy(communicat = communicat)}
     }
 
+    // check if user input is correct
+    // updates ui state if it is
     fun isUserInputValid(): Boolean{
 
-        //checking for blank fields
+
         if(userEmail.isNullOrEmpty() || userPassword.isNullOrEmpty()){
+
+            //empty fields
             _uiState.update { _uiState.value.copy(communicat = "Puste pola",userPassword = "", userEmail = "")}
             return false
             }
 
         _uiState.update { _uiState.value.copy(userEmail = userEmail, userPassword = userPassword) }
-
-
         return true
     }
 
-    private fun userExists(): Boolean{
 
-       return true
-
-    }
-
+    /* attempts to sign user in
+    * callback if invoked if attempt is successfully
+    */
 
     fun signIn(callback: () -> Unit, context: Context){
 
         val email: String = _uiState.value.userEmail
         val password :String = _uiState.value.userPassword
+
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("FirebaseAuthManager", "SignUp: success")
+                    Log.d(AUTH_TAG, "User $email signed is successfully.")
+                    // loading data from firestore db to local files
                     dataBaseManager.getAllFilesFromDBToLocalFiles(context)
                     callback()
 
                 } else {
-                    when {
-
-                        task.exception is FirebaseAuthInvalidCredentialsException -> {
-                            Log.w("FirebaseAuthManager", "SignIn: failure - Invalid password", task.exception)
+                    when (task.exception) {
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            Log.w(AUTH_TAG, "SignIn failure.  Invalid password for user $email", task.exception)
                             updateCommunicat("Niepoprawny login lub hasło")
                             _uiState.update { _uiState.value.copy(userEmail = userEmail, userPassword = "") }
                         }
+
                         else -> {
-                            Log.w("FirebaseAuthManager", "SignIn: failure", task.exception)
+                            Log.w(AUTH_TAG, "SignIn: failure. Something went wrong.", task.exception)
                             updateCommunicat("Wystąpił bład")
                         }
                     }

@@ -22,13 +22,18 @@ data class UserAccountUIState(
     val userLastName: String = "",
     val communicat: String = "",
 )
-
+/*
+ * ViewModel for UserAccountScreen
+ */
 class UserAccountViewModel: ViewModel() {
 
     private val _uiState = MutableStateFlow(UserAccountUIState())
     val uiState: StateFlow<UserAccountUIState> = _uiState.asStateFlow()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
+
+    private val FIRESTORE_TAG = "Firestore"
+    private val AUTH_TAG = "FirebaseAuth"
 
     var userName by mutableStateOf("")
         private set
@@ -44,10 +49,6 @@ class UserAccountViewModel: ViewModel() {
     fun updateUserLastName(lastName:String){
         userLastName = lastName}
 
-    fun updateUserEmail(email:String){
-        userEmail = email
-    }
-
     private fun updateState(){
 
         _uiState.update { _uiState.value.copy(userName = userName, userLastName = userLastName, userEmail = userEmail, )}
@@ -58,38 +59,41 @@ class UserAccountViewModel: ViewModel() {
     }
 
 
+    // attempts to get user personal data from Firestore DB
     fun getUserDataFromDB(){
 
         val user = auth.currentUser!!
-
         userEmail = user.email.toString()
         val userId = user.uid
 
+        // document reference for document containing user personal data
         val docRef = db.collection("users").document(userId)
 
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
                     //doc exists
-                    Log.d("FirestoreData", "DocumentSnapshot data: ${document.data}")
+                    Log.d(FIRESTORE_TAG, "Document obtained: ${document.data}")
                     val userData = document.data
 
+                    // updating ui state with data from document
                     userName = userData!!["name"].toString()
                     userLastName = userData!!["lastname"].toString()
                     updateState()
 
                 } else {
                     //doc does not exist
-                    Log.d("FirestoreData", "No such document")
+                    Log.d(FIRESTORE_TAG, "No such document")
                 }
             }
             .addOnFailureListener { exception ->
-                Log.d("FirestoreData", "get failed with ", exception)
+                Log.d(FIRESTORE_TAG, "Unable to obtain document.", exception)
             }
 
     }
 
 
+    // updates username in firestore databse
     @SuppressLint("SuspiciousIndentation")
     fun updateUserNameDB(){
 
@@ -100,26 +104,29 @@ class UserAccountViewModel: ViewModel() {
         userEmail = user.email.toString()
         val userId = user.uid
 
+        // document reference for document containing user personal data
         val userDataDocRef = db.collection("users").document(userId)
 
             userDataDocRef.update("name", _uiState.value.userName)
             .addOnSuccessListener {
-                Log.d("FirestoreUpdate", "DocumentSnapshot successfully updated!")
+                Log.d(FIRESTORE_TAG, "User's name successfully updated!")
 
                 updateState()
-                updateCommunicat("Name changed succesfully.")
+                //TODO (hardcoded value)
+                updateCommunicat("Zmieniono imię")
             }
 
-            .addOnFailureListener {
-                    e -> Log.w("FirebaseUpdate", "Error updating document", e)
-                    updateCommunicat("Unable to change name.")
+            .addOnFailureListener { e ->
+                Log.w(FIRESTORE_TAG, "Error updating document", e)
+                //TODO (hardcoded value)
+                updateCommunicat("Nie udało się zmieniń imienia")
             }
 
 
 
     }
 
-
+    // updates user's lastname in firestore database
     @SuppressLint("SuspiciousIndentation")
     fun updateUserLastameDB(){
 
@@ -130,44 +137,51 @@ class UserAccountViewModel: ViewModel() {
         userEmail = user.email.toString()
         val userId = user.uid
 
+        // document reference for document containing user personal data
         val userDataDocRef = db.collection("users").document(userId)
 
         userDataDocRef.update("lastname", _uiState.value.userLastName)
             .addOnSuccessListener {
-                Log.d("FirestoreUpdate", "DocumentSnapshot successfully updated!")
+                Log.d(FIRESTORE_TAG, "User's last name successfully updated!")
                 updateState()
-                updateCommunicat("Last name changed succesfully.")
+
+                //TODO (hardcoded value)
+                updateCommunicat("Zmieniono nazwisko")
             }
 
-            .addOnFailureListener {
-
-                    e -> Log.w("FirebaseUpdate", "Error updating document", e)
-                    updateCommunicat("Unable to change last name.")
+            .addOnFailureListener { e ->
+                Log.w(FIRESTORE_TAG, "Error updating document", e)
+                //TODO (hardcoded value)
+                updateCommunicat("Unable to change last name.")
             }
 
     }
 
 
+    // attempts to delete user
     fun deleteUserHandler(context: Context, callback: () -> Unit){
-
 
             val user = auth.currentUser!!
 
-            //it works for now but ugly as heck
-            //when something goes wrong between setting status and deleting account user is left without data
-            setUserCollectionStatusToDeleted(user.uid)
+        // setting user's collection status to DELETED
+        setUserCollectionStatusToDeleted(user.uid)
+
             user.delete()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Log.d("FirabaseAuth", "User account deleted: ${user.email.toString()}.")
-                        val userID: String = user.uid
+                        Log.d(AUTH_TAG, "User account deleted: ${user.email.toString()}.")
+
+
+
+                        // showing toast that user was deleted successfully
                         Toast.makeText(context, "Usunięto użytkownika: ${user.email.toString()}", Toast.LENGTH_SHORT).show()
                         callback()
                     }
                 }
-
-
     }
+
+    // app is unable to delete collection for database
+    // so it sets user's status to "Deleted" to mark collection ad deleted too
 
     private fun setUserCollectionStatusToDeleted(userID: String){
 
@@ -175,11 +189,11 @@ class UserAccountViewModel: ViewModel() {
 
         userDataDocRef.update("status", "Deleted")
             .addOnSuccessListener {
-                Log.d("FirestoreUpdate", "User ${userID}: Collection sttus set to DELETED ")
+                Log.d(FIRESTORE_TAG, "User ${userID}: Collection status set to DELETED ")
             }
 
             .addOnFailureListener {
-                    e -> Log.w("FirebaseUpdate", "Error changong user ${userID} collection status to DLETED", e)
+                    e -> Log.w(FIRESTORE_TAG, "Error changing user $userID collection status to DELETED", e)
             }
 
 

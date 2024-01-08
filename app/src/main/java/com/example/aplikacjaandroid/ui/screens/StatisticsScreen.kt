@@ -102,7 +102,7 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
 
 
         Box(modifier = Modifier.fillMaxWidth()) {
-            statisticsUIState.currentTimeIntervalsLength?.let {
+            statisticsUIState.currentTimeIntervalsType?.let {
                 SelectField(
                     text = it.label
                 ) { expandedTimeIntervalsLengthDropdown = true }
@@ -115,7 +115,7 @@ fun StatisticsScreen(modifier : Modifier = Modifier,
                     DropdownMenuItem(
                         text = { Text(text = selected.label) },
                         onClick = {
-                             statisticsViewModel.updateTimeIntervalLength(selected)
+                             statisticsViewModel.updateTimeIntervalType(selected)
                              expandedTimeIntervalsLengthDropdown= false
                         }
                     )

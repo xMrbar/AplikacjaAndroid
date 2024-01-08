@@ -18,9 +18,13 @@ data class ChangePasswordUIState(
     val userPassword: String = "",
     val newPassword: String = "",
     val repeatedNewPassword: String = "",
+    // communicat that will be shown to user when something is wrong
     val communicat: String = "",
 )
 
+/*
+ * ViewModel for ChangePasswordScreen
+ */
 
 class ChangePasswordViewModel : ViewModel() {
 
@@ -28,6 +32,11 @@ class ChangePasswordViewModel : ViewModel() {
     val uiState: StateFlow<ChangePasswordUIState> = _uiState.asStateFlow()
     private val auth : FirebaseAuth = FirebaseAuth.getInstance()
 
+    //TODO (hardcoded value)
+    private val TAG = "ChangePasswordViewModel"
+    private val AUTH_TAG = "FirebaseAuth"
+
+    // user inputs, not yet saved in uiState
     var userPassword by mutableStateOf("")
         private set
 
@@ -49,6 +58,7 @@ class ChangePasswordViewModel : ViewModel() {
         repeatedNewPassword = password
     }
 
+    // update state with userPassword, newPassword and repeatedNewPassword
     private fun updateState(){
         _uiState.update{ _uiState.value.copy(userPassword = userPassword, newPassword = newPassword, repeatedNewPassword = repeatedNewPassword ) }
     }
@@ -61,12 +71,13 @@ class ChangePasswordViewModel : ViewModel() {
     }
 
     private fun updateCommunicat(communicat: String){
-
         _uiState.update { _uiState.value.copy(communicat = communicat)}
     }
 
 
-    // for now it probably doesn't check is new password is the same as current possword
+    // function checks if entered current password is correct
+    // is reauthentication is successful callback function is called
+
     private fun reauthenticate(callback: (FirebaseUser) -> Unit){
 
         val user = auth.currentUser!!
@@ -77,65 +88,75 @@ class ChangePasswordViewModel : ViewModel() {
         user.reauthenticate(credentials)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Konto zostało pomyślnie utworzone
-                    Log.d("FirebaseAuthManager", "Reauthentication success : Identity confirmed")
+
+                    Log.d(AUTH_TAG, "Reauthentication success : Identity of ${user.email} is confirmed")
                     callback(user)
                 } else {
 
-                    Log.d(
-                        "FirebaseAuthManager",
-                        "Reauthentication failure: unable to confirm identity"
+                    Log.d(AUTH_TAG, "Reauthentication failure: unable to confirm ${user.email}'s identity"
                     )
+
+                    //TODO (hardcoded value)
                     updateCommunicat("Błędne hasło")
                 }
-
             }
     }
 
+    //changes current user password using FirebaseAuth
     private fun changeUserPassword(user: FirebaseUser){
 
         user!!.updatePassword(newPassword)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("FirebaseAuthManager", "User password updated.")
+                    Log.d(TAG, "User's (${user.email}) password changed successfully" )
                     updateCommunicat("Hasło zostało zmienione")
                     clearAllFields()
                 }
                 else{
-                    Log.d("FirebaseAuthManager", "Password change failure for user: ${user.email.toString()}")
+                    Log.d(TAG, "Password change failure for user: ${user.email}")
+
+                    //TODO (hardcoded value)
                     updateCommunicat("Wystąpił bład. Hasło nie zostało zmienione")
                 }
             }
     }
 
-
+    // checks if password meets requirements
     fun isNewPasswordValid(): Boolean{
         return newPassword.length >= 6
     }
 
 
+    /* handles password change
+     * check if ui state is valid for password change
+     * if it is it handles password change with callbacks
+     */
+
     fun changePasswordHandler(){
 
         // empty fields
         if( userPassword.isNullOrEmpty() || newPassword.isNullOrEmpty() || repeatedNewPassword.isNullOrEmpty()){
+            //TODO (hardcoded value)
             updateCommunicat("Puste pola")
             clearAllFields()
             return
         }
 
-        // new password and repeated password does not match
+        // new password and repeatePassword does not match
         if( newPassword != repeatedNewPassword){
+            //TODO (hardcoded value)
             updateCommunicat("Hasła nie są takie same")
             clearAllFields()
             return
         }
 
-
         if(isNewPasswordValid()){
+
             updateState()
             reauthenticate{ user -> changeUserPassword(user)}
         }
         else{
+            //TODO (hardcoded value)
             updateCommunicat("Hasło musi mieć co najmniej 6 znaków.")
             clearAllFields()
         }

@@ -84,5 +84,6 @@
     <string name="brak_wpisow">Brak wpisów</string>
     <string name= "waluta">zł</string>
     <string name= "dzisiaj">Dzisiaj</string>
+    <string name= "bledne_haslo">Błędne hasło</string>
 
 </resources>
