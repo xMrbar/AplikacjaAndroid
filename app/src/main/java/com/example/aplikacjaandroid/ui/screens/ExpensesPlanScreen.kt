@@ -94,13 +94,13 @@ fun ExpensesPlanScreen(modifier : Modifier,
                 Text(
                     text = stringResource(id = R.string.planowanyBudzetWMiesiacu),
                     color = MaterialTheme.colorScheme.background,
-                    fontSize = 20.sp,
+                    fontSize = 16.sp,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = planowaneWydatkiWMiesiacuKwota,
                     color = MaterialTheme.colorScheme.background,
-                    fontSize = 20.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                 )
             }

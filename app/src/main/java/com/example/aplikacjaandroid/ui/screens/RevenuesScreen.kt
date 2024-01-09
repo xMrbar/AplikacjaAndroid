@@ -2,7 +2,6 @@
 
 package com.example.aplikacjaandroid.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -29,12 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import co.yml.charts.ui.piechart.PieChartConstants.DEFAULT_PADDING
-import co.yml.charts.ui.piechart.PieChartConstants.DEFAULT_SLICE_LABEL_TEXT_SIZE
-import co.yml.charts.ui.piechart.PieChartConstants.DEFAULT_START_ANGLE
-import co.yml.charts.ui.piechart.PieChartConstants.DEFAULT_STROKE_WIDTH
-import co.yml.charts.ui.piechart.charts.DonutPieChart
-import co.yml.charts.ui.piechart.models.PieChartData
 import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
@@ -114,24 +106,24 @@ fun RevenuesScreen(modifier : Modifier,
                 Text(
                     text = stringResource(id = R.string.dochodyWplynelo),
                     color = MaterialTheme.colorScheme.primary,
-                    fontSize = 18.sp
+                    fontSize = 16.sp
                 )
                 Text(
                     text = dochodyWTymMiesiacu,
                     color = MaterialTheme.colorScheme.primary,
-                    fontSize = 20.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = stringResource(id = R.string.dochodyZPlanowanych),
                     color = MaterialTheme.colorScheme.primary,
-                    fontSize = 18.sp
+                    fontSize = 16.sp
                 )
                 Text(
                     text = planowaneDochodyWMiesiacuKwota,
                     color = MaterialTheme.colorScheme.primary,
-                    fontSize = 20.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
