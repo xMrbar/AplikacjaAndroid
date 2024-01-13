@@ -1,6 +1,9 @@
 package com.example.aplikacjaandroid.viewmodels
 
 import android.content.Context
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.aplikacjaandroid.model.HistoryAdapter
 import com.example.aplikacjaandroid.model.ItemData
@@ -30,21 +33,28 @@ data class HistoryAnalysisUIState(
 
     val expensesItemList: List<ItemData>? = null,
 
-    val months: List<String>? =  listOf("Styczeń", "Luty","Marzec","Kwiecień","Maj",
+    val months: List<String> =  listOf("Styczeń", "Luty","Marzec","Kwiecień","Maj",
         "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"),
-    val years: List<String>? = listOf("2021", "2022", "2023","2024")
+    val years: List<String> = listOf("2021", "2022", "2023","2024")
 
 
 )
 
 class HistoryAnalysisViewModel : ViewModel() {
 
+    var isYearsListExpanded by mutableStateOf(false)
+    var isMonthsListExpanded by mutableStateOf(false)
+
     private val _uiState = MutableStateFlow(HistoryAnalysisUIState())
     val uiState: StateFlow<HistoryAnalysisUIState> = _uiState.asStateFlow()
-    var expanded : Boolean = false
 
-    fun updateExpanded(new_state: Boolean) {
-        expanded = new_state
+
+    fun updateExpandedYears(newstate: Boolean) {
+        isYearsListExpanded = newstate
+    }
+
+    fun updateExpandedMonths(newstate: Boolean) {
+        isMonthsListExpanded = newstate
     }
     fun changeMode(){
         _uiState.update { _uiState.value.copy(isMonthMode = !uiState.value.isMonthMode) }

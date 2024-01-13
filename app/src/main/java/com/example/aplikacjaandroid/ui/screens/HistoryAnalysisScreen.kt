@@ -67,28 +67,18 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
             .padding(16.dp), verticalArrangement = Arrangement.SpaceAround
 
     ) {
-        MySelectBox(options = listOf("2021", "2022", "2023"), "Rok", Modifier.fillMaxWidth(), onClick = { historyAnalysisViewModel.updateYear(it)}, expanded = historyAnalysisViewModel.expanded
-        ) { historyAnalysisViewModel.updateExpanded(it) }
-
-
+        MySelectBox(options = historyAnalysisUIState.years, "Rok", Modifier.fillMaxWidth(), onClick = { historyAnalysisViewModel.updateYear(it)}, expanded = historyAnalysisViewModel.isYearsListExpanded
+        ) { historyAnalysisViewModel.updateExpandedYears(it) }
         if(historyAnalysisUIState.isMonthMode) {
-            mySelectBox(
-                options = listOf(
-                    "Styczeń",
-                    "Luty",
-                    "Marzec",
-                    "Kwiecień",
-                    "Maj",
-                    "Czerwiec",
-                    "Lipiec",
-                    "Sierpień",
-                    "Wrzesień",
-                    "Październik",
-                    "Listopad",
-                    "Grudzień"
-                ), MutableStateFlow("Miesiąc")
-            )
+            MySelectBox(
+                options = historyAnalysisUIState.months,
+                "Miesiąc",
+                Modifier.fillMaxWidth(),
+                onClick = { historyAnalysisViewModel.updateMonth(it) },
+                expanded = historyAnalysisViewModel.isMonthsListExpanded
+            ) { historyAnalysisViewModel.updateExpandedMonths(it) }
         }
+
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -105,7 +95,7 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
 
         ) {
 
-            UnderlinedText(text = historyAnalysisUIState.chosenYear.toString() + " " + historyAnalysisUIState.chosenMonth.toString(), modifier = Modifier.fillMaxWidth())
+            UnderlinedText(text = if (historyAnalysisUIState.isMonthMode) historyAnalysisUIState.chosenYear.toString() + " " + historyAnalysisUIState.chosenMonth.toString() else historyAnalysisUIState.chosenYear, modifier = Modifier.fillMaxWidth())
             BarchartWithSolidBars()
             Spacer(
                 modifier = Modifier
