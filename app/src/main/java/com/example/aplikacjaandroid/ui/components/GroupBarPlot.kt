@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.aplikacjaandroid.ui.components.BarChartDefaults.barCornerSize
 import com.example.aplikacjaandroid.ui.components.BarChartDefaults.barSpacing
@@ -25,104 +24,9 @@ import com.example.aplikacjaandroid.ui.components.BarChartDefaults.barVisualMinT
 import com.example.aplikacjaandroid.ui.components.BarChartDefaults.barWidth
 import com.example.aplikacjaandroid.ui.components.BarChartDefaults.groupBarAndLabelContainerHeight
 import com.example.aplikacjaandroid.ui.components.BarChartDefaults.groupBarContainerHeight
-import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
-import com.example.aplikacjaandroid.ui.theme.white40
-import com.example.aplikacjaandroid.ui.theme.white90
 import java.math.BigDecimal
 import kotlin.math.abs
 
-@Preview
-@Composable
-private fun PreviewBarGraph() {
-    //Preview for 3 bars per group
-    AplikacjaAndroidTheme {
-        Box(modifier = Modifier.padding(24.dp)) {
-            BarGraph(
-                barGroups = mockedGraphData,
-                onGroupSelectionChanged = {}
-            )
-        }
-    }
-}
-
-val mockedGraphData = listOf(
-    BarGroup(
-        label = "2019",
-        values = listOf(
-            //we will have value/color pairs where the value will be between 100/-100
-            //we need to add 3 values so we can have 3 bars
-            67 to Color(126, 188, 222, 255),
-            29 to Color(145, 146, 222, 255),
-            -15 to Color(168, 144, 222, 255),
-        )
-    ),
-    BarGroup(
-        label = "2020",
-        values = listOf(
-            78 to Color(126, 188, 222, 255),
-            66 to Color(145, 146, 222, 255),
-            -95 to Color(168, 144, 222, 255),
-        )
-    ),
-    BarGroup(
-        label = "2021",
-        values = listOf(
-            22 to Color(126, 188, 222, 255),
-            4 to Color(145, 146, 222, 255),
-            33 to Color(168, 144, 222, 255),
-        )
-    ),
-    BarGroup(
-        label = "2022",
-        values = listOf(
-            99 to Color(126, 188, 222, 255),
-            -50 to Color(145, 146, 222, 255),
-            -12 to Color(168, 144, 222, 255),
-        )
-    )
-)
-
-val mockedGraphData2 = listOf(
-    BarGroup(
-        label = "2019",
-        values = listOf(
-            //we will have value/color pairs where the value will be between 100/-100
-            //we need to add 3 values so we can have 3 bars
-            67 to Color(126, 188, 222, 255),
-            29 to Color(145, 146, 222, 255),
-            -15 to Color(168, 144, 222, 255),
-        )
-    ),
-    BarGroup(
-        label = "2020",
-        values = listOf(
-            78 to Color(126, 188, 222, 255),
-            66 to Color(145, 146, 222, 255),
-            -95 to Color(168, 144, 222, 255),
-        )
-    ),
-
-)
-val mockedGraphData3 = listOf(
-    BarGroup(
-        label = "2019",
-        values = listOf(
-            //we will have value/color pairs where the value will be between 100/-100
-            //we need to add 3 values so we can have 3 bars
-            67 to Color(126, 188, 222, 255),
-            29 to Color(145, 146, 222, 255),
-
-        )
-    ),
-    BarGroup(
-        label = "2020",
-        values = listOf(
-            78 to Color(126, 188, 222, 255),
-            66 to Color(145, 146, 222, 255),
-        )
-    ),
-
-    )
 
 private object BarChartDefaults {
     const val barVisualMinThreshold = 0

@@ -18,17 +18,6 @@ class HistoryAdapter( private val context: Context) {
     fun init(){
         expensesList = expensesRepo.getItemData()
         revenuesList = revenuesRepo.getItemData()
-
-        Log.d("TEST", expensesList.toString() + revenuesList.toString())
-
-    }
-
-    fun getAllExpenses(): List<ItemData>{
-        return expensesList
-    }
-
-    fun getAllRevenues(): List<ItemData>{
-        return revenuesList
     }
 
     fun getExpensesFromMonth(chosen_month: Int, chosen_year: Int): List<ItemData>{

@@ -34,15 +34,13 @@ import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.viewmodels.HistoryAnalysisViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import com.example.aplikacjaandroid.ui.components.mySelectBox
-import com.example.aplikacjaandroid.ui.components.BarchartWithSolidBars
 import com.example.aplikacjaandroid.ui.components.MySelectBox
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
 import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
 import com.example.aplikacjaandroid.ui.theme.black90
 import androidx.compose.foundation.layout.Box
+import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.ui.components.BarGraph
-import com.example.aplikacjaandroid.ui.components.mockedGraphData3
 
 @Composable
 @Preview
@@ -73,13 +71,14 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
             .padding(16.dp), verticalArrangement = Arrangement.SpaceAround
 
     ) {
-        MySelectBox(options = historyAnalysisUIState.years, "Rok", Modifier.fillMaxWidth(), onClick = { historyAnalysisViewModel.updateYear(it)}, expanded = historyAnalysisViewModel.isYearsListExpanded
+        LabelLarge(text = stringResource(id = R.string.button5Text))
+
+        MySelectBox(historyAnalysisUIState.years, historyAnalysisUIState.chosenYear, onClick = { historyAnalysisViewModel.updateYear(it)}, expanded = historyAnalysisViewModel.isYearsListExpanded
         ) { historyAnalysisViewModel.updateExpandedYears(it) }
         if(historyAnalysisUIState.isMonthMode) {
             MySelectBox(
                 options = historyAnalysisUIState.months,
-                "Miesiąc",
-                Modifier.fillMaxWidth(),
+                historyAnalysisUIState.chosenMonth,
                 onClick = { historyAnalysisViewModel.updateMonth(it) },
                 expanded = historyAnalysisViewModel.isMonthsListExpanded
             ) { historyAnalysisViewModel.updateExpandedMonths(it) }
@@ -123,7 +122,7 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text( text = "WYDATKI", color = textColor)
+            Text( text = "Wydatki", color = textColor)
             Text(text = historyAnalysisUIState.expenses.toString(), color = textColor)
         }
         Row(
@@ -138,9 +137,35 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
         ) {
             //androidx.compose.material3.Text(text = "7860.00zł", color = Color.Black)
            // androidx.compose.material3.Text(text ="PRZYCHODY", color = Color.Black)
-            Text( text = "PRZYCHODY", color = textColor)
+            Text( text = "Przychody", color = textColor)
             Text(text = historyAnalysisUIState.revenues.toString(), color = textColor)
 
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .background(
+                    Color(ContextCompat.getColor(LocalContext.current, R.color.primary)),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .padding(5.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text( text = "Średnia wydatków", color = textColor)
+            Text(text = historyAnalysisUIState.meanExpense.toString(), color = textColor)
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .background(
+                    Color(ContextCompat.getColor(LocalContext.current, R.color.primary)),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .padding(5.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text( text = "Średnia przychodów", color = textColor)
+            Text(text = historyAnalysisUIState.meanRevenue.toString(), color = textColor)
         }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically){

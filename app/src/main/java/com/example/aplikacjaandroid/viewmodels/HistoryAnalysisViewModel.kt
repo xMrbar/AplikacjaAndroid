@@ -10,6 +10,7 @@ import com.example.aplikacjaandroid.model.HistoryAdapter
 import com.example.aplikacjaandroid.model.ItemData
 import com.example.aplikacjaandroid.ui.components.BarGroup
 import com.example.aplikacjaandroid.ui.components.BarInfo
+import com.example.aplikacjaandroid.ui.components.numberToMonth
 import com.example.aplikacjaandroid.ui.components.polishMonthToNumber
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +18,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.YearMonth
+import java.time.Year
 
 
 data class HistoryAnalysisUIState(
@@ -25,9 +28,9 @@ data class HistoryAnalysisUIState(
 
     val isMonthMode: Boolean = true,
 
-    val chosenYear: String = "2024",
+    val chosenYear: String = Year.now().value.toString(),
 
-    val chosenMonth: String = "Styczeń",
+    val chosenMonth: String = numberToMonth(YearMonth.now().monthValue!!)!!,
 
     val revenues: BigDecimal = BigDecimal("0"),
 
@@ -47,6 +50,9 @@ data class HistoryAnalysisUIState(
 
     val maxYearlyValue: BigDecimal = BigDecimal("0"),
 
+    val meanRevenue: BigDecimal = BigDecimal("0"),
+
+    val meanExpense: BigDecimal = BigDecimal("0"),
 )
 
 class HistoryAnalysisViewModel : ViewModel() {
@@ -97,8 +103,9 @@ class HistoryAnalysisViewModel : ViewModel() {
 
     private fun updateAnalysis(){
         updateHistoryLists()
-        updateRevenuesAndExpenses()
         updategraphData()
+        updateRevenuesAndExpenses()
+
     }
     private fun calculateTotal(list: List<ItemData>): BigDecimal{
 
@@ -140,6 +147,8 @@ class HistoryAnalysisViewModel : ViewModel() {
     private fun updategraphData(){
         val newgraphData: MutableList<BarGroup> = mutableListOf()
         val newgraphInfo: MutableList<BarInfo> = mutableListOf()
+        var newMeanRevenue: BigDecimal = BigDecimal("0")
+        var newMeanExpense: BigDecimal = BigDecimal("0")
 
         if (uiState.value.isMonthMode) {
             var maxMonthlyValue  = BigDecimal("1")
@@ -158,6 +167,8 @@ class HistoryAnalysisViewModel : ViewModel() {
                 else BigDecimal("0")
                 if (totalExpenses>maxMonthlyValue){maxMonthlyValue=totalExpenses}
                 if (totalRevenues>maxMonthlyValue){maxMonthlyValue=totalRevenues}
+                newMeanRevenue+=totalRevenues
+                newMeanExpense+=totalExpenses
                 val bar = BarInfo(
                     label = "$analyzedYear/$analyzedMonth",
                     values = listOf(
@@ -177,6 +188,8 @@ class HistoryAnalysisViewModel : ViewModel() {
                 )
                 newgraphData.add(bar)
             }
+            newMeanRevenue=newMeanRevenue.divide(BigDecimal("6"), 2, RoundingMode.HALF_UP)
+            newMeanExpense=newMeanRevenue.divide(BigDecimal("6"), 2, RoundingMode.HALF_UP)
 
         }
         else {
@@ -193,7 +206,8 @@ class HistoryAnalysisViewModel : ViewModel() {
                 else BigDecimal("0")
                 if (totalExpenses>maxYearlyValue){maxYearlyValue=totalExpenses}
                 if (totalRevenues>maxYearlyValue){maxYearlyValue=totalRevenues}
-
+                newMeanRevenue+=totalRevenues
+                newMeanExpense+=totalExpenses
                 val bar = BarInfo(
                     label = "$analyzedYear",
                     values = listOf(
@@ -213,10 +227,14 @@ class HistoryAnalysisViewModel : ViewModel() {
                 )
                 newgraphData.add(bar)
             }
+            newMeanRevenue=newMeanRevenue.divide(BigDecimal("3"), 2, RoundingMode.HALF_UP)
+            newMeanExpense=newMeanRevenue.divide(BigDecimal("3"), 2, RoundingMode.HALF_UP)
         }
         _uiState.update {
             _uiState.value.copy(
                 graphData = newgraphData,
+                meanExpense = newMeanExpense,
+                meanRevenue = newMeanRevenue
             )
         }
     }
