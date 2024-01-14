@@ -11,7 +11,7 @@ enum class Category(val id:Int, val label:String, val color: Color) {
 
     ELECTRICITY(1, "Prąd", Color(107, 126, 165, 255)),
 
-    INCOME(2, "Przychód", Color(168, 144, 222, 255)),
+    SALARY(2, "Pensja", Color(168, 144, 222, 255)),
 
     TRAVEL(3, "Podróże", Color(145, 146, 222, 255)),
 
@@ -19,6 +19,32 @@ enum class Category(val id:Int, val label:String, val color: Color) {
 
     CLOTHES(5, "Ubrania", Color(194, 144, 222, 255)),
 
-    OTHER(6, "Inne", Color(94, 140, 165, 255));
+    OTHER(6, "Inne", Color(94, 140, 165, 255)),
+
+    RENTAL_INCOME(7, "Dochód z najmu", Color(57, 107, 134, 255)),
+
+    GIFT(8, "Prezent", Color(57, 107, 134, 255)),
+
+    INVESTMENT_INCOME(9, "Dochód z inwestycji", Color(84, 57, 134, 255)),
+
+    SALE_OF_PROPERTY(10, "Sprzedaż majątku", Color(104, 57, 134, 255)),
+
+    ;
+}
+
+object CategoryHelper{
+
+    fun getRevenueCategories(): List<Category>{
+
+        return listOf(Category.SALARY, Category.RENTAL_INCOME, Category.GIFT, Category.INVESTMENT_INCOME,
+            Category.SALE_OF_PROPERTY, Category.OTHER)
+    }
+
+    fun getExpenseCategories(): List<Category>{
+
+        return listOf(Category.CAR, Category.ELECTRICITY, Category.TRAVEL, Category.HOME,
+            Category.CLOTHES, Category.OTHER)
+    }
+
 
 }
