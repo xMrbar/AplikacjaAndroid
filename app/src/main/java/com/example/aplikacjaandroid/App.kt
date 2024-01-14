@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.aplikacjaandroid.data.DataBaseManager
 import com.example.aplikacjaandroid.ui.screens.AccountScreen
 import com.example.aplikacjaandroid.ui.screens.AddNewExpensePlanScreen
 import com.example.aplikacjaandroid.ui.screens.AddNewExpenseScreen
@@ -24,12 +25,12 @@ import com.example.aplikacjaandroid.ui.screens.CreateAccountScreen
 import com.example.aplikacjaandroid.ui.screens.CreateFile
 import com.example.aplikacjaandroid.ui.screens.ExpensesPlanScreen
 import com.example.aplikacjaandroid.ui.screens.ExpensesScreen
+import com.example.aplikacjaandroid.ui.screens.HistoryAnalysisScreen
 import com.example.aplikacjaandroid.ui.screens.MainMenuScreen
 import com.example.aplikacjaandroid.ui.screens.RevenuesPlanScreen
 import com.example.aplikacjaandroid.ui.screens.RevenuesScreen
 import com.example.aplikacjaandroid.ui.screens.SignInScreen
 import com.example.aplikacjaandroid.ui.screens.StatisticsScreen
-import com.example.aplikacjaandroid.ui.screens.HistoryAnalysisScreen
 import com.example.aplikacjaandroid.ui.screens.UserAccountScreen
 import com.example.aplikacjaandroid.ui.screens.WelcomeScreen
 import com.google.firebase.auth.FirebaseAuth
@@ -85,14 +86,20 @@ class FinancialApp: Application(){
             }
 
             composable( route = AppScreen.SignIn.name){
+                val context = LocalContext.current
                 SignInScreen(modifier = Modifier.fillMaxSize(),
-                    onSignInButtonClickedHandler = {navController.navigate(AppScreen.MainMenu.name)}
+                    onSignInButtonClickedHandler = {
+                        DataBaseManager().getAllFilesFromDBToLocalFiles(context)
+                        navController.navigate(AppScreen.MainMenu.name)}
                 )
             }
 
             composable( route = AppScreen.CreateAccount.name){
+                val context = LocalContext.current
                 CreateAccountScreen(modifier = Modifier.fillMaxSize(),
-                    onCreateAccountButtonClickedHandler = {navController.navigate((AppScreen.MainMenu.name))}
+                    onCreateAccountButtonClickedHandler = {
+                        DataBaseManager().getAllFilesFromDBToLocalFiles(context)
+                        navController.navigate((AppScreen.MainMenu.name))}
                 )
             }
 

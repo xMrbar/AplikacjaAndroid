@@ -5,7 +5,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.aplikacjaandroid.data.DataBaseManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,9 +23,8 @@ data class LogInUIState(
  * ViewModel for SignInScreen
  */
 
-class SignInViewModel: ViewModel() {
-    val dataBaseManager = DataBaseManager()
-    val auth = FirebaseAuth.getInstance()
+class SignInViewModel(private val auth: FirebaseAuth = FirebaseAuth.getInstance()): ViewModel() {
+
     private val _uiState = MutableStateFlow(LogInUIState())
     val uiState: StateFlow<LogInUIState> = _uiState.asStateFlow()
 
@@ -90,7 +88,6 @@ class SignInViewModel: ViewModel() {
                 if (task.isSuccessful) {
                     Log.d(AUTH_TAG, "User $email signed is successfully.")
                     // loading data from firestore db to local files
-                    dataBaseManager.getAllFilesFromDBToLocalFiles(context)
                     callback()
 
                 } else {

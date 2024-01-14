@@ -1,23 +1,20 @@
 package com.example.aplikacjaandroid.viewmodels
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import android.util.Log
-import com.example.aplikacjaandroid.data.DataBaseManager
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.firestore.firestore
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -34,13 +31,11 @@ data class CreateAccountUIState(
  * ViewModel for CreateAccountScreen
  */
 
-class CreateAccountViewModel: ViewModel() {
+class CreateAccountViewModel(private val auth: FirebaseAuth = FirebaseAuth.getInstance(),
+                             private val db: FirebaseFirestore = Firebase.firestore): ViewModel() {
 
     private val _uiState = MutableStateFlow(CreateAccountUIState())
     val uiState: StateFlow<CreateAccountUIState> = _uiState.asStateFlow()
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val db = Firebase.firestore
-    private val dataBaseManager = DataBaseManager()
 
     //TODO (hardcoded value)
     private val TAG = "CreateAccountViewModel"
@@ -185,7 +180,6 @@ class CreateAccountViewModel: ViewModel() {
                     // adding user data to database
                     addUserData(userId)
                     // creating collections for expenses and revenues
-                    dataBaseManager.getAllFilesFromDBToLocalFiles(context)
                     onSuccessCallback()
 
                 } else {

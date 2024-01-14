@@ -112,4 +112,6 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    testImplementation ("org.mockito:mockito-core:3.10.0")
+    androidTestImplementation ("org.mockito:mockito-android:3.10.0")
 }
