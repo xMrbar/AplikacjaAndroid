@@ -15,3 +15,8 @@ val Secondary = Color(0x625B71)
 val Tertiary = Color(0x7D5260)
 val Background = Color(0xFFFBFE)
 val Outline = Color(0x79747E)
+
+val white90 = Color(0xE6FFFFFF)
+val white40 = Color(0x66FFFFFF)
+val black90 = Color(0xE6000000)
+

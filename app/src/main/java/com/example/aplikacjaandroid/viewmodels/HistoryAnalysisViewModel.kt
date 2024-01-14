@@ -4,15 +4,19 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.aplikacjaandroid.model.HistoryAdapter
 import com.example.aplikacjaandroid.model.ItemData
+import com.example.aplikacjaandroid.ui.components.BarGroup
+import com.example.aplikacjaandroid.ui.components.BarInfo
 import com.example.aplikacjaandroid.ui.components.polishMonthToNumber
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 
 data class HistoryAnalysisUIState(
@@ -21,9 +25,9 @@ data class HistoryAnalysisUIState(
 
     val isMonthMode: Boolean = true,
 
-    val chosenYear: String = "2023",
+    val chosenYear: String = "2024",
 
-    val chosenMonth: String = "Grudzień",
+    val chosenMonth: String = "Styczeń",
 
     val revenues: BigDecimal = BigDecimal("0"),
 
@@ -35,8 +39,13 @@ data class HistoryAnalysisUIState(
 
     val months: List<String> =  listOf("Styczeń", "Luty","Marzec","Kwiecień","Maj",
         "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"),
-    val years: List<String> = listOf("2021", "2022", "2023","2024")
+    val years: List<String> = listOf("2021", "2022", "2023","2024"),
 
+    val graphData: List<BarGroup> = listOf(),
+
+    val maxMonthlyValue: BigDecimal = BigDecimal("0"),
+
+    val maxYearlyValue: BigDecimal = BigDecimal("0"),
 
 )
 
@@ -65,6 +74,7 @@ class HistoryAnalysisViewModel : ViewModel() {
         updateHistoryAdapter(context)
         updateHistoryLists()
         updateRevenuesAndExpenses()
+        updategraphData()
 
     }
     fun updateHistoryAdapter(context: Context){
@@ -88,6 +98,7 @@ class HistoryAnalysisViewModel : ViewModel() {
     private fun updateAnalysis(){
         updateHistoryLists()
         updateRevenuesAndExpenses()
+        updategraphData()
     }
     private fun calculateTotal(list: List<ItemData>): BigDecimal{
 
@@ -126,4 +137,88 @@ class HistoryAnalysisViewModel : ViewModel() {
             }
         }
     }
+    private fun updategraphData(){
+        val newgraphData: MutableList<BarGroup> = mutableListOf()
+        val newgraphInfo: MutableList<BarInfo> = mutableListOf()
+
+        if (uiState.value.isMonthMode) {
+            var maxMonthlyValue  = BigDecimal("1")
+            for (i in 0..5) {
+                var analyzedYear =  (_uiState.value.chosenYear!!).toInt()
+                var analyzedMonth = ((polishMonthToNumber(_uiState.value.chosenMonth)!!).toInt() - (5-i))
+                if (analyzedMonth<1) {
+                    analyzedYear -= 1
+                    analyzedMonth += 12
+                }
+                val revenuesList = uiState.value.historyAdapter?.getRevenuesFromMonth(analyzedMonth, analyzedYear)
+                val expensesList = uiState.value.historyAdapter?.getExpensesFromMonth(analyzedMonth, analyzedYear)
+                val totalExpenses = if (!expensesList.isNullOrEmpty())  calculateTotal(expensesList!!)
+                else BigDecimal("0")
+                val totalRevenues = if (!revenuesList.isNullOrEmpty())  calculateTotal(revenuesList!!)
+                else BigDecimal("0")
+                if (totalExpenses>maxMonthlyValue){maxMonthlyValue=totalExpenses}
+                if (totalRevenues>maxMonthlyValue){maxMonthlyValue=totalRevenues}
+                val bar = BarInfo(
+                    label = "$analyzedYear/$analyzedMonth",
+                    values = listOf(
+                        totalExpenses,
+                        totalRevenues,
+                    )
+                )
+                newgraphInfo.add(bar)
+            }
+            for (item in newgraphInfo) {
+                val bar = BarGroup(
+                    label = item.label,
+                    values = listOf(
+                        ((item.values[0]).multiply(BigDecimal(100)).divide(maxMonthlyValue, 2, RoundingMode.HALF_UP)).toInt() to Color(126, 188, 222, 255),
+                        ((item.values[1]).multiply(BigDecimal(100)).divide(maxMonthlyValue, 2, RoundingMode.HALF_UP)).toInt() to Color(145, 146, 222, 255),
+                    )
+                )
+                newgraphData.add(bar)
+            }
+
+        }
+        else {
+            var maxYearlyValue  = BigDecimal("1")
+            for (i in 0..2) {
+
+
+                val analyzedYear = (_uiState.value.chosenYear!!).toInt() - (2-i)
+                val revenuesList = uiState.value.historyAdapter?.getRevenuesFromYear(analyzedYear);
+                val expensesList = uiState.value.historyAdapter?.getExpensesFromYear(analyzedYear)
+                val totalExpenses = if (!expensesList.isNullOrEmpty())  calculateTotal(expensesList!!)
+                else BigDecimal("0")
+                val totalRevenues = if (!revenuesList.isNullOrEmpty())  calculateTotal(revenuesList!!)
+                else BigDecimal("0")
+                if (totalExpenses>maxYearlyValue){maxYearlyValue=totalExpenses}
+                if (totalRevenues>maxYearlyValue){maxYearlyValue=totalRevenues}
+
+                val bar = BarInfo(
+                    label = "$analyzedYear",
+                    values = listOf(
+                        totalExpenses,
+                        totalRevenues,
+                    )
+                )
+                newgraphInfo.add(bar)
+            }
+            for (item in newgraphInfo) {
+                val bar = BarGroup(
+                    label = item.label,
+                    values = listOf(
+                        ((item.values[0]).multiply(BigDecimal(100)).divide(maxYearlyValue, 2, RoundingMode.HALF_UP)).toInt() to Color(126, 188, 222, 255),
+                        ((item.values[1]).multiply(BigDecimal(100)).divide(maxYearlyValue, 2, RoundingMode.HALF_UP)).toInt() to Color(145, 146, 222, 255),
+                    )
+                )
+                newgraphData.add(bar)
+            }
+        }
+        _uiState.update {
+            _uiState.value.copy(
+                graphData = newgraphData,
+            )
+        }
+    }
+
 }

@@ -38,6 +38,12 @@ import com.example.aplikacjaandroid.ui.components.mySelectBox
 import com.example.aplikacjaandroid.ui.components.BarchartWithSolidBars
 import com.example.aplikacjaandroid.ui.components.MySelectBox
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
+import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
+import com.example.aplikacjaandroid.ui.theme.black90
+import androidx.compose.foundation.layout.Box
+import com.example.aplikacjaandroid.ui.components.BarGraph
+import com.example.aplikacjaandroid.ui.components.mockedGraphData3
+
 @Composable
 @Preview
 fun HistoryAnalysisPreview(){
@@ -96,7 +102,8 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
         ) {
 
             UnderlinedText(text = if (historyAnalysisUIState.isMonthMode) historyAnalysisUIState.chosenYear.toString() + " " + historyAnalysisUIState.chosenMonth.toString() else historyAnalysisUIState.chosenYear, modifier = Modifier.fillMaxWidth())
-            BarchartWithSolidBars()
+            //BarchartWithSolidBars()
+            BarGraph(barGroups = historyAnalysisUIState.graphData)
             Spacer(
                 modifier = Modifier
                     .height(0.dp)

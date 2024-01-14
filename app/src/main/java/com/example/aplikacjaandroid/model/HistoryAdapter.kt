@@ -65,4 +65,5 @@ class HistoryAdapter( private val context: Context) {
         Log.d("TEST", resultList.toString())
         return resultList
     }
+
 }
