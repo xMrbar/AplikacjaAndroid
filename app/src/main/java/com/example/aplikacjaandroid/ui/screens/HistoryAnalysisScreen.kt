@@ -33,12 +33,8 @@ import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
 import com.example.aplikacjaandroid.viewmodels.HistoryAnalysisViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import com.example.aplikacjaandroid.ui.components.MySelectBox
 import com.example.aplikacjaandroid.underlinedtext.UnderlinedText
-import com.example.aplikacjaandroid.ui.theme.AplikacjaAndroidTheme
-import com.example.aplikacjaandroid.ui.theme.black90
-import androidx.compose.foundation.layout.Box
 import com.example.aplikacjaandroid.labellarge.LabelLarge
 import com.example.aplikacjaandroid.ui.components.BarGraph
 
@@ -101,7 +97,7 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
         ) {
 
             UnderlinedText(text = if (historyAnalysisUIState.isMonthMode) historyAnalysisUIState.chosenYear.toString() + " " + historyAnalysisUIState.chosenMonth.toString() else historyAnalysisUIState.chosenYear, modifier = Modifier.fillMaxWidth())
-            //BarchartWithSolidBars()
+
             BarGraph(barGroups = historyAnalysisUIState.graphData)
             Spacer(
                 modifier = Modifier
@@ -135,8 +131,6 @@ fun HistoryAnalysisScreen(modifier : Modifier = Modifier,
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            //androidx.compose.material3.Text(text = "7860.00zł", color = Color.Black)
-           // androidx.compose.material3.Text(text ="PRZYCHODY", color = Color.Black)
             Text( text = "Przychody", color = textColor)
             Text(text = historyAnalysisUIState.revenues.toString(), color = textColor)
 

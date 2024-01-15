@@ -40,8 +40,8 @@ data class HistoryAnalysisUIState(
 
     val expensesItemList: List<ItemData>? = null,
 
-    val months: List<String> =  listOf("Styczeń", "Luty","Marzec","Kwiecień","Maj",
-        "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"),
+    val months: List<String> =  listOf("Styczeń", "Luty","Marzec","Kwiecień","Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"),
+
     val years: List<String> = listOf("2021", "2022", "2023","2024"),
 
     val graphData: List<BarGroup> = listOf(),
@@ -107,6 +107,7 @@ class HistoryAnalysisViewModel : ViewModel() {
         updateRevenuesAndExpenses()
 
     }
+
     private fun calculateTotal(list: List<ItemData>): BigDecimal{
 
         return list.map { it.amount }.reduce { acc, amount -> acc + amount }
