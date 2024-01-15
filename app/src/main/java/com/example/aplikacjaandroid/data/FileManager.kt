@@ -82,6 +82,14 @@ class FileManager {
                 4
             } else if(type.contains("CLOTHES", ignoreCase = true)) {
                 5
+            } else if(type.contains("RENTAL_INCOME", ignoreCase = true)) {
+                7
+            } else if(type.contains("GIFT", ignoreCase = true)) {
+                8
+            } else if(type.contains("INVESTMENT_INCOME", ignoreCase = true)) {
+                9
+            } else if(type.contains("SALE_OF_PROPERTY", ignoreCase = true)) {
+                10
             } else {
                 6
             }
