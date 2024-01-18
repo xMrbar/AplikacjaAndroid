@@ -220,9 +220,6 @@ class FinancialApp: Application(){
                         navigateDirectTo(navController, AppScreen.AccountBalance)})
             }
 
-            //---------------------------------------------------------------------------
-            // Not decoupled yet, still activities
-
             composable( route = AppScreen.HistoryAnalysis.name){
                 HistoryAnalysisScreen(modifier = Modifier.fillMaxSize())
             }

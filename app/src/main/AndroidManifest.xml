@@ -25,13 +25,6 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity
-            android:name=".HistoryAnalysisActivity"
-            android:exported="false"
-            android:label="@string/title_activity_history_analysis"
-            android:theme="@style/Theme.AplikacjaAndroid" />
-
-
 
     </application>
 
