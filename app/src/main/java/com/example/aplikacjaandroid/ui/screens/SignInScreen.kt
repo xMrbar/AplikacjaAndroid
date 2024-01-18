@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -89,7 +90,8 @@ fun SignInScreen(modifier : Modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ButtonWide(
-                modifier = Modifier.padding(8.dp),
+                modifier = Modifier.padding(8.dp)
+                    .testTag("ZalogujButton"),
                 text = stringResource(id = R.string.zaloguj),
                 onClick = {
 

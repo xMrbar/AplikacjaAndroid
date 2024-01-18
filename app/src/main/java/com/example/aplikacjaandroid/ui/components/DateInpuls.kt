@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.aplikacjaandroid.buttonnarrow.ButtonNarrow
 import com.example.aplikacjaandroid.buttonnarrow.Property1
@@ -29,8 +30,8 @@ fun MySelectBox(
     options: List<String>,
     text: String,
     modifier: Modifier = Modifier
-                    .padding(4.dp)
-                    .fillMaxWidth(),
+        .padding(4.dp)
+        .fillMaxWidth(),
     onClick: (String)->Unit,
     expanded: Boolean,
     expandedChange: (Boolean) -> Unit)
@@ -73,15 +74,16 @@ fun MyCalendar(title: String,
 ) {
     val state = rememberDatePickerState()
 
-    Box {
+    Box{
         TextInput(
             modifier = modifier,
             title = title,
-            textContent = text
+            textContent = text,
         )
         ButtonNarrow(
             modifier = modifier
-                .offset(y = 25.9.dp),
+                .offset(y = 25.9.dp)
+                .testTag("A"),
             onClick = {
                 expandedChange(!expanded)
             },

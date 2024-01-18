@@ -15,7 +15,6 @@ import java.util.Date
 
 class AddNewExpenseViewModel(): ViewModel() {
     var selectedOption1 by mutableStateOf("")
-        private set
     var selectedOption2 by mutableStateOf("Kategoria")
         private set
     var tytul by mutableStateOf("")

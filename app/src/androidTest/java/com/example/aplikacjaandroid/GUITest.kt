@@ -238,11 +238,81 @@ class GUITest {
         }
     }
 
+    private fun setDefault() {
+        composeTestRule.setContent {
+            controllerForTest.initNav(start = AppScreen.Welcome)
+        }
+    }
+
+    @Test
+    fun zaloguj() {
+        setDefault()
+        composeTestRule.onNodeWithText("ZALOGUJ").performClick()
+        composeTestRule.onNodeWithText("Adres email").performTextInput("bartosz.pyzio@op.pl")
+        composeTestRule.onNodeWithText("Hasło").performTextInput("Test1234!")
+        composeTestRule.onNodeWithText("ZALOGUJ").performClick()
+        Thread.sleep(2500)
+    }
+
     @OptIn(ExperimentalMaterial3Api::class)
     @Test
     fun testButtonClick() {
         setMenu()
         composeTestRule.onNodeWithText(appContext.getString(R.string.button1Text)).performClick()
         composeTestRule.onNodeWithText(appContext.getString(R.string.accountBalance)).assertExists()
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Test
+    fun testAddRevenue(): Unit {
+        zaloguj()
+        val name: String = "GUI TEST"
+        composeTestRule.onNodeWithText(appContext.getString(R.string.button1Text)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.wydatki)).performClick()
+
+        composeTestRule.onNodeWithText(appContext.getString(R.string.dodaj)).performClick()
+        composeTestRule.onNodeWithText("Tytuł").performClick().performTextInput(name)
+
+        composeTestRule.onNodeWithText("Kwota").performClick().performTextInput("9.99")
+
+        composeTestRule.onNodeWithText("Kategoria").performClick()
+        composeTestRule.onNodeWithText("TV").performClick()
+
+        composeTestRule.onNodeWithTag("A").performClick()
+        //composeTestRule.onAllNodes(isRoot()).get(1).printToLog("T:")
+        composeTestRule.onNodeWithText("Wednesday, January 10, 2024").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithTag("B").performClick()
+        composeTestRule.onNodeWithText(name).assertExists()
+    }
+
+    @Test
+    fun testDeleteRevenue() {
+        zaloguj()
+        val name: String = "GUI TEST USUŃ"
+        composeTestRule.onNodeWithText(appContext.getString(R.string.button1Text)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.wydatki)).performClick()
+
+        composeTestRule.onNodeWithText(appContext.getString(R.string.dodaj)).performClick()
+        composeTestRule.onNodeWithText("Tytuł").performClick().performTextInput(name)
+
+        composeTestRule.onNodeWithText("Kwota").performClick().performTextInput("9.99")
+
+        composeTestRule.onNodeWithText("Kategoria").performClick()
+        composeTestRule.onNodeWithText("TV").performClick()
+
+        composeTestRule.onNodeWithTag("A").performClick()
+        //composeTestRule.onAllNodes(isRoot()).get(1).printToLog("T:")
+        composeTestRule.onNodeWithText("Wednesday, January 10, 2024").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithTag("B").performClick()
+
+        composeTestRule.onNodeWithText(name).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.usun)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.przychody)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.wydatki)).performClick()
+        composeTestRule.onNodeWithText(name).assertDoesNotExist()
     }
 }
