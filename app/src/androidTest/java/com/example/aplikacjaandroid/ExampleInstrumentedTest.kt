@@ -1,9 +1,13 @@
 package com.example.aplikacjaandroid
 
+import androidx.compose.material3.DatePickerState
+import androidx.compose.material3.DisplayMode
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.aplikacjaandroid.data.FileManager
 import com.example.aplikacjaandroid.model.ItemData
+import com.example.aplikacjaandroid.viewmodels.AddNewExpenseViewModel
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,6 +21,7 @@ import java.math.BigDecimal
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     private val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
     @Test
     fun useAppContext() {
         // Context of the app under test.
@@ -106,5 +111,27 @@ class ExampleInstrumentedTest {
             "4;Dom;CO 12 MIESIĄCY;300;INCOME"
         ))
         assertEquals(counter.countExpensesPlan(), BigDecimal("1591.33"))
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Test
+    fun testAppender() {
+        CreateFile(context = appContext)
+        val aneVM = AddNewExpenseViewModel()
+        val fileName = "expenses.txt"
+        val fileManager = FileManager(fileName)
+
+        val d = DatePickerState(1, 1, IntRange(1970, 2025), DisplayMode.Picker)
+        aneVM.updateData(d)
+        aneVM.updateKategoria("INCOME")
+        aneVM.updateKwota("4.44")
+        aneVM.updateTytul("ABCD")
+
+        aneVM.appendToFile(appContext, { })
+
+        val result = fileManager.readItemsFromFile(appContext)
+        val expected = listOf(ItemData(1, 2, "ABCD", BigDecimal("4.44"), "1.1.1970" ))
+        //Trzeba zakomentować linię do dodawania w BD żeby przeszło
+        assertEquals(result, expected)
     }
 }

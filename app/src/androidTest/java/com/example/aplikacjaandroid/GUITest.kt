@@ -254,6 +254,13 @@ class GUITest {
         Thread.sleep(2500)
     }
 
+    @Test
+    fun wyloguj() {
+        zaloguj()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.wyloguj)).performClick()
+        composeTestRule.onNodeWithText("ZALOGUJ").assertExists()
+    }
+
     @OptIn(ExperimentalMaterial3Api::class)
     @Test
     fun testButtonClick() {
@@ -264,7 +271,7 @@ class GUITest {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Test
-    fun testAddRevenue(): Unit {
+    fun testAddExpense(): Unit {
         zaloguj()
         val name: String = "GUI TEST"
         composeTestRule.onNodeWithText(appContext.getString(R.string.button1Text)).performClick()
@@ -288,7 +295,7 @@ class GUITest {
     }
 
     @Test
-    fun testDeleteRevenue() {
+    fun testDeleteExpense() {
         zaloguj()
         val name: String = "GUI TEST USUŃ"
         composeTestRule.onNodeWithText(appContext.getString(R.string.button1Text)).performClick()
@@ -314,5 +321,66 @@ class GUITest {
         composeTestRule.onNodeWithText(appContext.getString(R.string.przychody)).performClick()
         composeTestRule.onNodeWithText(appContext.getString(R.string.wydatki)).performClick()
         composeTestRule.onNodeWithText(name).assertDoesNotExist()
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Test
+    fun testAddExpensePlan(): Unit {
+        zaloguj()
+        val name: String = "GUI TEST"
+        composeTestRule.onNodeWithText(appContext.getString(R.string.button2Text)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.wydatki)).performClick()
+
+        composeTestRule.onNodeWithText(appContext.getString(R.string.dodaj)).performClick()
+        composeTestRule.onNodeWithText("Tytuł").performClick().performTextInput(name)
+
+        composeTestRule.onNodeWithText("Kwota").performClick().performTextInput("19.99")
+
+        composeTestRule.onNodeWithText("Kategoria").performClick()
+        composeTestRule.onNodeWithText("TV").performClick()
+
+        composeTestRule.onNodeWithText("Częstość płatności").performClick()
+        composeTestRule.onNodeWithText("CO MIESIĄC").performClick()
+
+        composeTestRule.onNodeWithTag("B").performClick()
+        composeTestRule.onNodeWithText(name).assertExists()
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Test
+    fun testDeleteExpensePlan(): Unit {
+        zaloguj()
+        val name: String = "GUI TEST"
+        composeTestRule.onNodeWithText(appContext.getString(R.string.button2Text)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.wydatki)).performClick()
+
+        composeTestRule.onNodeWithText(appContext.getString(R.string.dodaj)).performClick()
+        composeTestRule.onNodeWithText("Tytuł").performClick().performTextInput(name)
+
+        composeTestRule.onNodeWithText("Kwota").performClick().performTextInput("19.99")
+
+        composeTestRule.onNodeWithText("Kategoria").performClick()
+        composeTestRule.onNodeWithText("TV").performClick()
+
+        composeTestRule.onNodeWithText("Częstość płatności").performClick()
+        composeTestRule.onNodeWithText("CO MIESIĄC").performClick()
+
+        composeTestRule.onNodeWithTag("B").performClick()
+
+        composeTestRule.onNodeWithText(name).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.usun)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.przychody)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.wydatki)).performClick()
+        composeTestRule.onNodeWithText(name).assertDoesNotExist()
+    }
+
+    @Test
+    fun testAddFail() {
+        zaloguj()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.button1Text)).performClick()
+        composeTestRule.onNodeWithText(appContext.getString(R.string.dodaj)).performClick()
+        composeTestRule.onNodeWithTag("B").performClick()
+        composeTestRule.onNodeWithTag("addLabel").assertExists()
+        composeTestRule.onNodeWithText("PRZEGLĄD KONTA").assertDoesNotExist()
     }
 }
