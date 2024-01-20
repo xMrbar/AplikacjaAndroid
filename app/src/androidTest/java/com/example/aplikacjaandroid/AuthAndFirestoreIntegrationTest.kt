@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
@@ -14,9 +15,11 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.Captor
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
@@ -25,7 +28,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 
 @RunWith(MockitoJUnitRunner::class)
-class AuthAndFirestoreIntegrationTest
+class AuthAndFirestoreIntegrationMockTest
 {
 
     @Mock
@@ -37,20 +40,13 @@ class AuthAndFirestoreIntegrationTest
     @InjectMocks
     lateinit var createAccountViewModel: CreateAccountViewModel
 
+    @Captor
+    private lateinit var authResultCaptor: ArgumentCaptor<OnCompleteListener<AuthResult>>
+
 
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-    }
-
-    private fun mockAuthResultTask(success: Boolean): Task<AuthResult> {
-        val authResultTask = mock(Task::class.java) as Task<AuthResult>
-        `when`(authResultTask.isSuccessful).thenReturn(success)
-        return authResultTask
-    }
-
-    @Test
-    fun testCreateAccount_Success() {
 
         createAccountViewModel.updateUserEmail("dummy@user.com")
         createAccountViewModel.updateUserPassword("dummyPassword")
@@ -59,6 +55,12 @@ class AuthAndFirestoreIntegrationTest
         createAccountViewModel.updateUserLastName("dummyLastName")
         createAccountViewModel.validateUserInput()
 
+    }
+
+
+
+    @Test
+    fun testCreateAccount_Success_MethodsInvocation() {
 
         val onSuccessCallback: () -> Unit = {}
 
@@ -74,8 +76,6 @@ class AuthAndFirestoreIntegrationTest
         val authResultTaskCompletion = TaskCompletionSource<AuthResult>()
         val authResultTask: Task<AuthResult> = authResultTaskCompletion.task
 
-        val captor = ArgumentCaptor.forClass(OnCompleteListener::class.java) as ArgumentCaptor<OnCompleteListener<AuthResult>>
-
         `when`(mockAuth.createUserWithEmailAndPassword(email, password))
             .thenReturn(authResultTask)
 
@@ -86,24 +86,56 @@ class AuthAndFirestoreIntegrationTest
         val documentReference = mock(DocumentReference::class.java)
 
         val mockCollectionReference = mock(CollectionReference::class.java)
+
         `when`(mockFirestore.collection("users")).thenReturn(mockCollectionReference)
 
-        `when`(mockFirestore.collection("users").document("dummyUserId")).thenReturn(documentReference)
+        `when`(mockCollectionReference.document()).thenReturn(documentReference)
+
         `when`(documentReference.set(userData)).thenReturn(Tasks.forResult(null))
+
+        `when`(mockFirestore.collection("users").document("dummyUserId")).thenReturn(documentReference)
 
         createAccountViewModel.createAccount( onSuccessCallback = onSuccessCallback)
 
-    //    val authResult = mock(AuthResult::class.java)
-    //    val taskResult = Tasks.forResult(authResult)
-    //    captor.value.onComplete(taskResult)
 
         verify(mockAuth, times(1))?.currentUser
 
         verify(mockFirestore, times(1)).collection("users")
+
+        //verify(mockCollectionReference, times(1)).document(any())
     }
 
+    @Test
+    fun testCreateAccount_Failure_UserCollision_MethodsInvocation() {
+
+        val onSuccessCallback: () -> Unit = {}
+
+        val email = "dummy@user.com"
+        val password = "dummyPassword"
+        val userData = hashMapOf(
+            "name" to "dummyName",
+            "lastname" to "dummyLastName",
+            "status" to "Active",
+            "accountCreationDate" to "dummyToday"
+        )
+
+        val authResultTaskCompletion = TaskCompletionSource<AuthResult>()
+        authResultTaskCompletion.setException(FirebaseAuthUserCollisionException("info","info"))
+        val authResultTask: Task<AuthResult> = authResultTaskCompletion.task
+
+
+        `when`(mockAuth.createUserWithEmailAndPassword(email, password))
+            .thenReturn(authResultTask)
 
 
 
+        createAccountViewModel.createAccount( onSuccessCallback = onSuccessCallback)
 
+
+        //indirectly used by auth.createUserWithEmailAndPassword
+        verify(mockAuth, never())?.currentUser
+        verify(mockFirestore, never()).collection("users")
+    }
 }
+
+
