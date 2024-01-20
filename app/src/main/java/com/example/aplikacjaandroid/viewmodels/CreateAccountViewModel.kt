@@ -1,6 +1,5 @@
 package com.example.aplikacjaandroid.viewmodels
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -162,12 +161,20 @@ class CreateAccountViewModel(private val auth: FirebaseAuth = FirebaseAuth.getIn
         _uiState.update { _uiState.value.copy(communicat = communicat)}
     }
 
+    fun getUiStateUserName(): String{
+        return _uiState.value.userEmail;
+    }
+
+    fun getUiStateUserPassword(): String{
+        return _uiState.value.userEmail;
+    }
+
 
     // creates new user account using FirebaseAuth
-    fun createAccount(context: Context, onSuccessCallback: () -> Unit){
+    fun createAccount( onSuccessCallback: () -> Unit){
 
-        val email: String = _uiState.value.userEmail
-        val password :String = _uiState.value.userPassword
+        val email: String = getUiStateUserName()
+        val password :String = getUiStateUserPassword()
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->

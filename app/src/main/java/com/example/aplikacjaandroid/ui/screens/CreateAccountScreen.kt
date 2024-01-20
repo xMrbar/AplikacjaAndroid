@@ -25,9 +25,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aplikacjaandroid.R
 import com.example.aplikacjaandroid.buttonwide.ButtonWide
 import com.example.aplikacjaandroid.labellarge.LabelLarge
+import com.example.aplikacjaandroid.ui.components.CustomPasswordInput
 import com.example.aplikacjaandroid.ui.components.CustomTextInput
 import com.example.aplikacjaandroid.viewmodels.CreateAccountViewModel
-import com.example.aplikacjaandroid.ui.components.CustomPasswordInput
 
 
 @Composable
@@ -104,7 +104,6 @@ fun CreateAccountScreen(modifier : Modifier = Modifier,
                 onClick = {
                     if (createAccountViewModel.validateUserInput()) {
                         createAccountViewModel.createAccount(
-                            context = context,
                             onSuccessCallback = onCreateAccountButtonClickedHandler
                             )
                     }
