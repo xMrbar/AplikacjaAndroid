@@ -1,9 +1,7 @@
 
 import com.example.aplikacjaandroid.viewmodels.CreateAccountViewModel
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -14,8 +12,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentCaptor
-import org.mockito.Captor
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.mock
@@ -39,10 +35,6 @@ class AuthAndFirestoreIntegrationMockTest
 
     @InjectMocks
     lateinit var createAccountViewModel: CreateAccountViewModel
-
-    @Captor
-    private lateinit var authResultCaptor: ArgumentCaptor<OnCompleteListener<AuthResult>>
-
 
     @Before
     fun setup(){
@@ -89,10 +81,6 @@ class AuthAndFirestoreIntegrationMockTest
 
         `when`(mockFirestore.collection("users")).thenReturn(mockCollectionReference)
 
-        `when`(mockCollectionReference.document()).thenReturn(documentReference)
-
-        `when`(documentReference.set(userData)).thenReturn(Tasks.forResult(null))
-
         `when`(mockFirestore.collection("users").document("dummyUserId")).thenReturn(documentReference)
 
         createAccountViewModel.createAccount( onSuccessCallback = onSuccessCallback)
@@ -102,7 +90,7 @@ class AuthAndFirestoreIntegrationMockTest
 
         verify(mockFirestore, times(1)).collection("users")
 
-        //verify(mockCollectionReference, times(1)).document(any())
+
     }
 
     @Test
@@ -131,8 +119,6 @@ class AuthAndFirestoreIntegrationMockTest
 
         createAccountViewModel.createAccount( onSuccessCallback = onSuccessCallback)
 
-
-        //indirectly used by auth.createUserWithEmailAndPassword
         verify(mockAuth, never())?.currentUser
         verify(mockFirestore, never()).collection("users")
     }

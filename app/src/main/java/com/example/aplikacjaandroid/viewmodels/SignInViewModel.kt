@@ -1,5 +1,4 @@
 package com.example.aplikacjaandroid.viewmodels
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -78,7 +77,7 @@ class SignInViewModel(private val auth: FirebaseAuth = FirebaseAuth.getInstance(
     * callback if invoked if attempt is successfully
     */
 
-    fun signIn(callback: () -> Unit, context: Context){
+    fun signIn(callback: () -> Unit){
 
         val email: String = _uiState.value.userEmail
         val password :String = _uiState.value.userPassword
