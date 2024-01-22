@@ -108,7 +108,7 @@ class HistoryAnalysisViewModel : ViewModel() {
 
     }
 
-    private fun calculateTotal(list: List<ItemData>): BigDecimal{
+    fun calculateTotal(list: List<ItemData>): BigDecimal{
 
         return list.map { it.amount }.reduce { acc, amount -> acc + amount }
     }
